@@ -62,7 +62,7 @@
                           <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#about_the_game">Pairs</a></li>
                             <li><a class="dropdown-item" href="#how_to_play">How 2 play</a></li>
-                            <li><a class="dropdown-item" href="#scores">Scores</a></li>
+                            <li><a class="dropdown-item" href="#scoresruling">Scoring rules</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a id="startplaying" class="dropdown-item" href="#">Start Playing</a></li>
                           </ul>
@@ -75,12 +75,16 @@
         <main>
             <section class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3 text-ajust"> 
+                    <div class="col-md-12 welcome"> 
                         <h1>Welcome...</h1>
-                            <p>Here you will find a variety of well crafted online puzzles and games designed to challenge your mind and exercise your brain.</p>
-                            <p>All games are developed in-house and all completely free with no special downloads.</p>
+                        <p class="text-ajust">Here you will find a variety of well crafted online puzzles and games designed to challenge your mind and exercise your brain. Sometimes the challenges aren't really hurdles at all, they're welcome challenges, tests that improve your brain. All games are developed in-house and all completely free with no special downloads.</p>
                     </div>
-                    
+                </div>
+                
+                <hr class="hr-welcome">
+
+                <div id ="hideboardgame"class="row btn-off-visible">
+                    <div class="col-md-1"></div>
                     <div class="col-md-6 justify-content-center">
                         <div id="idgame" class ="game-board">
                             
@@ -90,24 +94,28 @@
                             <br />
                             <div class="d-flex justify-content-center">
                                 <button type="button" id ="createboard" class="btn btn-off-visible btn-dark">Start Time</button>
+    
                             </div>
-                        </div>                       
+                        </div>                      
                     </div>
 
                     <br />
 
-                    <div class="col-md-3 bg-dark boardside scoreinformation">
+                    <div class="col-md-3 boardside scoreinformation">
                         <p>Time <span>00:00</span> </p>
                         <p> Scores <span id="scores"> 00</span> </p>
                         <p> Level <span id="level"> 0</span> </p> 
                     </div>
+            
                 </div>  
+                
             </section>    
-            <hr>
+            
 
 
-            <section>
+            <section class="hide-section-two">
                 <div class="row">
+                    
                     <div class="col-md-4 text-ajust">
                         <h2 id="about_the_game">Pairs </h2>
                         <p>Pairs is a memory game where you need to match pairs of tiles. Playing is very simple - you turn over one tile and then try to find a matching tile.</p>
@@ -128,10 +136,10 @@
                 </div>  
             </section>      
                 
-            <section>
+            <section class="hide-section-two">
                 <div class="row">
                     <div class="col-md-4 text-ajust">
-                        <h2>Scoring Rules...</h2>
+                        <h2 id="scoresruling">Scoring Rules...</h2>
                         <p>Each time you make a successful match you score 20 points. If you fail to match and you should have been able to (a matching tile was previously shown), you score (-5 * number of times match tile has been shown). So if a matching tile has been revealed three times before, you will score -15.</p>
                         <p>At the end of a level, if successful, you score a bonus of the number of seconds remaining. Also, if you have perfect recall, you score a bonus of (5 * number of pairs in the level).</p>
                         <p> <a href="#top"> Back 2 Top</a></p>

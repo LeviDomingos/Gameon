@@ -4,12 +4,15 @@ var cell;
 
 window.onload = function(){
 
-  let startplaying = document.getElementById("startplaying")  
+  let hideboardgame = document.getElementById("hideboardgame");
+  let startplaying = document.getElementById("startplaying"); 
   let idgame = document.getElementById("idgame");
   let createboard= document.getElementById("createboard");
 
   startplaying.addEventListener("click", function(){
     $("#createboard").removeClass("btn-off-visible");
+    $("#hideboardgame").removeClass("btn-off-visible");
+    $("#hideboardgame").addClass("btn-on-visible");
     $("#createboard").addClass("btn-on-visible");
     for(var i = 1; i <= cells; i ++){
       cell = $('<div>').addClass('box').attr('data-cell', i).text("");
