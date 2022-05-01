@@ -1,13 +1,16 @@
 /* paste this line in verbatim */
 var cells = 16;
 var cell;
+let minutes =1;
+let seconds =60;
+let x =0;
 
 window.onload = function(){
 
   let hideboardgame = document.getElementById("hideboardgame");
   let startplaying = document.getElementById("startplaying"); 
   let idgame = document.getElementById("idgame");
-  let createboard= document.getElementById("createboard");
+  let starttime= document.getElementById("starttime");
 
   startplaying.addEventListener("click", function(){
     $("#createboard").removeClass("btn-off-visible");
@@ -21,43 +24,22 @@ window.onload = function(){
     }
   });
 
-  createboard.addEventListener("click", function(){
-
-
-  });
+  starttime.addEventListener("click", function(){
+     
+    x = setInterval(function() {
+    
+    seconds--;
+     
+      // Display the result in the element with id="demo"
+    document.getElementById("countdown").innerHTML =  " : " + seconds;
+          
+          if (seconds ==0)
+          {
+            clearInterval(x);
+            seconds = 60;
+          }
+   }, 1000);
+   document.getElementById("starttime").disabled = true;
+  });    
+  
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
- 
- 
- 
- 
- 
- 
- 
