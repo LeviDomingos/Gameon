@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta lang="eng">
         <meta name="description" content="Board Game - Project Number Two">
         <meta name="keywords" content="Game, Pair Game">
         <meta name="author" content="Levi Domingos">
@@ -53,6 +54,7 @@
 
         <nav>
             <div class="container-fluid">
+                <a id="top"></a>
                 <div class="row">
                     <ul class="nav nav-tabs bg-header">
                         <li class="nav-item dropdown">
@@ -65,7 +67,6 @@
                             <li><a id="startplaying" class="dropdown-item" href="#">Start Playing</a></li>
                           </ul>
                         </li>
-                      </ul>    
                     </ul>
                 </div>                                                                                                               
             </div>
@@ -81,48 +82,60 @@
                     </div>
                     
                     <div class="col-md-6 justify-content-center">
-                        <br />
-                        <div id="idgame" class ="game-board"></div>
-                        <div class="row">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-2">
-                                <button type="button" id ="createboard" class="btn btn-off-visible btn-dark">Start Game</button>
-                            </div>
-                            <div class="col-md-2"></div>
+                        <div id="idgame" class ="game-board">
                             
                         </div>
+
+                        <div class="row">
+                            <br />
+                            <div class="d-flex justify-content-center">
+                                <button type="button" id ="createboard" class="btn btn-off-visible btn-dark">Start Time</button>
+                            </div>
+                        </div>                       
                     </div>
-                
-                    <div class="col-md-2 bg-dark boardside">
-                        <p class="scoreinformation"> Time<span id="time"> 00:00</span> </p>
-                        <p class="scoreinformation"> Scores <span id="scores"> 00</span> </p>
-                        <p class="scoreinformation"> Level <span id="level"> 0</span> </p> 
+
+                    <br />
+
+                    <div class="col-md-3 bg-dark boardside scoreinformation">
+                        <p>Time <span>00:00</span> </p>
+                        <p> Scores <span id="scores"> 00</span> </p>
+                        <p> Level <span id="level"> 0</span> </p> 
                     </div>
                 </div>  
             </section>    
             <hr>
-            <section class="container-fluid">
+
+
+            <section>
                 <div class="row">
                     <div class="col-md-4 text-ajust">
                         <h2 id="about_the_game">Pairs </h2>
                         <p>Pairs is a memory game where you need to match pairs of tiles. Playing is very simple - you turn over one tile and then try to find a matching tile.</p>
-                        <p>There are 32 levels, each getting progressively harder. When you click on the first tile of a turn and you have exposed a matching tile in a previous turn, a message tells you that the pair is known.</p>
+                        <p>There are 32 levels, each getting progressively harder. When you click on the first tile of a turn and you have exposed a matching tile in a previous turn, a message tells you that the pair is known.</p>    
                         <p>This indicates that you should then be able to make a match (if you have perfect recall). The scoring system incorporates this principle.</p>
-                        <p>In some levels, all the tiles are revealed initially for a few seconds. This makes it harder to score a perfect recall as it assumes you remember where each tile is.</p>
+                        <p>In some levels, all the tiles are revealed initially for a few seconds. This makes it harder to score a perfect recall as it as  sumes you remember where each tile is.</p>   
                     </div>
                 </div>
+
+                <p> <a href="#top"> Back 2 Top</a></p>
+
                 <hr />
-
+                
                 <div class="col-md-4 text-ajust bg-grey-color">
-                    <h2>Play Individual Levels</h2>
-                    <p>If you wish to just play a specific level, select from the numbers below.</p>
-                    <p>Playing a specific level will not affect your accumulated score or which level you last completed successfully.</p>
-                </div>
-
-                <div class="col-md-4 text-ajust">
-                    <h2 id="scores">Scoring Rules...</h2>
-                    <p>Each time you make a successful match you score 20 points. If you fail to match and you should have been able to (a matching tile was previously shown), you score (-5 * number of times match tile has been shown). So if a matching tile has been revealed three times before, you will score -15.</p>
-                    <p>At the end of a level, if successful, you score a bonus of the number of seconds remaining. Also, if you have perfect recall, you score a bonus of (5 * number of pairs in the level).</p>
+                    <h2> Play Individual Levels </h2>
+                    <p> If you wish to just play a specific level, select from the numbers below.</p>
+                    <p> Playing a specific level will not affect your accumulated score or which level you last completed successfully. </p>
+                </div>  
+            </section>      
+                
+            <section>
+                <div class="row">
+                    <div class="col-md-4 text-ajust">
+                        <h2>Scoring Rules...</h2>
+                        <p>Each time you make a successful match you score 20 points. If you fail to match and you should have been able to (a matching tile was previously shown), you score (-5 * number of times match tile has been shown). So if a matching tile has been revealed three times before, you will score -15.</p>
+                        <p>At the end of a level, if successful, you score a bonus of the number of seconds remaining. Also, if you have perfect recall, you score a bonus of (5 * number of pairs in the level).</p>
+                        <p> <a href="#top"> Back 2 Top</a></p>
+                    </div>
                 </div>
             </section>
 
