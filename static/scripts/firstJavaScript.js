@@ -1,36 +1,44 @@
 /* paste this line in verbatim */
 var cells = 16;
-var cell;
-let minutes =1;
-let seconds =60;
-let x =0;
+let seconds = 60;
+let x = 0;
+
 
 window.onload = function(){
-
+  
   let hideboardgame = document.getElementById("hideboardgame");
   let startplaying = document.getElementById("startplaying"); 
   let idgame = document.getElementById("idgame");
-  let starttime= document.getElementById("starttime");
+  let starttime = document.getElementById("starttime");
+  let joinus = document.getElementById("joinus");
+  
+  /* fucntion that allows to show the board or tiles*/
 
-  startplaying.addEventListener("click", function(){
+  startplaying && startplaying.addEventListener("click", function(){
     $("#createboard").removeClass("btn-off-visible");
     $("#hideboardgame").removeClass("btn-off-visible");
     $("#hideboardgame").addClass("btn-on-visible");
     $("#createboard").addClass("btn-on-visible");
     for(var i = 1; i <= cells; i ++){
-      cell = $('<div>').addClass('box').attr('data-cell', i).text("");
-      cell.addClass('box');
-      $('#idgame').append(cell);
+      cells = $('<div>').addClass('box').attr('data-cell', i).text("");
+      cells.addClass('box');
+      $('#idgame').append(cells);
     }
   });
 
-  starttime.addEventListener("click", function(){
+  /* join membership function button */
+  joinus && joinus.addEventListener("click", function(){
+    $("#join").removeClass("btn-off-visible");
+    $("#join").addClass("btn-on-visible");   
+  });
+
+  /* the button to start the time*/
+  starttime && starttime.addEventListener("click", function(){
      
     x = setInterval(function() {
     
     seconds--;
-     
-      // Display the result in the element with id="demo"
+      // Display the seconds in the element with id="countdown //"
     document.getElementById("countdown").innerHTML =  " : " + seconds;
           
           if (seconds ==0)
@@ -41,5 +49,5 @@ window.onload = function(){
    }, 1000);
    document.getElementById("starttime").disabled = true;
   });    
-  
+ 
 };

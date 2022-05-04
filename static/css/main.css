@@ -1,7 +1,7 @@
 /*the body and some html elements properties defined here */
 html, body{
     padding: 5px;
-    min-height: 100vw;
+    /*height: 100vw;*/
     background-color:wheat;
     margin:auto;
     font-size: 20px;
@@ -10,10 +10,13 @@ html, body{
 
 /* this part deals whit the header section */
 .bg-header{
+        /* header color background*/
     background-color:#324800;
 
 }
+
 .game-round{
+    /* here i define the size of the round where the letters - word game on goes in */
     display: inline-block;
     background-color: #187b00;
     width: 100px;
@@ -26,6 +29,8 @@ html, body{
 }
 
 .game-round-on{
+
+    /* the last two letters - word on property is defined here, gave them diferent color background*/
     display: inline-block;
     width: 100px;
     height: 100px;
@@ -36,7 +41,7 @@ html, body{
     font: bold;
 }
 
-/*nav section starts here */
+/*nav section starts here  this nav is from bootstrap*/
 .nav-link{
     color:white;
 }
@@ -47,6 +52,7 @@ html, body{
     color:white;
 }
 
+/* i create a section called welcome that sits beneaf the nav bar just to make the page more appealing*/
 .welcome{
     background-color: white;
     color:black;
@@ -55,6 +61,7 @@ html, body{
 }
 
 .hr-welcome{
+    /*a line between main and welcome secrtion */
     border: 2px solid #187b00;
     margin-left: 20%;
     margin-right: 25%;
@@ -68,14 +75,7 @@ h1,h2{
     font-family:"Times New Roman";
 }
 
-.bg-side-color{
-    background-color:blue;
-}
-    
-.bg-grey-color{
-    background-color:white;
-}
-
+/* gdefine the score area size*/
 .scoreinformation{
     margin-top: 45px;
     background-color: black;
@@ -85,21 +85,18 @@ h1,h2{
     color:white;
 }
 
+/* make some elements in-visible */
 .btn-off-visible{
     visibility: hidden;
-    height: 0px;;
+    height: 0px;
 }
+/* turn on some elements on page - make them visible again*/
 .btn-on-visible{
     visibility:visible;
 }
 
 button{
     margin-top: 10px;
-}
-.boardsize{
-    margin-top:50px;
-    max-height:60%;
-    max-width:60%;
 }
     
         /* for 4 x 4 */
@@ -129,6 +126,7 @@ hr {
     text-align: center;
     text-align: justify;
 }
+
 /*footer section starts from here */
 .class-footer{
     color: wheat;
@@ -144,6 +142,13 @@ a{
 }
 /*media query */
 
+.login-form{
+    background-color: white;
+}
+
+.click-here{
+    color:blue;
+}
 
 @media screen and (max-width: 780px) {
     html,body{

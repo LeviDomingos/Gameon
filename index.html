@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta lang="eng">
         <meta name="description" content="Board Game - Project Number Two">
         <meta name="keywords" content="Game, Pair Game">
         <meta name="author" content="Levi Domingos">
@@ -17,41 +16,45 @@
     </head>
 
     <body>
-
+        <!-- the header section or element starts here
+        on mobile device the header becomes invisible to maximaze space-->
         <header>
             <div class="container-fluid bg-header">
                 <div class="jumbotron">
                     <div class="row">
                         
-                        <div class="col-md-2 col-sm-1"> 
+                        <!-- each header element got a col-md-2 from bootstrap size -->
+                        <div class="col-md-2"> 
                             <div class="game-round rounded-circle"> G</div>
                         </div>
 
-                        <div class="col-md-2 col-sm-1"> 
+                        <div class="col-md-2"> 
                             <div class="game-round rounded-circle"> A</div>
                         </div>
                         
-                        <div class="col-md-2 col-sm-1"> 
+                        <div class="col-md-2"> 
                             <div class="game-round rounded-circle"> M</div>
                         </div>
                         
-                        <div class="col-md-2 col-sm-1"> 
+                        <div class="col-md-2"> 
                             <div class="game-round rounded-circle"> E</div>
                         </div>
                         
-                        <div class="col-md-2 col-sm-1"> 
+                        <div class="col-md-2"> 
                             <div class="game-round-on rounded-circle bg-dark"> O</div>
                         </div>
 
-                        <div class="col-md-2 col-sm-1"> 
+                        <div class="col-md-2"> 
                             <div class="game-round-on rounded-circle bg-dark"> N</div>
                         </div>
 
                     </div>
                 </div>
             </div>
+            <!-- the header section or element finishes here -->
         </header>
 
+        <!-- the navegation bar starts here -->
         <nav>
             <div class="container-fluid">
                 <a id="top"></a>
@@ -63,8 +66,10 @@
                             <li><a class="dropdown-item" href="#about_the_game">Pairs</a></li>
                             <li><a class="dropdown-item" href="#how_to_play">How 2 play</a></li>
                             <li><a class="dropdown-item" href="#scoresruling">Scoring rules</a></li>
+                            <li><a id ="startplaying" class="dropdown-item" href="#">Start Playing</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a id="startplaying" class="dropdown-item" href="#">Start Playing</a></li>
+                            <li><a  class="dropdown-item" href="loginform.html">Login</a></li>
+                            <li><a  id ="joinus" class="dropdown-item" href="#join">Join</a></li>
                           </ul>
                         </li>
                     </ul>
@@ -72,7 +77,11 @@
             </div>
         </nav>
 
+
+        <!-- the core of the page starts here i use few sections-->
+
         <main>
+                <!-- the welcome section starts here and -->
             <section class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 welcome"> 
@@ -80,28 +89,32 @@
                         <p class="text-ajust">Here you will find a variety of well crafted online puzzles and games designed to challenge your mind and exercise your brain. Sometimes the challenges aren't really hurdles at all, they're welcome challenges, tests that improve your brain. All games are developed in-house and all completely free with no special downloads.</p>
                     </div>
                 </div>
-                
-                <hr class="hr-welcome">
+                <!-- the welcome section finishes here -->    
+                <hr class="hr-welcome"> 
 
-                <div id ="hideboardgame"class="row btn-off-visible">
-                    <div class="col-md-1"></div>
+                <!-- here is where the game board starts. the game board or tiles only become visible when clicked on start palying menu
+                the btn-off-visible is the class responsible for it-->
+
+                <div id ="hideboardgame" class="row btn-off-visible">
+                    <div class="col-md-1"> </div>
                     <div class="col-md-6 justify-content-center">
                         <div id="idgame" class ="game-board">
                             
                         </div>
 
+                        <!-- the start button goes here i make it sit down bellow the tiles or board-->
                         <div class="row">
                             <br />
                             <div class="d-flex justify-content-center">
                                 <button type="button" id ="starttime" class="btn btn-dark">Start Time</button>
-    
                             </div>
                         </div>                      
                     </div>
 
                     <br />
 
-                    <div class="col-md-3 boardside scoreinformation">
+                    <!-- the score section start here, show on the right side of the board-->
+                    <div class="col-md-3 scoreinformation">
                         <p>Time <span id ="countdown">: 60 </span> Sec. </p>
                         <p> Scores <span id="scores">: 00</span> </p>
                         <p> Level <span id="level">: 1 </span> </p> 
@@ -112,7 +125,7 @@
             </section>    
             
 
-
+            <!-- section two starts here. deals with game information or element. on mobile devices becomes invisible too-->
             <section class="hide-section-two">
                 <div class="row">
                     
@@ -129,7 +142,7 @@
 
                 <hr />  
             </section>      
-                
+             <!-- section three starts here. deals with game information or element. on mobile devices becomes invisible too-->
             <section class="hide-section-two">
                 <div class="row">
                     <div class="col-md-4 text-ajust">
@@ -137,10 +150,40 @@
                         <p>Each time you make a successful match you score 20 points. If you fail to match and you should have been able to (a matching tile was previously shown), you score (-5 * number of times match tile has been shown). So if a matching tile has been revealed three times before, you will score -15.</p>
                         <p>At the end of a level, if successful, you score a bonus of the number of seconds remaining. Also, if you have perfect recall, you score a bonus of (5 * number of pairs in the level).</p>
                         <p> <a href="#top"> Back 2 Top</a></p>
+                    </div>   
+                    
+                </div>    
+            </section>
+
+            <section id ="join">
+                <h2> Membership Registration Form</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <form id="request" action="https://formspree.io/f/xknyjwoj" method="POST">
+                            <div class="mb-3">
+                                <label for="nickname" class="form-label">Nick Name</label>
+                                <input type="text" class="form-control" id="nickname" placeholder="nick mane" name="nickname" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="pwd" class="form-label">Your Password</label>
+                                <input type="password" class="form-control" id="pwd" placeholder="........" name="pwd" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="retypwd" class="form-label">Re-Type Password</label>
+                                <input type="password" class="form-control" id="retypwd" placeholder="........." name="retypwd" required>
+                            </div>
+                            <div class="mb-3">
+                            <label for="email" class="form-label">Email </label>
+                            <input type="text" class="form-control" id="email" placeholder="name@name.com" name="email" required>
+                            </div>
+                            <div class="mb-3 col-auto">
+                                <p id="my-form-status"></p>
+                                <button id="submit" type="submit" class="btn btn-primary mb-3">Join</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </section>
-
         </main>
 
         <footer>
