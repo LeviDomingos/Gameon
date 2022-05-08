@@ -109,8 +109,10 @@ button{
 
 /*<> */
 .box {
-     background-color: white;
-     border: 2px solid blue;
+    font-size: 50px;
+    text-align: center;
+    background-color: white;
+    border: 2px solid blue;
 }
 span{
     color: yellow;
@@ -142,8 +144,9 @@ a{
 }
 /*media query */
 
-.login-form{
-    background-color: white;
+
+.score-chart{
+    text-align: center;
 }
 
 .click-here{
@@ -182,6 +185,12 @@ span{
 .hr-welcome{
     visibility: hidden;
 }
+
+.score-chart{
+    text-align: left;
+}
+
+
 }
 
 
