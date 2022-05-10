@@ -1,17 +1,13 @@
 /* paste this line in verbatim */
-var cells;
-var numberofsquares = 16;
+let cells;
+let numberofsquares = 16;
 let seconds = 60;
-let x = 0;
-let g = 0;
-var gameon = true;
-var myArray = [];
-var firstclick =0;
-var secondclick =0;
-var three =3;
-var boardArray=[];
-var savewrong =[];
-
+let gameon = true;
+let myArray = [];
+let saveClicked =[];
+let saveSquareId =[];
+let startgame = false;
+let compareValueClickedWithArray =[]
 window.onload = function(){
   
   let hideboardgame = document.getElementById("hideboardgame");
@@ -29,13 +25,16 @@ window.onload = function(){
       $("#hideboardgame").removeClass("btn-off-visible");
       $("#hideboardgame").addClass("btn-on-visible");
       $("#createboard").addClass("btn-on-visible");
+
       for(var i = 1; i <= numberofsquares; i ++){
         cells = $('<div>').addClass('box').attr('id', "square" + i).text("");
         cells.addClass('box');
         $('#idgame').append(cells);
       }
+      
     }
-    gameon = false;  
+    addClickEventToSqaureBoard();
+    gameon = false;
     
   });
  
@@ -47,17 +46,18 @@ window.onload = function(){
 
   /* the button to start the time*/
   starttime && starttime.addEventListener("click", function(){
-    
-    x = setInterval(function(){
+    populateBoardGame();
+    x = setInterval(function() {
     
      seconds--;
       
       // Display the seconds in the element with id="countdown //"
      document.getElementById("countdown").innerHTML =  " : " + seconds; 
-      
+     
      if (seconds == 55){
-       cleanboard();
-       callClcik();
+       startgame = true;
+       cleanBoardGame();
+       
       }
       else{
         if(seconds ==0){
@@ -68,35 +68,28 @@ window.onload = function(){
     }, 1000);
   
    document.getElementById("starttime").disabled = true;
-   fillBoard();
-   
-  }); 
-
-  function fillUpArray(){ 
-    var stopiffull =0;
-    for(let i = 0; i < 15; i++){
-      if(stopiffull == 9){
-        i = 15;
-        myArray.pop();
-        break;
+  });
+  
+  
+  function populateMyArray(){ 
+    for(let x = 0; x < 16; x++) {
+      let p = Math.floor((Math.random() * 99) + 1);
+      if(x == 0) {
+        myArray.push(p);
       }
-      else{
-        var p = Math.floor(Math.random() * 99) + 1;
-        if(i == 0){
-          myArray.push(p);
-          stopiffull++;
-        }
-        else{
-          for(let x = 0; x < myArray.length; x++){
-            if(myArray[x] == p){
+      else {
+        for(let y = 0; y < myArray.length; y++) {
+          if(myArray[y] == p) {
+            break;
+          }
+          else {
+            if(y == myArray.length -1) {
+              myArray.push(p);
               break;
             }
-            else{
-              if(x == myArray.length -1){
-                myArray.push(p);
-               stopiffull++;
-               break;
-              }
+            if(myArray.length == 8) {
+              x =16;
+              break;
             }
           }
         }
@@ -104,102 +97,138 @@ window.onload = function(){
     }
   };
 
-
-  function fillupsquare(){
-    fillUpArray();
-    for(let x = 0; x < myArray.length; x++){
-        var p = x + 1;  
-        boardArray.push(myArray[x]);
-      }
-    sortMyArray();
-  };
-
-  function sortMyArray(){
-    var newmyArray = myArray.sort();
-    for(let x = 0; x < newmyArray.length; x++){
-      var y = x + 9;
-      boardArray.push(newmyArray[x]);
-    }
-    myArray = [];
-  };
   
-  function fillBoard()
-  {
-    fillupsquare();
-    for(let x = 0; x < boardArray.length; x++){
-      var y = x + 1;
-      document.getElementById('square' + y).innerText = boardArray[x];
+  function sortOutFinalArray() {
+    for(let y = 0;  y < myArray.length; y++) {
+      compareValueClickedWithArray.push(myArray[y]);
+
+      if(y == myArray.length -1){
+        var myNewArray = myArray.sort();
+
+        for(let x = 0; x < myArray.length; x++){
+          compareValueClickedWithArray.push(myNewArray[x]);
+        }
+      }
     }
+  };
+
+  function populateBoardGame() {
+    sortOutFinalArray();
+
+    alert(compareValueClickedWithArray);
+    var y = 0;
+    for(let x = 1;  x <= 16; x++){
+      var element = document.getElementById("square" + x);
+      element.innerText = compareValueClickedWithArray[y];
+      y++;
+    }
+
   }
 
-  function cleanboard(){
+  function cleanBoardGame(){
     for(let x = 1;  x <= 16; x++){
-      document.getElementById("square" + x).innerText ="";
-
+      var element = document.getElementById("square" + x);
+      element.innerText = "";
     }
-    //assigned click event to the board
+  };
+
+  function addClickEventToSqaureBoard(){
+    for(let x = 1; x <= 16; x++) {
+      var element = document.getElementById("square" + x);
+      element && element.addEventListener("click", getValueAfterClick);
+    };
+    populateMyArray();
     
   };
 
-  function callClcik(){
-    $(function() {
-       for (i = 0; i < boardArray.length; i++) {
-         (function(i) {
-           var s = i + 1
-           $("#square" + s).click(function() {
-             if(firstclick == 0)
-             {
-               firstclick = boardArray[i];
-               document.getElementById("square" + s).innerText = firstclick;
-               savewrong.push(s)
-             }
-             else
-             {
-               secondclick = boardArray[i];
-               savewrong.push(s);
-               document.getElementById("square" + s).innerText = secondclick;
+  function getValueAfterClick() {
+    if(startgame !== false){
+      var element = document.getElementById("resultofmatch");
+      
+      revealValuecliked(this.id);
+      
+      saveClicked.push(this.innerText);
+      
+      saveSquareId.push(this.id);
 
-               if(firstclick ==  secondclick){
-                 document.getElementById("square" + s).innerText = secondclick;
-                 document.getElementById("square" + savewrong[0]).style.backgroundColor = "wheat";
-                 document.getElementById("square" + savewrong[1]).style.backgroundColor = "wheat";
-
-                 firstclick = 0;
-                 secondclick = 0;
-                 savewrong =[];
-               }
-               else{
-                cleanwrongguess();
-                 firstclick = 0;
-                 secondclick = 0;
-                 
-
-               }
-              }
-           });
-        })(i);
-      }
-     
-     });
-     desableclick();
+      if(saveClicked.length == 2) {
+        if(saveClicked[0] == saveClicked[1]) {
+          
+          element.innerText ="Match Found";
+          
+          saveClicked = [];
+          saveSquareId =[];
+        }
+        else {
+          element.innerText = "Wrong Match";
+          cleanwrongguess();
+          saveClicked =[];
+        }
+      };
+    };
   }
   
+  function revealValuecliked(x){
+    if(x == "square1"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[0];
+    }
+    if(x == "square2"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[1];
+    }
+    if(x == "square3"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[2];
+    }
+    if(x == "square4"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[3];
+    }
+    if(x == "square5"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[4];
+    }
+    if(x == "square6"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[5];
+    }
+    if(x == "square7"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[6];
+    }
+    if(x == "square8"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[7];
+    }
+    if(x == "square9"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[8];
+    }
+    if(x == "square10"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[9];
+    }
+    if(x == "square11"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[10];
+    }
+    if(x == "square12"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[11];
+    }
+    if(x == "square13"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[12];
+    }
+    if(x == "square14"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[13];
+    }
+    if(x == "square15"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[14];
+    }
+    if(x == "square16"){
+      var element = document.getElementById(x).innerText = compareValueClickedWithArray[15];
+    }
+  };
+
   function cleanwrongguess(){
-       
     g = setInterval(function(){
         // Display the seconds in the element with id="countdown //"
-        document.getElementById("square" + savewrong[0]).innerText = "";
-        document.getElementById("square" + savewrong[1]).innerText = "";
-        savewrong=[];
+        var elementOne = document.getElementById(saveSquareId[0]);
+        var elementTwo = document.getElementById(saveSquareId[1]);
+        elementOne.innerText = "";
+        elementTwo.innerHTML = "";
+        saveSquareId = [];
         clearInterval(g);
-    },300);    
-  }
-  function desableclick(){
-    for(var c =1; c < 16; c++){
-      if(document.getElementById("square" + c).style.backgroundColor === "wheat"){
-        document.getElementById("square" + c).disabled = true;
-      }
-    }
-  }
+    },400);    
+  };
 
 };
