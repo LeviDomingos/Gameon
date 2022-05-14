@@ -55,7 +55,7 @@
         <!-- the navegation bar starts here -->
         <nav>
             <div class="container-fluid">
-                <a id="top"></a>
+                <a id="idtop"></a>
                 <div class="row">
                     <ul class="nav nav-tabs bg-header">
                         <li class="nav-item dropdown">
@@ -64,10 +64,10 @@
                             <li><a class="dropdown-item" href="#about_the_game">Pairs</a></li>
                             <li><a class="dropdown-item" href="#how_to_play">How 2 play</a></li>
                             <li><a class="dropdown-item" href="#scoresruling">Scoring rules</a></li>
-                            <li><a id ="startplaying" class="dropdown-item" href="#">Start Playing</a></li>
+                            <li><a id ="idstartplaying" class="dropdown-item" href="#">Start Playing</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a  class="dropdown-item" href="loginform.html">Login</a></li>
-                            <li><a  id ="joinus" class="dropdown-item" href="#join">Join</a></li>
+                            <li><a  id ="idjoinus" class="dropdown-item" href="#join">Join</a></li>
                           </ul>
                         </li>
                     </ul>
@@ -75,61 +75,54 @@
             </div>
         </nav>
 
-
         <!-- the core of the page starts here i use few sections-->
 
         <main>
-                <!-- the welcome section starts here and -->
+            <!-- the welcome section starts here and -->
             <section class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 welcome"> 
                         <h1>Welcome...</h1>
                         <p class="text-ajust">Here you will find a variety of well crafted online puzzles and games designed to challenge your mind and exercise your brain. Sometimes the challenges aren't really hurdles at all, they're welcome challenges, tests that improve your brain. All games are developed in-house and all completely free with no special downloads.</p>
                     </div>
+                                    
                 </div>
                 <!-- the welcome section finishes here -->    
                 <hr class="hr-welcome"> 
-
                 <!-- here is where the game board starts. the game board or tiles only become visible when clicked on start palying menu
                 the btn-off-visible is the class responsible for it-->
 
-                <div id ="hideboardgame" class="row btn-off-visible">
+                <div id ="idhideboardgame" class="row btn-off-visible">
                     <div class="col-md-1"> </div>
                     <div class="col-md-6 justify-content-center">
-                        <p id ="resultofmatch" class="score-chart"></p>
-                        <div id="idgame" class ="game-board">
-                            
-                        </div>
+                        <p id ="idresultofmatch" class=" score-chart-p justify-content-center score-chart"></p>
+                        <div id="idgame" class ="game-board"> </div>
 
                         <!-- the start button goes here i make it sit down bellow the tiles or board-->
                         <div class="row">
                             <br />
                             <div class="d-flex justify-content-center">
-                                <button type="button" id ="starttime" class="btn btn-dark">Start Time</button>
+                                <button type="button" id ="idstarttime" class="btn btn-dark">Start Time</button>
                             </div>
                         </div>                      
                     </div>
-
                     <br />
-
                     <!-- the score section start here, show on the right side of the board-->
                     <div class="col-md-3 scoreinformation">
-                        <p>Time <span id ="countdown">: 60 </span> Sec. </p>
-                        <p> Scores <span id="scores">: 00</span> </p>
-                        <p> Level <span id="level">: 1 </span> </p> 
+                        <p>Time: <span id ="idcountdown"> 60 </span> Sec. </p>
+                        <p> Score: <span id="idscores"> 00 </span> </p>
+                        <p> Level: <span id="idlevel"> 1 </span> </p> 
                     </div>
             
-                </div>  
-                
+                </div>    
             </section>    
-            
 
             <!-- section two starts here. deals with game information or element. on mobile devices becomes invisible too-->
             <section class="hide-section-two">
                 <div class="row">
                     
                     <div class="col-md-4 text-ajust">
-                        <h2 id="about_the_game">Pairs </h2>
+                        <h2 id="idabout_the_game">Pairs </h2>
                         <p>Pairs is a memory game where you need to match pairs of tiles. Playing is very simple - you turn over one tile and then try to find a matching tile.</p>
                         <p>There are 32 levels, each getting progressively harder. When you click on the first tile of a turn and you have exposed a matching tile in a previous turn, a message tells you that the pair is known.</p>    
                         <p>This indicates that you should then be able to make a match (if you have perfect recall). The scoring system incorporates this principle.</p>
@@ -137,7 +130,7 @@
                     </div>
                 </div>
 
-                <p> <a href="#top"> Back 2 Top</a></p>
+                <p> <a href="#idtop"> Back 2 Top</a></p>
 
                 <hr />  
             </section>      
@@ -145,16 +138,16 @@
             <section class="hide-section-two">
                 <div class="row">
                     <div class="col-md-4 text-ajust">
-                        <h2 id="scoresruling">Scoring Rules...</h2>
+                        <h2 id="idscoresruling">Scoring Rules...</h2>
                         <p>Each time you make a successful match you score 20 points. If you fail to match and you should have been able to (a matching tile was previously shown), you score (-5 * number of times match tile has been shown). So if a matching tile has been revealed three times before, you will score -15.</p>
                         <p>At the end of a level, if successful, you score a bonus of the number of seconds remaining. Also, if you have perfect recall, you score a bonus of (5 * number of pairs in the level).</p>
-                        <p> <a href="#top"> Back 2 Top</a></p>
+                        <p> <a href="#idtop"> Back 2 Top</a></p>
                     </div>   
                     
                 </div>    
             </section>
 
-            <section id ="join">
+            <section id ="idjoin">
                 
                 <div class="row">
                     <div class="col-md-6">

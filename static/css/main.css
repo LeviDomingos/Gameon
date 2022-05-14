@@ -148,7 +148,9 @@ a{
 .score-chart{
     text-align: center;
 }
-
+.score-chart-p{
+    height: 10px;
+}
 .click-here{
     color:blue;
 }
