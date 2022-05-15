@@ -50,44 +50,45 @@ window.onload = function(){
   });
 
   /* the button to start the time*/
-  starttime && starttime.addEventListener("click", function(){
+  starttime && starttime.addEventListener("click", function() {
     populateBoardGame();
-    var elementResult = document.getElementById("idresultofmatch");
-    elementResult.innerHTML = "You have 5 Seconds to memorize the board";
-    var time = setInterval(function() {
+    myTime();
+    document.getElementById("idstarttime").disabled = true;
     
-     seconds--;
-      
-      // Display the seconds in the element with id="countdown //"
-     document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
-     
-     if (seconds == 55) {
-       elementResult.innerText = "";
-       startgame = true;
-       cleanBoardGame();
-      } 
-      else {
-        if(numOfCombination == 8) {
-          leftInTheClock = seconds;
-          finalScore(leftInTheClock);
-          clearInterval(time);
-          numOfCombination = 0;
-        }
-        else {
-          if(seconds == 0){
-            elementResult.innerText = "You run out of time. Try again please.";
-            seconds = 60;
-            numOfCombination = 0;
-            clearInterval(time);
-          }
-        }
-      };
-    }, 1000);
-  
-   document.getElementById("idstarttime").disabled = true;
   });
   
-
+  function myTime() {
+    
+    var elementResult = document.getElementById("idresultofmatch");
+    elementResult.innerHTML = "You have 5 Seconds to memorize the board";    
+    
+    var time = setInterval(function() {
+      seconds--;
+      // Display the seconds in the element with id="countdown //"
+      document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
+      if(seconds == 55) {
+        elementResult.innerText = "";
+        startgame = true;
+        cleanBoardGame();
+      }
+      else {
+       
+       if(numOfCombination == 8) {
+         clearTimeout(time);
+       }
+      
+       else {
+         if(seconds == 0) {
+           elementResult.innerText = "You run out of time. Try again please.";
+           seconds = 60;
+           numOfCombination = 0;
+           clearTimeout(time);
+         }
+       }
+     }
+    }, 1000);
+  }
+    
   function populateMyArray(){ 
     for(let x = 0; x <= 15; x++) {
       let p = Math.floor((Math.random() * 99) + 1);
@@ -158,59 +159,74 @@ window.onload = function(){
   };
 
   function getValueAfterClick() {
-    if(startgame !== false){
-      
-      if(this.style.backgroundColor !== "wheat"){
-        var element = document.getElementById("idresultofmatch");
-      
-        revealValuecliked(this.id);
+    var element = document.getElementById("idresultofmatch");
+    if(startgame !== false) {
 
+      if(this.style.backgroundColor !== "wheat") {
+        revealValuecliked(this.id);
         saveClicked.push(this.innerText);
         saveSquareId.push(this.id);
-        
-        if(saveClicked.length == 2) {
-          if(saveClicked[0] == saveClicked[1]) {
-            disablePerfectMatch(saveSquareId[0], saveSquareId[1]);
-            scoreTwenty.push(20);
-            UpDateScores(scoreTwenty);
-            numOfCombination++;
-          }
-          else {
-            scoreFive.push(5);
-            cleanwrongguess(saveSquareId[0], saveSquareId[1]);
-          }
-        }
-
       }
-    };
-  }
+      
+      if(saveClicked.length == 2) {
+
+        if (saveClicked[0] == saveClicked[1]) {
+          element.innerText = "Perfect Match";
+          disablePerfectMatch(saveSquareId[0], saveSquareId[1]);
+          scoreTwenty.push(20);
+          UpDateScores(scoreTwenty);
+          numOfCombination++;
+          saveClicked =[];
+          saveSquareId=[];
+        }
+        else {
+          scoreFive.push(5);
+          cleanwrongguess(saveSquareId[0], saveSquareId[1]);
+          saveClicked =[];
+          saveSquareId =[];
+        } 
+      }
+    }
+    if(numOfCombination == 8){
+      var elementFinalScore = document.getElementById("idscores");
+      var x =  scoreTwenty.reduce(addUp, 0);
+      var i = scoreFive.reduce(takeAway, 0);
+      var total = x * seconds; 
+      alert(total + ":" + i);
+      elementFinalScore.innerText = total - i;
+      alert(total);
+      finalScore(total);
+    }
+  };
   
   function revealValuecliked(x){
     if(x.length == 9){
       var i = x.charAt(8);
-      var element = document.getElementById(x).innerText = compareValueClickedWithArray[i];
+      var element = document.getElementById(x);
+      element.innerText = compareValueClickedWithArray[i];
+      
     }
     else {
       var y = x.charAt(8) + x.charAt(9);
-      var element = document.getElementById(x).innerText = compareValueClickedWithArray[y];
+      var element = document.getElementById(x);
+      element.innerText = compareValueClickedWithArray[y];
     }
   }
 
   function cleanwrongguess(x, y){
     var element = document.getElementById("idresultofmatch");
-    element.innerText ="Wrong Match";
-    element.style.color ="black";
+    element.innerText = "Wrong Match";
+    element.style.color = "black";
+    
     var time = setInterval(function(){
       // Display the seconds in the element with id="countdown //"
       var elementOne = document.getElementById(x);
       elementOne.innerText = "";
       
       var elementTwo = document.getElementById(y);
-      elementTwo.innerHTML = "";
-      saveSquareId = [];
-      saveClicked =[];
-      
-      element.innerText ="";
+      elementTwo.innerText = "";
+
+      element.innerText = "";
       
       clearInterval(time);
     },700);    
@@ -220,9 +236,10 @@ window.onload = function(){
     var element = document.getElementById("idresultofmatch");
     element.innerText = "Perfect Match";
     element.style.color = "blue";
+    
     var time = setInterval(function(){
       var elementOne = document.getElementById(x);
-      elementOne.innerText ="";
+      elementOne.innerText = "";
       elementOne.style.backgroundColor = "wheat";
       elementOne.disabled = true;
       
@@ -231,11 +248,7 @@ window.onload = function(){
       elementTwo.style.backgroundColor = "wheat";
       elementTwo.disabled = true;
       
-      saveClicked =[];
-      saveSquareId =[];
-
-      
-      element.innerText ="";
+      element.innerText = "";
       
       clearInterval(time);
     },700);    
@@ -254,19 +267,15 @@ window.onload = function(){
     return total + Math.round(num);
   }
 
-  function finalScore(x){
-
-   var total = (scoreTwenty.reduce(addUp, 0) -  scoreFive.reduce(takeAway, 0)) * x;
-   var elementScore = document.getElementById("idscores");
-    elementScore.innerText =  total;
-
-    var elementResult = document.getElementById("idresultofmatch");
-    if(total >= 3500) {
-      elementResult.innerText = "Congratulation. Next Level";
-    }
+  function finalScore(x) {
+    var element = document.getElementById("idresultofmatch");
+    if(x >= 3500) {
+      element.innerText = "Well Done. Next Level";
+      element.style.color = "blue";
+    } 
     else {
-      elementResult.innerText = "Sorry, minimum score was: 3500";
+      element.innerText = "Failed to score minimun score: 3500 Try again.";
+      element.style.color = "blue";
     }
-
   }
 };
