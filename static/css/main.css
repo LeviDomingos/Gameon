@@ -70,7 +70,7 @@ html, body{
 h1{
     text-align: center;
 }
-h1,h2{
+h1, h2{
     color:blue;
     font-family:"Times New Roman";
 }
@@ -101,12 +101,27 @@ button{
     
         /* for 4 x 4 */
 .game-board{ 
+    /* 4 by 4 8 pais of guess*/
      display: grid;
      grid-template-columns: 70px 70px 70px 70px;
      grid-template-rows: 70px 70px 70px 70px;
      justify-content: center;
 }
+.game-board-two{
+    /*3 by 4  12 pairs of guess*/
+    display: grid;
+    grid-template-columns: 70px 70px 70px 70px;
+    grid-template-rows: 70px 70px 70px;
+    justify-content: center;
+}
 
+.game-board-three{
+    /*6 by 6  18 pairs of guess*/ 
+    display: grid;
+    grid-template-columns: 50px 50px 50px 50px 50px 50;
+    grid-template-rows: 50px 50px 50px 50px 50px 50px;
+    justify-content: center;
+}
 /*<> */
 .box {
     font-size: 50px;
@@ -114,6 +129,15 @@ button{
     background-color: white;
     border: 2px solid blue;
 }
+
+.box-select-level{
+    padding: 10px;
+    font-size: 20px;
+    text-align: center;
+    background-color: white;
+    border: 2px solid blue;
+}
+
 span{
     color: yellow;
     font-family: Arial, Helvetica, sans-serif;
@@ -125,7 +149,6 @@ hr {
     border: 2px solid #187b00;
 }
 .text-ajust{
-    text-align: center;
     text-align: justify;
 }
 
@@ -148,6 +171,11 @@ a{
 .score-chart{
     text-align: center;
 }
+
+.select-any-level{
+    text-align: right;
+}
+
 .score-chart-p{
     height: 10px;
 }

@@ -1,6 +1,5 @@
 /* paste this line in verbatim */
 let cells;
-let numberofsquares = 15;
 let seconds = 60;
 let gameon = true;
 let myArray = [];
@@ -12,6 +11,9 @@ let scoreTwenty = [];
 let scoreFive = [];
 let leftInTheClock = 0;
 let numOfCombination = 0;
+let allowToPaly = true;
+let secondsLeft = 0;
+let emoji = ["&#128512", "&#128514", "&#128520", "&#128525", "&#128525", "&#128545", "&#129312", "&#129314"];
 
 window.onload = function(){
   
@@ -25,23 +27,26 @@ window.onload = function(){
   /* the board is not available when the first is load only when cliked on start playing menu*/
   startplaying && startplaying.addEventListener("click", function(){
 
-    if(gameon == true){
+    if(gameon == true) {
       $("#idcreateboard").removeClass("btn-off-visible");
       $("#idhideboardgame").removeClass("btn-off-visible");
       $("#idhideboardgame").addClass("btn-on-visible");
       $("#idcreateboard").addClass("btn-on-visible");
-
-      for(var i = 0; i <= numberofsquares; i ++){
-        cells = $('<div>').addClass('box').attr('id', "idsquare" + i).text("");
-        cells.addClass('box');
-        $('#idgame').append(cells);
-      }
-      
+      createBoardGame(15);
+      addClickEventToSqaureBoard();
     }
-    addClickEventToSqaureBoard();
     gameon = false;
     
   });
+
+  //here i define the size of the board or tile, a function with param. 
+  function createBoardGame(x) {
+    for(var i = 0; i <= x; i ++){
+      cells = $('<div>').addClass('box').attr('id', "idsquare" + i).text("");
+      cells.addClass('box');
+      $('#idgame').append(cells);
+    }
+  };
  
   /* join membership function button */
   joinus && joinus.addEventListener("click", function(){
@@ -53,6 +58,7 @@ window.onload = function(){
   starttime && starttime.addEventListener("click", function() {
     populateBoardGame();
     myTime();
+    populateMyArray();
     document.getElementById("idstarttime").disabled = true;
     
   });
@@ -68,21 +74,26 @@ window.onload = function(){
       document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
       if(seconds == 55) {
         elementResult.innerText = "";
-        startgame = true;
-        cleanBoardGame();
+        cleanBoardGame(startgame);
       }
       else {
        
        if(numOfCombination == 8) {
+         secondsLeft = seconds;
          clearTimeout(time);
+         finalScore();
        }
       
        else {
          if(seconds == 0) {
+          clearTimeout(time);
            elementResult.innerText = "You run out of time. Try again please.";
-           seconds = 60;
-           numOfCombination = 0;
-           clearTimeout(time);
+           startgame = true;
+           timeOut();
+           cleanBoardGame(startgame);
+         }
+         if(startgame == true) {
+           startgame = false;
          }
        }
      }
@@ -131,21 +142,26 @@ window.onload = function(){
 
   function populateBoardGame() {
     sortOutFinalArray();
-
-    alert(compareValueClickedWithArray);
     var y = 0;
     for(let x = 0;  x <= 15; x++){
       var element = document.getElementById("idsquare" + x);
       element.innerText = compareValueClickedWithArray[y];
       y++;
     }
-
   }
 
-  function cleanBoardGame(){
-    for(let x = 0;  x <= 15; x++){
-      var element = document.getElementById("idsquare" + x);
-      element.innerText = "";
+  function cleanBoardGame(cleanBoard) {
+    if(cleanBoard == false) {
+      for(let x = 0;  x <= 15; x++) {
+        var element = document.getElementById("idsquare" + x);
+        element.innerText = "";
+      }
+    }
+    else {
+      for(let i = 0;  i <= 15; i++) {
+        var element = document.getElementById("idsquare" + i);
+        element.style.backgroundColor = "white";
+      }
     }
   };
 
@@ -153,14 +169,13 @@ window.onload = function(){
     for(let x = 0; x <= 15; x++) {
       var element = document.getElementById("idsquare" + x);
       element && element.addEventListener("click", getValueAfterClick);
-    };
+    }
     populateMyArray();
-    
   };
 
   function getValueAfterClick() {
     var element = document.getElementById("idresultofmatch");
-    if(startgame !== false) {
+    if(startgame == false) {
 
       if(this.style.backgroundColor !== "wheat") {
         revealValuecliked(this.id);
@@ -178,7 +193,12 @@ window.onload = function(){
           numOfCombination++;
           saveClicked =[];
           saveSquareId=[];
+          
+          if(numOfCombination == 8){
+            finalScore();
+          }
         }
+    
         else {
           scoreFive.push(5);
           cleanwrongguess(saveSquareId[0], saveSquareId[1]);
@@ -187,16 +207,7 @@ window.onload = function(){
         } 
       }
     }
-    if(numOfCombination == 8){
-      var elementFinalScore = document.getElementById("idscores");
-      var x =  scoreTwenty.reduce(addUp, 0);
-      var i = scoreFive.reduce(takeAway, 0);
-      var total = x * seconds; 
-      alert(total + ":" + i);
-      elementFinalScore.innerText = total - i;
-      alert(total);
-      finalScore(total);
-    }
+    
   };
   
   function revealValuecliked(x){
@@ -267,15 +278,34 @@ window.onload = function(){
     return total + Math.round(num);
   }
 
-  function finalScore(x) {
+  function finalScore() {
+    clearInterval(0);
+    let x = scoreTwenty.reduce(addUp, 0) * secondsLeft; 
+
     var element = document.getElementById("idresultofmatch");
     if(x >= 3500) {
       element.innerText = "Well Done. Next Level";
       element.style.color = "blue";
+      var elementFinalScore = document.getElementById("idscores");
+      elementFinalScore.innerText = x;
     } 
     else {
-      element.innerText = "Failed to score minimun score: 3500 Try again.";
+      element.innerText = "Failed to score minimun of: 3500 Try again.";
       element.style.color = "blue";
     }
+  }
+
+  function timeOut() {
+    myArray = [];
+    compareValueClickedWithArray = [];
+    numOfCombination = 0;
+    seconds = 60;
+    saveClicked =[];
+    saveSquareId=[];
+    var element = document.getElementById("idscores");
+    element.innerText = 0;
+    populateMyArray();
+    document.getElementById("idstarttime").disabled = false;
+
   }
 };
