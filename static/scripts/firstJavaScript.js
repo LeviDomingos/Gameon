@@ -1,4 +1,7 @@
 /* paste this line in verbatim */
+let levelselected = 0;
+let popularebardgamesize =0;
+let levelplaying = 0;
 let cells;
 let seconds = 60;
 let gameon = true;
@@ -22,30 +25,24 @@ window.onload = function(){
   let game = document.getElementById("idgame");
   let starttime = document.getElementById("idstarttime");
   let joinus = document.getElementById("idjoinus");
+  addClickEventToNumbers();
   
   /* fucntion that allows to show the board or tiles*/
   /* the board is not available when the first is load only when cliked on start playing menu*/
   startplaying && startplaying.addEventListener("click", function(){
 
     if(gameon == true) {
-      $("#idcreateboard").removeClass("btn-off-visible");
-      $("#idhideboardgame").removeClass("btn-off-visible");
-      $("#idhideboardgame").addClass("btn-on-visible");
-      $("#idcreateboard").addClass("btn-on-visible");
-      createBoardGame(15);
-      addClickEventToSqaureBoard();
+      removeAndAddClass();
     }
-    gameon = false;
-    
+    gameon = false;  
   });
 
-  //here i define the size of the board or tile, a function with param. 
-  function createBoardGame(x) {
-    for(var i = 0; i <= x; i ++){
-      cells = $('<div>').addClass('box').attr('id', "idsquare" + i).text("");
-      cells.addClass('box');
-      $('#idgame').append(cells);
-    }
+  /*this function will show the area in which the board game is displayed when the page is loaded the area is hidden from the user*/
+  function removeAndAddClass(){
+    $("#idcreateboard").removeClass("btn-off-visible");
+    $("#idcreateboard").addClass("btn-on-visible");
+    $("#idhideboardgame").removeClass("btn-off-visible");
+    $("#idhideboardgame").addClass("btn-on-visible");
   };
  
   /* join membership function button */
@@ -56,11 +53,17 @@ window.onload = function(){
 
   /* the button to start the time*/
   starttime && starttime.addEventListener("click", function() {
-    populateBoardGame();
     myTime();
-    populateMyArray();
+    populateMyArray(levelselected);
+    sortOutFinalArray();
+    populateBoardGame(popularebardgamesize);
+    document.getElementById("idlevel").innerText = levelplaying;
     document.getElementById("idstarttime").disabled = true;
-    
+    myArray = [];
+    saveClicked =[];
+    saveSquareId =[];
+    scoreTwenty = [];
+    scoreFive = [];
   });
   
   function myTime() {
@@ -78,7 +81,7 @@ window.onload = function(){
       }
       else {
        
-       if(numOfCombination == 8) {
+       if(numOfCombination == levelselected) {
          secondsLeft = seconds;
          clearTimeout(time);
          finalScore();
@@ -100,24 +103,27 @@ window.onload = function(){
     }, 1000);
   }
     
-  function populateMyArray(){ 
-    for(let x = 0; x <= 15; x++) {
+  /* this function is responsible to fill up the array with numbers or images */
+  function populateMyArray(i){ 
+    alert(i);
+    for(let x = 0; x < 500; x++) {
       let p = Math.floor((Math.random() * 99) + 1);
       if(x == 0) {
         myArray.push(p);
       }
       else {
-        for(let y = 0; y < myArray.length; y++) {
+        var arraysize = myArray.length;
+        for(let y = 0; y < arraysize; y++) {
           if(myArray[y] == p) {
             break;
           }
           else {
-            if(y == myArray.length -1) {
+            if(y == myArray.length-1) {
               myArray.push(p);
               break;
             }
-            if(myArray.length == 8) {
-              x =16;
+            if(myArray.length == i) {
+              x += 501;
               break;
             }
           }
@@ -127,51 +133,45 @@ window.onload = function(){
   };
 
   function sortOutFinalArray() {
-    for(let y = 0;  y < myArray.length; y++) {
+    compareValueClickedWithArray = [];
+    var arraysize = myArray.length;
+    for(let y = 0;  y < arraysize; y++) {
       compareValueClickedWithArray.push(myArray[y]);
-
-      if(y == myArray.length -1){
-        var myNewArray = myArray.sort();
-
-        for(let x = 0; x < myArray.length; x++){
-          compareValueClickedWithArray.push(myNewArray[x]);
-        }
-      }
     }
+    arraysize = myArray.length;
+    for(let y = 0;  y < arraysize; y++) {
+      compareValueClickedWithArray.push(myArray.sort()[y]);
+    }
+    
+    alert(compareValueClickedWithArray);
   };
 
-  function populateBoardGame() {
-    sortOutFinalArray();
-    var y = 0;
-    for(let x = 0;  x <= 15; x++){
+  function populateBoardGame(i) {
+ 
+    for(let x = 0;  x < i; x++){
       var element = document.getElementById("idsquare" + x);
-      element.innerText = compareValueClickedWithArray[y];
-      y++;
+      element.innerText = compareValueClickedWithArray[x];
     }
   }
 
+  /*after showing the numbers for 5 seconds i clean the board game */
   function cleanBoardGame(cleanBoard) {
+    var cleanChildren = document.getElementById("idgame").children.length;
     if(cleanBoard == false) {
-      for(let x = 0;  x <= 15; x++) {
+
+      for(let x = 0;  x < cleanChildren; x++) {
         var element = document.getElementById("idsquare" + x);
         element.innerText = "";
       }
     }
     else {
-      for(let i = 0;  i <= 15; i++) {
+      for(let i = 0;  i < cleanChildren; i++) {
         var element = document.getElementById("idsquare" + i);
         element.style.backgroundColor = "white";
       }
     }
   };
-
-  function addClickEventToSqaureBoard(){
-    for(let x = 0; x <= 15; x++) {
-      var element = document.getElementById("idsquare" + x);
-      element && element.addEventListener("click", getValueAfterClick);
-    }
-    populateMyArray();
-  };
+ 
 
   function getValueAfterClick() {
     var element = document.getElementById("idresultofmatch");
@@ -194,7 +194,7 @@ window.onload = function(){
           saveClicked =[];
           saveSquareId=[];
           
-          if(numOfCombination == 8){
+          if(numOfCombination == levelselected){
             finalScore();
           }
         }
@@ -224,6 +224,7 @@ window.onload = function(){
     }
   }
 
+  /*if the user select a wrong match this function will tell the user */
   function cleanwrongguess(x, y){
     var element = document.getElementById("idresultofmatch");
     element.innerText = "Wrong Match";
@@ -306,6 +307,111 @@ window.onload = function(){
     element.innerText = 0;
     populateMyArray();
     document.getElementById("idstarttime").disabled = false;
-
   }
+
+  /*this function create the board, based on level selected by the user 
+  here i define the size of the board or tile, a function with param. */
+  function createBoardGame(x) {
+    for(var i = 0; i < x; i ++){
+      cells = $('<div>').addClass('box').attr('id', "idsquare" + i).text("");
+      cells.addClass("box");
+      $('#idgame').append(cells);
+    }
+  }
+
+/*this function add the event click to the board so that when the user clicks in it the object is revaled */
+  function addClickEventToSqaureBoard(i){
+    for(let x = 0; x < i; x++) {
+      var element = document.getElementById("idsquare" + x);
+      element && element.addEventListener("click", getValueAfterClick);
+    }
+    //populateMyArray();
+  };
+
+
+/*-----------------------------------------------------------------------------------------------------------------------------*/
+
+  /*functions that adds the click event to all the level. the addboardGameViaSelectLevel function will create the board game*/
+  function addClickEventToNumbers(){
+    for(let x = 1; x <= 40; x++) {
+      var element = document.getElementById("idlevel" + x);
+      element && element.addEventListener("click", addBoardGameViaSelectLevel);
+    }
+  };
+  
+  /*this function only applys with the new level have a different board size, tthen i remove the children or the board and 
+  create a new board based on selected level*/
+  function removeAllChildrenInTheBoard(){
+    var getlenghtofchildren = document.getElementById("idgame").children.length;
+    for(let x = 0; x < getlenghtofchildren; x++) {
+      var element = document.getElementById("idsquare" + x);
+      element.remove();
+    }
+  };
+
+
+  /*this fucntion remove any previews square board created to allow a new one created based on level selected 
+  but if the selected level shares the same board size as the previews one than no need to creat a new one*/
+  function removeDivBoard(i, typeofboard){
+    var addboardname = document.getElementById("idgame");
+    if(addboardname.className === "") {
+      addboardname.classList.add(typeofboard);
+      createBoardGame(i);
+    }
+    else {
+      var classname = addboardname.className;
+      if(addboardname.className === typeofboard) {   
+      }
+      else{ 
+        removeAllChildrenInTheBoard();
+        addboardname.classList.remove(classname);
+        addboardname.classList.add(typeofboard);
+        createBoardGame(i);
+      }
+    }
+   
+  }
+
+  /*this fucntion will create the tiles or the game board acordsing to the level selected by the user 
+  I have four board game with different sizes; from 4x3; 4x4; 5x4 6x6*/
+  function addBoardGameViaSelectLevel() {
+
+    removeAndAddClass();
+    if(this.innerText <= 10) {
+      removeDivBoard(12, "board-game-one");
+      addClickEventToSqaureBoard(12);
+      levelselected = 6;
+      popularebardgamesize = 12;
+      levelplaying = this.innerText;
+    }
+    else {
+      if(this.innerText >= 11 && this.innerText <= 19) {
+         removeDivBoard(16, "board-game-two");
+         addClickEventToSqaureBoard(16);
+         levelselected = 8;
+         popularebardgamesize = 16;
+         levelplaying = this.innerText;
+       } 
+       else {
+         if(this.innerText >= 20 && this.innerText <= 34) {
+           removeDivBoard(20, "board-game-three");
+           addClickEventToSqaureBoard(20); 
+           levelselected = 10;
+           popularebardgamesize = 20
+           levelplaying = this.innerText;
+         }
+         else {
+          if(this.innerText >= 35 && this.innerText <= 40) {
+           removeDivBoard(36, "board-game-four");
+           addClickEventToSqaureBoard(36);
+           levelselected = 18;
+           popularebardgamesize = 36;
+           levelplaying = this.innerText;
+          }
+        }
+      }
+    }
+  };
+
+
 };

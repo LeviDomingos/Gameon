@@ -99,27 +99,44 @@ button{
     margin-top: 10px;
 }
     
-        /* for 4 x 4 */
-.game-board{ 
-    /* 4 by 4 8 pais of guess*/
+
+.board-game-one{ 
+    /* 4 by 3 for 6 pais of guess*/
+    /*a total of 12 square */
+    /*for level 1 to 5 and numbers and letters*/
+    /*form 1 to 5 show the number for 5 seconds and from 6 to 10 a total guess.*/
      display: grid;
      grid-template-columns: 70px 70px 70px 70px;
-     grid-template-rows: 70px 70px 70px 70px;
+     grid-template-rows: 70px 70px 70px;
      justify-content: center;
 }
-.game-board-two{
-    /*3 by 4  12 pairs of guess*/
+.board-game-two{
+    /*4 by 4 8 pairs of guess*/
+    /*a total of 16 square */
+    /*for level 11 to 19 for number, letters - color some letter and number and pictures*/
     display: grid;
     grid-template-columns: 70px 70px 70px 70px;
-    grid-template-rows: 70px 70px 70px;
+    grid-template-rows: 70px 70px 70px 70px;
     justify-content: center;
 }
 
-.game-board-three{
+.board-game-three{ 
+    /* 5 by 4 10 pais of guess*/
+    /*a total of 20 square */
+    /*for level 20 to 34 only and pictures, numbers - number with colours to make it hard*/
+     display: grid;
+     grid-template-columns: 70px 70px 70px 70px 70px;
+     grid-template-rows: 70px 70px 70px 70px;
+     justify-content: center;
+}
+
+.board-game-four{
     /*6 by 6  18 pairs of guess*/ 
+    /*a total of 36 square */
+    /*for level 35 to 40 only and picture only but very similar one make it much harder*/
     display: grid;
-    grid-template-columns: 50px 50px 50px 50px 50px 50;
-    grid-template-rows: 50px 50px 50px 50px 50px 50px;
+    grid-template-columns: 70px 70px 70px 70px 70px 70px;
+    grid-template-rows: 70px 70px 70px 70px 70px 70px;
     justify-content: center;
 }
 /*<> */
