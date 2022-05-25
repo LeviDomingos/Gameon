@@ -16,25 +16,25 @@ let leftInTheClock = 0;
 let numOfCombination = 0;
 let allowToPaly = true;
 let secondsLeft = 0;
-let emoje = ["&#129493;&#127996", "&#127798", "&#128512", "&#129495;&#127995", "&#127947", "&#9200", "&#128514", "&#127947;&#127999", "&#9201", "&#128520", "&#127947;&#127998", "&#128525", "&#127947;&#127995", "&#128525", "&#128115;&#127996", "&#128545", "&#128692;&#127999", "&#129312", "&#128692;&#127995", "&#128115;&#127995" ,"&#129314", "&#127940;&#127999", "&#127940;&#127998", "&#127940;&#127997", "&#127940;&#127996", "&#127940;&#127995"];
-let alphabeticletters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-let alphabetandnumbers = ["A", "2", "C", "D", "4", "E", "F", "6", "G", "H", "8", "I", "J", "10", "K", "L", "12", "M", "13", "N", "X", "24", "Y", "25", "Z", "26"];
-let mixeofdarrays =["LD","CD", "70","&#127914", "&#127863", "55","&#127801", "B", "5", "&#127798", "&#128692;&#127999", "LO", "&#129312", "&#128692;&#127995", "&#128115;&#127995", "TA", "TE", "&#129314", "&#127940;&#127999", "&#127940;&#127998", "BA", "&#127940;&#127997", "&#127940;&#127996", "&#127919", "99", "&#127929"];
+const emoje = ["&#129493;&#127996;", "&#127798;", "&#128512;", "&#129495;&#127995;", "&#127947;", "&#9200;", "&#128514;", "&#127947;&#127999;", "&#9201;", "&#128520;", "&#127947;&#127998;", "&#128525;", "&#127947;&#127995;", "&#128525;", "&#128115;&#127996;", "&#128545;", "&#128692;&#127999;", "&#129312;", "&#128692;&#127995;", "&#128115;&#127995;" ,"&#129314;", "&#127940;&#127999;", "&#127940;&#127998;", "&#127940;&#127997;", "&#127940;&#127996;", "&#127940;&#127995;"];
+const alphabeticletters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+const alphabetandnumbers = ["A", "2", "C", "D", "4", "E", "F", "6", "G", "H", "8", "I", "J", "10", "K", "L", "12", "M", "13", "N", "X", "24", "Y", "25", "Z", "26"];
+const mixeofdarrays =["LD","CD", "70","&#127914;", "&#127863;", "55","&#127801;", "B", "5", "&#127798;", "&#128692;&#127999;", "LO", "&#129312;", "&#128692;&#127995;", "&#128115;&#127995;", "TA", "TE", "&#129314;", "&#127940;&#127999;", "&#127940;&#127998;", "BA", "&#127940;&#127997;", "&#127940;&#127996;", "&#127919;", "99", "&#127929;"];
 
 window.onload = function() {
   
-  let hideboardgame = document.getElementById("idhideboardgame");
-  let startplaying = document.getElementById("idstartplaying"); 
-  let game = document.getElementById("idgame");
-  let starttime = document.getElementById("idstarttime");
-  let joinus = document.getElementById("idjoinus");
+  const hideboardgame = document.getElementById("idhideboardgame");
+  const startplaying = document.getElementById("idstartplaying"); 
+  const game = document.getElementById("idgame");
+  const starttime = document.getElementById("idstarttime");
+  const joinus = document.getElementById("idjoinus");
   addClickEventToNumbers();
   
   /* fucntion that allows to show the board or tiles*/
   /* the board is not available when the first is load only when cliked on start playing menu*/
   startplaying && startplaying.addEventListener("click", function(){
 
-    if(gameon == true) {
+    if(gameon === true) {
       removeAndAddClass();
     }
     gameon = false;  
@@ -56,7 +56,7 @@ window.onload = function() {
 
   /* the button to start the time*/
   starttime && starttime.addEventListener("click", function() {
-    if(allowToPaly == true) {
+    if(allowToPaly === true) {
       myTime();
       populateMyArray(pairsavailable);
       sortOutFinalArray();
@@ -86,7 +86,7 @@ window.onload = function() {
       }
       else {
        
-       if(numOfCombination == pairsavailable) {
+       if(numOfCombination === pairsavailable) {
          secondsLeft = seconds;
          clearTimeout(time);
          restoreWhiteBackgroundAgain();
@@ -94,7 +94,7 @@ window.onload = function() {
         }
       
        else {
-         if(seconds == 0) {
+         if(seconds === 0) {
             clearTimeout(time);
             elementResult.innerText = "You run out of time. Try again please.";
             timeOut();
@@ -124,7 +124,7 @@ window.onload = function() {
               myArray.push(p);
               break;
             }
-            if(myArray.length == i) {
+            if(myArray.length === i) {
               x += 501;
               break;
             }
@@ -159,9 +159,8 @@ window.onload = function() {
         alert(compareValueClickedWithArray);
         for(let x = 0;  x < i; x++) {
           var element = document.getElementById("idsquare" + x);
-          element.innerText = emoje[compareValueClickedWithArray[x]];
+          element.innerHTML = emoje[compareValueClickedWithArray[x]];
         }
-
       }
       else {
         if(randomarraytoplay.length == 2) {
@@ -181,7 +180,7 @@ window.onload = function() {
             if(randomarraytoplay.length == 4) {
               for(let x = 0;  x < i; x++) {
                 var element = document.getElementById("idsquare" + x);
-                element.innerText = mixeofdarrays[[compareValueClickedWithArray[x]]];
+                element.innerHTML = mixeofdarrays[[compareValueClickedWithArray[x]]];
                 randomarraytoplay = [];
               }
             }
@@ -218,8 +217,8 @@ window.onload = function() {
       saveClicked.push(this.innerText);
       saveSquareId.push(this.id);
       
-     if(saveClicked.length == 2) {
-       if (saveClicked[0] == saveClicked[1]) {
+     if(saveClicked.length === 2) {
+       if (saveClicked[0] === saveClicked[1]) {
           element.innerText = "Perfect Match";
           disablePerfectMatch(saveSquareId[0], saveSquareId[1]);
           scoreTwenty.push(20);
@@ -228,7 +227,7 @@ window.onload = function() {
           saveClicked =[];
           saveSquareId=[];
 
-          if(numOfCombination == pairsavailable){
+          if(numOfCombination === pairsavailable){
             finalScore();
           }
         }
@@ -243,42 +242,42 @@ window.onload = function() {
   };
   
   function revealValuecliked(x) { 
-    if(x.length == 9) {
+    if(x.length === 9) {
       var i = x.charAt(8);
       var element = document.getElementById(x);
-      if(randomarraytoplay.length == 0){
+      if(randomarraytoplay.length === 0){
         element.innerText = compareValueClickedWithArray[i];
       }
-      if(randomarraytoplay.length == 1){
-        element.innerText = emoje[compareValueClickedWithArray[i]];
+      if(randomarraytoplay.length === 1){
+        element.innerHTML = emoje[compareValueClickedWithArray[i]];
       }
-      if(randomarraytoplay.length == 2){
+      if(randomarraytoplay.length === 2){
         element.innerText = alphabeticletters[compareValueClickedWithArray[i]];
       }
-      if(randomarraytoplay.length == 3){
+      if(randomarraytoplay.length === 3){
         element.innerText = alphabetandnumbers[compareValueClickedWithArray[i]];
       }
-      if(randomarraytoplay.length == 4){
-        element.innerText = mixeofdarrays[compareValueClickedWithArray[i]];
+      if(randomarraytoplay.length === 4){
+        element.innerHTML = mixeofdarrays[compareValueClickedWithArray[i]];
       }
     }
     else {
       var y = x.charAt(8) + x.charAt(9);
       var element = document.getElementById(x);
-      if(randomarraytoplay.length == 0){
+      if(randomarraytoplay.length === 0){
         element.innerText = compareValueClickedWithArray[y];
       }
-      if(randomarraytoplay.length == 1){
-        element.innerText = emoje[compareValueClickedWithArray[y]];
+      if(randomarraytoplay.length === 1){
+        element.innerHTML = emoje[compareValueClickedWithArray[y]];
       }
-      if(randomarraytoplay.length == 2){
+      if(randomarraytoplay.length === 2){
         element.innerText = alphabeticletters[compareValueClickedWithArray[y]];
       }
-      if(randomarraytoplay.length == 3){
+      if(randomarraytoplay.length === 3){
         element.innerText = alphabetandnumbers[compareValueClickedWithArray[y]];
       }
-      if(randomarraytoplay.length == 4){
-        element.innerText = mixeofdarrays[compareValueClickedWithArray[y]];
+      if(randomarraytoplay.length === 4){
+        element.innerHTML = mixeofdarrays[compareValueClickedWithArray[y]];
       }
     }
   };
@@ -438,7 +437,7 @@ window.onload = function() {
   I have four board game with different sizes; from 4x3; 4x4; 5x4 6x6*/
   function addBoardGameViaSelectLevel() {
 
-    if(allowToPaly == true) {
+    if(allowToPaly === true) {
 
       removeAndAddClass();
       if(this.innerText <= 10) {
