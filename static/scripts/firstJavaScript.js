@@ -1,5 +1,6 @@
 /* paste this line in verbatim */
-let levelselected = 0;
+let pairsavailable = 0;
+let randomarraytoplay = [];
 let popularebardgamesize =0;
 let levelplaying = 0;
 let cells;
@@ -15,11 +16,15 @@ let leftInTheClock = 0;
 let numOfCombination = 0;
 let allowToPaly = true;
 let secondsLeft = 0;
-let emoji = ["&#128512", "&#128514", "&#128520", "&#128525", "&#128525", "&#128545", "&#129312", "&#129314"];
+let emoje = ["&#129493;&#127996", "&#127798", "&#128512", "&#129495;&#127995", "&#127947", "&#9200", "&#128514", "&#127947;&#127999", "&#9201", "&#128520", "&#127947;&#127998", "&#128525", "&#127947;&#127995", "&#128525", "&#128115;&#127996", "&#128545", "&#128692;&#127999", "&#129312", "&#128692;&#127995", "&#128115;&#127995" ,"&#129314", "&#127940;&#127999", "&#127940;&#127998", "&#127940;&#127997", "&#127940;&#127996", "&#127940;&#127995"];
 let alphabeticletters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+let alphabetandnumbers = ["A", "2", "C", "D", "4", "E", "F", "6", "G", "H", "8", "I", "J", "10", "K", "L", "12", "M", "13", "N", "X", "24", "Y", "25", "Z", "26"];
+let mixeofdarrays =["LD","CD", "70","&#127914", "&#127863", "55","&#127801", "B", "5", "&#127798", "&#128692;&#127999", "LO", "&#129312", "&#128692;&#127995", "&#128115;&#127995", "TA", "TE", "&#129314", "&#127940;&#127999", "&#127940;&#127998", "BA", "&#127940;&#127997", "&#127940;&#127996", "&#127919", "99", "&#127929"];
 
 window.onload = function() {
   
+  randomarraytoplay.push(1);
+
   let hideboardgame = document.getElementById("idhideboardgame");
   let startplaying = document.getElementById("idstartplaying"); 
   let game = document.getElementById("idgame");
@@ -55,7 +60,7 @@ window.onload = function() {
   starttime && starttime.addEventListener("click", function() {
     if(allowToPaly == true) {
       myTime();
-      populateMyArray(levelselected);
+      populateMyArray(pairsavailable);
       sortOutFinalArray();
       populateBoardGame(popularebardgamesize);
       document.getElementById("idlevel").innerText = levelplaying;
@@ -83,7 +88,7 @@ window.onload = function() {
       }
       else {
        
-       if(numOfCombination == levelselected) {
+       if(numOfCombination == pairsavailable) {
          secondsLeft = seconds;
          clearTimeout(time);
          restoreWhiteBackgroundAgain();
@@ -94,14 +99,9 @@ window.onload = function() {
          if(seconds == 0) {
             clearTimeout(time);
             elementResult.innerText = "You run out of time. Try again please.";
-            startgame = true;
             timeOut();
             cleanBoardAfterFiveSeconds();
             restoreWhiteBackgroundAgain();
-          }
-
-         if(startgame == true) {
-           startgame = false;
           }
         }
       }
@@ -149,9 +149,49 @@ window.onload = function() {
   }
 
   function populateBoardGame(i){
-    for(let x = 0;  x < i; x++){
-      var element = document.getElementById("idsquare" + x);
-      element.innerText = compareValueClickedWithArray[x];
+
+    if(randomarraytoplay.length == 0) {
+      for(let x = 0;  x < i; x++) {
+        var element = document.getElementById("idsquare" + x);
+        element.innerText = compareValueClickedWithArray[x];
+      }
+    }
+    else {
+      if(randomarraytoplay.length == 1) {
+        alert(compareValueClickedWithArray);
+        for(let x = 0;  x < i; x++) {
+          var element = document.getElementById("idsquare" + x);
+          element.innerText = emoje[compareValueClickedWithArray[x]];
+        }
+
+      }
+      else {
+        if(randomarraytoplay.length == 2) {
+          for(let x = 0;  x < i; x++) {
+            var element = document.getElementById("idsquare" + x);
+            element.innerText = alphabeticletters[compareValueClickedWithArray[x]];
+          }
+        }
+        else {
+          if(randomarraytoplay.length == 3) {
+            for(let x = 0;  x < i; x++) {
+              var element = document.getElementById("idsquare" + x);
+              element.innerText = alphabetandnumbers[compareValueClickedWithArray[x]];
+            }
+          }
+          else {
+            if(randomarraytoplay.length == 4) {
+              for(let x = 0;  x < i; x++) {
+                var element = document.getElementById("idsquare" + x);
+                element.innerText = mixeofdarrays[[compareValueClickedWithArray[x]]];
+                randomarraytoplay = [];
+              }
+            }
+          }
+        }
+
+      }
+
     }
   }
 
@@ -190,7 +230,7 @@ window.onload = function() {
           saveClicked =[];
           saveSquareId=[];
 
-          if(numOfCombination == levelselected){
+          if(numOfCombination == pairsavailable){
             finalScore();
           }
         }
@@ -208,13 +248,40 @@ window.onload = function() {
     if(x.length == 9) {
       var i = x.charAt(8);
       var element = document.getElementById(x);
-      element.innerText = compareValueClickedWithArray[i];
-      
+      if(randomarraytoplay.length == 0){
+        element.innerText = compareValueClickedWithArray[i];
+      }
+      if(randomarraytoplay.length == 1){
+        element.innerText = emoje[compareValueClickedWithArray[i]];
+      }
+      if(randomarraytoplay.length == 2){
+        element.innerText = alphabeticletters[compareValueClickedWithArray[i]];
+      }
+      if(randomarraytoplay.length == 3){
+        element.innerText = alphabetandnumbers[compareValueClickedWithArray[i]];
+      }
+      if(randomarraytoplay.length == 4){
+        element.innerText = mixeofdarrays[compareValueClickedWithArray[i]];
+      }
     }
     else {
       var y = x.charAt(8) + x.charAt(9);
       var element = document.getElementById(x);
-      element.innerText = compareValueClickedWithArray[y];
+      if(randomarraytoplay.length == 0){
+        element.innerText = compareValueClickedWithArray[y];
+      }
+      if(randomarraytoplay.length == 1){
+        element.innerText = emoje[compareValueClickedWithArray[y]];
+      }
+      if(randomarraytoplay.length == 2){
+        element.innerText = alphabeticletters[compareValueClickedWithArray[y]];
+      }
+      if(randomarraytoplay.length == 3){
+        element.innerText = alphabetandnumbers[compareValueClickedWithArray[y]];
+      }
+      if(randomarraytoplay.length == 4){
+        element.innerText = mixeofdarrays[compareValueClickedWithArray[y]];
+      }
     }
   };
 
@@ -269,25 +336,28 @@ window.onload = function() {
     return total + Math.round(num);
   };
 
-  function takeAway(total, num){
-    return total + Math.round(num);
-  };
-
   function finalScore() {
-    clearInterval(0);
+    
     let x = scoreTwenty.reduce(addUp, 0) * secondsLeft; 
-
     var element = document.getElementById("idresultofmatch");
-    if(x >= 3500) {
-      element.innerText = "Well Done. Next Level";
-      element.style.color = "blue";
-      var elementFinalScore = document.getElementById("idscores");
-      elementFinalScore.innerText = x;
-    } 
-    else {
-      element.innerText = "Failed to score minimun of: 3500 Try again.";
-      element.style.color = "blue";
-    }
+    var time = setInterval(function() {
+      if(x >= 3500) {
+        element.innerText = "Well Done. Next Level";
+        element.style.color = "blue";
+        var elementFinalScore = document.getElementById("idscores");
+        elementFinalScore.innerText = x;
+        randomarraytoplay.push(1);
+        restoreWhiteBackgroundAgain();
+        document.getElementById("idstarttime").disabled = false;
+        allowToPaly = true;
+      } 
+      else {
+        element.innerText = "Failed to score minimun of: 3500 Try again.";
+        element.style.color = "blue";
+      }
+      clearInterval(time);
+    },700);
+  
   };
 
   function timeOut() {
@@ -376,7 +446,7 @@ window.onload = function() {
       if(this.innerText <= 10) {
         removeDivBoard(12, "board-game-one");
         addClickEventToSqaureBoard(12);
-        levelselected = 6;
+        pairsavailable = 6;
         popularebardgamesize = 12;
         levelplaying = this.innerText;
         seconds = 60;
@@ -388,7 +458,7 @@ window.onload = function() {
 
           removeDivBoard(16, "board-game-two");
           addClickEventToSqaureBoard(16);
-          levelselected = 8;
+          pairsavailable = 8;
           popularebardgamesize = 16;
           levelplaying = this.innerText;
           seconds = 80;
@@ -401,7 +471,7 @@ window.onload = function() {
           if(this.innerText >= 20 && this.innerText <= 34) {
             removeDivBoard(20, "board-game-three");
             addClickEventToSqaureBoard(20); 
-            levelselected = 10;
+            pairsavailable = 10;
             popularebardgamesize = 20
             levelplaying = this.innerText;
             seconds = 90;
@@ -413,7 +483,7 @@ window.onload = function() {
             if(this.innerText >= 35 && this.innerText <= 40) {
               removeDivBoard(36, "board-game-four");
               addClickEventToSqaureBoard(36);
-              levelselected = 18;
+              pairsavailable = 18;
               popularebardgamesize = 36;
               levelplaying = this.innerText;
               seconds = 120;
