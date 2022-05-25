@@ -23,8 +23,6 @@ let mixeofdarrays =["LD","CD", "70","&#127914", "&#127863", "55","&#127801", "B"
 
 window.onload = function() {
   
-  randomarraytoplay.push(1);
-
   let hideboardgame = document.getElementById("idhideboardgame");
   let startplaying = document.getElementById("idstartplaying"); 
   let game = document.getElementById("idgame");
