@@ -1,6 +1,8 @@
-/* paste this line in verbatim */
+
 let pairsavailable = 0;
+let allowtoclick = false; /* stop user from clicking the board untill all conditions meet a true requirement */
 let randomarraytoplay = [];
+let cannotclicktwice = 0; /* not allow the user to click twice on the same square*/
 let popularebardgamesize =0;
 let levelplaying = 0;
 let cells;
@@ -14,7 +16,7 @@ let scoreTwenty = [];
 let scoreFive = [];
 let leftInTheClock = 0;
 let numOfCombination = 0;
-let allowToPaly = true;
+let allowToPaly = true; /* if is true means that the game is on and cannot select any othe rlevel until finishes the current level on */
 let secondsLeft = 0;
 const emoje = ["&#129493;&#127996;", "&#127798;", "&#128512;", "&#129495;&#127995;", "&#127947;", "&#9200;", "&#128514;", "&#127947;&#127999;", "&#9201;", "&#128520;", "&#127947;&#127998;", "&#128525;", "&#127947;&#127995;", "&#128525;", "&#128115;&#127996;", "&#128545;", "&#128692;&#127999;", "&#129312;", "&#128692;&#127995;", "&#128115;&#127995;" ,"&#129314;", "&#127940;&#127999;", "&#127940;&#127998;", "&#127940;&#127997;", "&#127940;&#127996;", "&#127940;&#127995;"];
 const alphabeticletters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
@@ -71,43 +73,39 @@ window.onload = function() {
     };
     allowToPaly = false;
   });
-  
+
+
   function myTime() {
+    seconds--;
     var elementResult = document.getElementById("idresultofmatch");
-    elementResult.innerHTML = "You have 5 Seconds to memorize the board";    
-    
-    var time = setInterval(function() {
-      seconds--;
-      // Display the seconds in the element with id="countdown //"
-      document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
+    // Display the seconds in the element with id="countdown //"
+    document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
+
+    let stoptime = setInterval(function(){
+      
       if(seconds == 55) {
         elementResult.innerText = "";
         cleanBoardAfterFiveSeconds();
+        allowtoclick = true;
       }
-      else {
-       
-       if(numOfCombination === pairsavailable) {
-         secondsLeft = seconds;
-         clearTimeout(time);
-         restoreWhiteBackgroundAgain();
-         finalScore();
-        }
-      
-       else {
-         if(seconds === 0) {
-            clearTimeout(time);
-            elementResult.innerText = "You run out of time. Try again please.";
-            timeOut();
-            cleanBoardAfterFiveSeconds();
-            restoreWhiteBackgroundAgain();
-          }
-        }
+      if(numOfCombination === pairsavailable){
+        allowToPaly = true;
+        secondsLeft = seconds;
+        finalScore();
+        clearInterval(stoptime);
       }
-    }, 1000);
+
+      if(seconds === 0) {
+        clearInterval(stoptime);
+        elementResult.innerText = "You run out of time. Try again please.";
+        timeOut();
+      }
+    },1000);
   }
     
   /* this function is responsible to fill up the array with numbers or images */
   function populateMyArray(i) { 
+    compareValueClickedWithArray = [];
     for(let x = 0; x < 500; x++) {
       let p = Math.floor((Math.random() * 26) + 1);
       if(x == 0) {
@@ -135,7 +133,6 @@ window.onload = function() {
   }
 
   function sortOutFinalArray(){
-    compareValueClickedWithArray = [];
     var arraysize = myArray.length;
     for(let y = 0;  y < arraysize; y++) {
       compareValueClickedWithArray.push(myArray[y]);
@@ -210,34 +207,57 @@ window.onload = function() {
   };
  
   function getValueAfterClick() {
-    var element = document.getElementById("idresultofmatch");
+    
+    if(allowtoclick == true && cannotclicktwice == 0) {
+      cannotclicktwice = this.id;
+      allowtoclick = false;
 
-    if(this.style.backgroundColor !== "wheat") {
-      revealValuecliked(this.id);
-      saveClicked.push(this.innerText);
-      saveSquareId.push(this.id);
-      
-     if(saveClicked.length === 2) {
-       if (saveClicked[0] === saveClicked[1]) {
-          element.innerText = "Perfect Match";
-          disablePerfectMatch(saveSquareId[0], saveSquareId[1]);
-          scoreTwenty.push(20);
-          UpDateScores(scoreTwenty);
-          numOfCombination++;
-          saveClicked =[];
-          saveSquareId=[];
+      var element = document.getElementById("idresultofmatch");
 
-          if(numOfCombination === pairsavailable){
-            finalScore();
+      if(this.style.backgroundColor !== "wheat") {
+        revealValuecliked(this.id);
+        saveClicked.push(this.innerText);
+        saveSquareId.push(this.id);
+        allowtoclick = true;
+      } 
+    }
+
+    else
+    {
+      if(allowtoclick == true && cannotclicktwice !== this.id) {
+        
+        allowtoclick = false;
+        var element = document.getElementById("idresultofmatch");
+        if(this.style.backgroundColor !== "wheat") {
+          revealValuecliked(this.id);
+          saveClicked.push(this.innerText);
+          saveSquareId.push(this.id);
+          if(saveClicked.length === 2) {
+            if (saveClicked[0] === saveClicked[1]) {
+              element.innerText = "Perfect Match";
+              disablePerfectMatch(saveSquareId[0], saveSquareId[1]);
+              scoreTwenty.push(20);
+              UpDateScores(scoreTwenty);
+              numOfCombination++;
+              myTime();
+              saveClicked =[];
+              saveSquareId=[];
+              
+            }
+
+            else {
+              scoreFive.push(5);
+              cleanwrongguess(saveSquareId[0], saveSquareId[1]);
+              saveClicked =[];
+              saveSquareId =[];
+            }
           }
-        }
-        else {
-          scoreFive.push(5);
-          cleanwrongguess(saveSquareId[0], saveSquareId[1]);
-          saveClicked =[];
-          saveSquareId =[];
+          else {
+            allowtoclick = true;
+          } 
         } 
-      }  
+      }
+
     }
   };
   
@@ -290,6 +310,7 @@ window.onload = function() {
     
     var time = setInterval(function() {
       // Display the seconds in the element with id="countdown //"
+
       var elementOne = document.getElementById(x);
       elementOne.innerText = "";
       
@@ -297,9 +318,11 @@ window.onload = function() {
       elementTwo.innerText = "";
 
       element.innerText = "";
-      
+      allowtoclick = true;
+      cannotclicktwice = 0;
       clearInterval(time);
-    },700);    
+      
+    },900);    
   };
 
   function disablePerfectMatch(x, y) {
@@ -319,9 +342,11 @@ window.onload = function() {
       elementTwo.disabled = true;
       
       element.innerText = "";
-      
+      allowtoclick = true;
+      cannotclicktwice = 0; 
       clearInterval(time);
-    },700);    
+     
+    },900);    
   };
 
   function UpDateScores(a) {
@@ -329,16 +354,18 @@ window.onload = function() {
     element.innerText =  a.reduce(addUp, 0) ; 
   }
 
-  function addUp(total, num){
+  addUp = (total, num) =>{
     return total + Math.round(num);
   };
 
   function finalScore() {
     
     let x = scoreTwenty.reduce(addUp, 0) * secondsLeft; 
-    var element = document.getElementById("idresultofmatch");
-    var time = setInterval(function() {
-      if(x >= 3500) {
+
+    let element = document.getElementById("idresultofmatch");
+    let time = setInterval(function() {
+      if(secondsLeft > 25) {
+        ++levelplaying;
         element.innerText = "Well Done. Next Level";
         element.style.color = "blue";
         var elementFinalScore = document.getElementById("idscores");
@@ -346,15 +373,21 @@ window.onload = function() {
         randomarraytoplay.push(1);
         restoreWhiteBackgroundAgain();
         document.getElementById("idstarttime").disabled = false;
+        //document.getElementById("idlevel").innerText = levelplaying;
         allowToPaly = true;
+        seconds = 60;
+        clearInterval(time);
       } 
       else {
-        element.innerText = "Failed to score minimun of: 3500 Try again.";
+        element.innerText = "Failed. Try again please.";
         element.style.color = "blue";
+        document.getElementById("idstarttime").disabled = false;
+        allowToPaly = true;
+        restoreWhiteBackgroundAgain();
+        clearInterval(time);
       }
-      clearInterval(time);
-    },700);
-  
+     
+    },900);
   };
 
   function timeOut() {
@@ -368,6 +401,7 @@ window.onload = function() {
     element.innerText = 0;
     populateMyArray();
     document.getElementById("idstarttime").disabled = false;
+    restoreWhiteBackgroundAgain();
   };
 
   /*this function create the board, based on level selected by the user 
