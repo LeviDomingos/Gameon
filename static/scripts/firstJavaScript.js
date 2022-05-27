@@ -1,11 +1,12 @@
-
+let stoptime = 0;
 let pairsavailable = 0;
 let allowtoclick = false; /* stop user from clicking the board untill all conditions meet a true requirement */
 let randomarraytoplay = [];
 let cannotclicktwice = 0; /* not allow the user to click twice on the same square*/
-let popularebardgamesize =0;
+let popularebardgamesize = 0;
 let levelplaying = 0;
 let cells;
+let playfromselectinglevel = true;
 let seconds = 60;
 let gameon = true;
 let myArray = [];
@@ -37,6 +38,9 @@ window.onload = function() {
   startplaying && startplaying.addEventListener("click", function(){
 
     if(gameon === true) {
+      levelplaying = 1;
+      playfromselectinglevel = false;
+      addBoardGameViaSelectLevel();
       removeAndAddClass();
     }
     gameon = false;  
@@ -58,31 +62,49 @@ window.onload = function() {
 
   /* the button to start the time*/
   starttime && starttime.addEventListener("click", function() {
-    if(allowToPaly === true) {
-      myTime();
+    if(allowToPaly === true && playfromselectinglevel == true) {
+      var elementResult = document.getElementById("idresultofmatch");
+      elementResult.innerText = "five Seconds to memorize the board";
+      stoptime = setInterval(myTime, 1000);
       populateMyArray(pairsavailable);
       sortOutFinalArray();
       populateBoardGame(popularebardgamesize);
-      document.getElementById("idlevel").innerText = levelplaying;
-      document.getElementById("idstarttime").disabled = true;
       myArray = [];
       saveClicked =[];
       saveSquareId =[];
       scoreTwenty = [];
       scoreFive = [];
-    };
-    allowToPaly = false;
+      document.getElementById("idstarttime").disabled = true;
+      allowToPaly = false;
+      }
+      else
+      {
+        var elementResult = document.getElementById("idresultofmatch");
+        elementResult.innerText = "five Seconds to memorize the board";
+        stoptime = setInterval(myTime, 1000);
+        populateMyArray(pairsavailable);
+        sortOutFinalArray();
+        populateBoardGame(popularebardgamesize);
+        addBoardGameViaSelectLevel();
+        document.getElementById("idstarttime").disabled = true;
+        allowToPaly = false;
+        myArray = [];
+        saveClicked =[];
+        saveSquareId =[];
+        scoreTwenty = [];
+        scoreFive = [];
+      }
   });
 
 
   function myTime() {
     seconds--;
+
     var elementResult = document.getElementById("idresultofmatch");
+    
     // Display the seconds in the element with id="countdown //"
     document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
-
-    let stoptime = setInterval(function(){
-      
+     
       if(seconds == 55) {
         elementResult.innerText = "";
         cleanBoardAfterFiveSeconds();
@@ -94,13 +116,11 @@ window.onload = function() {
         finalScore();
         clearInterval(stoptime);
       }
-
       if(seconds === 0) {
         clearInterval(stoptime);
         elementResult.innerText = "You run out of time. Try again please.";
         timeOut();
-      }
-    },1000);
+      } 
   }
     
   /* this function is responsible to fill up the array with numbers or images */
@@ -153,7 +173,6 @@ window.onload = function() {
     }
     else {
       if(randomarraytoplay.length == 1) {
-        alert(compareValueClickedWithArray);
         for(let x = 0;  x < i; x++) {
           var element = document.getElementById("idsquare" + x);
           element.innerHTML = emoje[compareValueClickedWithArray[x]];
@@ -195,6 +214,7 @@ window.onload = function() {
     for(let x = 0;  x < cleanChildren; x++) {
       var element = document.getElementById("idsquare" + x);
       element.innerText = "";
+      element.innerHTML ="";
     }
   };
 
@@ -219,12 +239,15 @@ window.onload = function() {
         saveClicked.push(this.innerText);
         saveSquareId.push(this.id);
         allowtoclick = true;
+      }
+      else {
+
       } 
     }
 
     else
     {
-      if(allowtoclick == true && cannotclicktwice !== this.id) {
+      if(allowtoclick === true && cannotclicktwice !== this.id) {
         
         allowtoclick = false;
         var element = document.getElementById("idresultofmatch");
@@ -259,6 +282,7 @@ window.onload = function() {
       }
 
     }
+    allowtoclick = true;
   };
   
   function revealValuecliked(x) { 
@@ -365,7 +389,7 @@ window.onload = function() {
     let element = document.getElementById("idresultofmatch");
     let time = setInterval(function() {
       if(secondsLeft > 25) {
-        ++levelplaying;
+        levelplaying++;
         element.innerText = "Well Done. Next Level";
         element.style.color = "blue";
         var elementFinalScore = document.getElementById("idscores");
@@ -373,9 +397,16 @@ window.onload = function() {
         randomarraytoplay.push(1);
         restoreWhiteBackgroundAgain();
         document.getElementById("idstarttime").disabled = false;
-        //document.getElementById("idlevel").innerText = levelplaying;
         allowToPaly = true;
         seconds = 60;
+        numOfCombination = 0;
+        pairsavailable = 0;
+        compareValueClickedWithArray = [];
+        myArray = [];
+        saveClicked =[];
+        saveSquareId =[];
+        scoreTwenty = [];
+        scoreFive = [];
         clearInterval(time);
       } 
       else {
@@ -383,6 +414,14 @@ window.onload = function() {
         element.style.color = "blue";
         document.getElementById("idstarttime").disabled = false;
         allowToPaly = true;
+        numOfCombination = 0;
+        pairsavailable = 0;
+        compareValueClickedWithArray = [];
+        myArray = [];
+        saveClicked =[];
+        saveSquareId =[];
+        scoreTwenty = [];
+        scoreFive = [];
         restoreWhiteBackgroundAgain();
         clearInterval(time);
       }
@@ -471,52 +510,92 @@ window.onload = function() {
   I have four board game with different sizes; from 4x3; 4x4; 5x4 6x6*/
   function addBoardGameViaSelectLevel() {
 
-    if(allowToPaly === true) {
-
+    if(allowToPaly === true && playfromselectinglevel === true) {
+      levelplaying = this.innerText;
+      seconds = 60;
       removeAndAddClass();
-      if(this.innerText <= 10) {
+      if(levelplaying <= 10) {
         removeDivBoard(12, "board-game-one");
         addClickEventToSqaureBoard(12);
         pairsavailable = 6;
         popularebardgamesize = 12;
-        levelplaying = this.innerText;
-        seconds = 60;
         document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
-        document.getElementById("idlevel").innerText = levelplaying;
+        document.getElementById("idlevel").innerText = this.innerText;
       }
       else {
-        if(this.innerText >= 11 && this.innerText <= 19) {
+        if(levelplaying >= 11 && levelplaying <= 19) {
 
           removeDivBoard(16, "board-game-two");
           addClickEventToSqaureBoard(16);
           pairsavailable = 8;
           popularebardgamesize = 16;
-          levelplaying = this.innerText;
-          seconds = 80;
           document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
-          document.getElementById("idlevel").innerText = levelplaying;
+          document.getElementById("idlevel").innerText = this.innerText;
         }
 
         else {
 
-          if(this.innerText >= 20 && this.innerText <= 34) {
+          if(levelplaying >= 20 && levelplaying <= 34) {
             removeDivBoard(20, "board-game-three");
             addClickEventToSqaureBoard(20); 
             pairsavailable = 10;
             popularebardgamesize = 20
-            levelplaying = this.innerText;
             seconds = 90;
             document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
-            document.getElementById("idlevel").innerText = levelplaying;
+            document.getElementById("idlevel").innerText = this.innerText;
           }
 
           else {
-            if(this.innerText >= 35 && this.innerText <= 40) {
+            if(levelplaying >= 35 && levelplaying <= 40) {
               removeDivBoard(36, "board-game-four");
               addClickEventToSqaureBoard(36);
               pairsavailable = 18;
               popularebardgamesize = 36;
-              levelplaying = this.innerText;
+              seconds = 120;
+              document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
+              document.getElementById("idlevel").innerText = this.innerText;
+            }
+          }
+          
+        }
+      }
+    }
+    else {
+      seconds = 60;
+      removeAndAddClass();
+      if(levelplaying <= 10) {
+        removeDivBoard(12, "board-game-one");
+        addClickEventToSqaureBoard(12);
+        pairsavailable = 6;
+        popularebardgamesize = 12;
+        document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
+        document.getElementById("idlevel").innerText = levelplaying;
+      }
+      else {
+        if(levelplaying >= 11 && levelplaying <= 19) {
+          removeDivBoard(16, "board-game-two");
+          addClickEventToSqaureBoard(16);
+          pairsavailable = 8;
+          popularebardgamesize = 16;
+          document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
+          document.getElementById("idlevel").innerText = levelplaying;
+        }
+        else {
+          if(levelplaying >= 20 && levelplaying <= 34) {
+            removeDivBoard(20, "board-game-three");
+            addClickEventToSqaureBoard(20); 
+            pairsavailable = 10;
+            popularebardgamesize = 20
+            seconds = 90;
+            document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
+            document.getElementById("idlevel").innerText = levelplaying;
+          }
+          else {
+            if(levelplaying >= 35 && levelplaying <= 40) {
+              removeDivBoard(36, "board-game-four");
+              addClickEventToSqaureBoard(36);
+              pairsavailable = 18;
+              popularebardgamesize = 36;
               seconds = 120;
               document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
               document.getElementById("idlevel").innerText = levelplaying;
@@ -525,6 +604,7 @@ window.onload = function() {
           
         }
       }
+
     }
   };
 
