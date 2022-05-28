@@ -6,6 +6,7 @@ let cannotclicktwice = 0; /* not allow the user to click twice on the same squar
 let popularebardgamesize = 0;
 let levelplaying = 0;
 let cells;
+let whatlevelplaying =0;
 let playfromselectinglevel = true;
 let seconds = 60;
 let gameon = true;
@@ -25,7 +26,7 @@ const alphabetandnumbers = ["A", "2", "C", "D", "4", "E", "F", "6", "G", "H", "8
 const mixeofdarrays =["LD","CD", "70","&#127914;", "&#127863;", "55","&#127801;", "B", "5", "&#127798;", "&#128692;&#127999;", "LO", "&#129312;", "&#128692;&#127995;", "&#128115;&#127995;", "TA", "TE", "&#129314;", "&#127940;&#127999;", "&#127940;&#127998;", "BA", "&#127940;&#127997;", "&#127940;&#127996;", "&#127919;", "99", "&#127929;"];
 
 window.onload = function() {
-  
+  //randomarraytoplay.push(1);
   const hideboardgame = document.getElementById("idhideboardgame");
   const startplaying = document.getElementById("idstartplaying"); 
   const game = document.getElementById("idgame");
@@ -36,7 +37,6 @@ window.onload = function() {
   /* fucntion that allows to show the board or tiles*/
   /* the board is not available when the first is load only when cliked on start playing menu*/
   startplaying && startplaying.addEventListener("click", function(){
-
     if(gameon === true) {
       levelplaying = 1;
       playfromselectinglevel = false;
@@ -82,10 +82,10 @@ window.onload = function() {
         var elementResult = document.getElementById("idresultofmatch");
         elementResult.innerText = "five Seconds to memorize the board";
         stoptime = setInterval(myTime, 1000);
+        addBoardGameViaSelectLevel();
         populateMyArray(pairsavailable);
         sortOutFinalArray();
         populateBoardGame(popularebardgamesize);
-        addBoardGameViaSelectLevel();
         document.getElementById("idstarttime").disabled = true;
         allowToPaly = false;
         myArray = [];
@@ -127,7 +127,7 @@ window.onload = function() {
   function populateMyArray(i) { 
     compareValueClickedWithArray = [];
     for(let x = 0; x < 500; x++) {
-      let p = Math.floor((Math.random() * 26) + 1);
+      let p = Math.floor((Math.random() * 25) + 1);
       if(x == 0) {
         myArray.push(p);
       }
@@ -228,7 +228,7 @@ window.onload = function() {
  
   function getValueAfterClick() {
     
-    if(allowtoclick == true && cannotclicktwice == 0) {
+    if(allowtoclick == true && cannotclicktwice === 0) {
       cannotclicktwice = this.id;
       allowtoclick = false;
 
@@ -240,9 +240,6 @@ window.onload = function() {
         saveSquareId.push(this.id);
         allowtoclick = true;
       }
-      else {
-
-      } 
     }
 
     else
@@ -282,7 +279,7 @@ window.onload = function() {
       }
 
     }
-    allowtoclick = true;
+    //allowtoclick = true;
   };
   
   function revealValuecliked(x) { 
@@ -321,7 +318,7 @@ window.onload = function() {
         element.innerText = alphabetandnumbers[compareValueClickedWithArray[y]];
       }
       if(randomarraytoplay.length === 4){
-        element.innerHTML = mixeofdarrays[compareValueClickedWithArray[y]];
+        element.innerText = mixeofdarrays[compareValueClickedWithArray[y]];
       }
     }
   };
@@ -383,19 +380,16 @@ window.onload = function() {
   };
 
   function finalScore() {
-    
     let x = scoreTwenty.reduce(addUp, 0) * secondsLeft; 
-
     let element = document.getElementById("idresultofmatch");
+    var elementFinalScore = document.getElementById("idscores");
+
     let time = setInterval(function() {
-      if(secondsLeft > 25) {
-        levelplaying++;
-        element.innerText = "Well Done. Next Level";
+      if(playfromselectinglevel == true && secondsLeft > 25){
+        element.innerText = "Well Done. Choose another level to play";
         element.style.color = "blue";
-        var elementFinalScore = document.getElementById("idscores");
+        element.innerText = 0;
         elementFinalScore.innerText = x;
-        randomarraytoplay.push(1);
-        restoreWhiteBackgroundAgain();
         document.getElementById("idstarttime").disabled = false;
         allowToPaly = true;
         seconds = 60;
@@ -407,13 +401,17 @@ window.onload = function() {
         saveSquareId =[];
         scoreTwenty = [];
         scoreFive = [];
+        restoreWhiteBackgroundAgain();
         clearInterval(time);
-      } 
-      else {
+      }
+      else
+      {
         element.innerText = "Failed. Try again please.";
         element.style.color = "blue";
         document.getElementById("idstarttime").disabled = false;
+        elementFinalScore.innerText = 0;
         allowToPaly = true;
+        seconds = 60;
         numOfCombination = 0;
         pairsavailable = 0;
         compareValueClickedWithArray = [];
@@ -422,11 +420,54 @@ window.onload = function() {
         saveSquareId =[];
         scoreTwenty = [];
         scoreFive = [];
+        addBoardGameViaSelectLevel();
+        removeAndAddClass();
         restoreWhiteBackgroundAgain();
         clearInterval(time);
       }
-     
+
+      if(playfromselectinglevel == false) {
+        if(secondsLeft > 25) {
+          levelplaying++;
+          element.innerText = "Well Done. Next Level";
+          element.style.color = "blue";
+          elementFinalScore.innerText = x;
+          randomarraytoplay.push(1);
+          restoreWhiteBackgroundAgain();
+          document.getElementById("idstarttime").disabled = false;
+          allowToPaly = true;
+          seconds = 60;
+          numOfCombination = 0;
+          pairsavailable = 0;
+          compareValueClickedWithArray = [];
+          myArray = [];
+          saveClicked =[];
+          saveSquareId =[];
+          scoreTwenty = [];
+          scoreFive = [];
+          clearInterval(time);
+        } 
+        else {
+          element.innerText = "Failed. Try again please.";
+          element.style.color = "blue";
+          document.getElementById("idstarttime").disabled = false;
+          elementFinalScore.innerText = 0;
+          allowToPaly = true;
+          seconds = 60;
+          numOfCombination = 0;
+          pairsavailable = 0;
+          compareValueClickedWithArray = [];
+          myArray = [];
+          saveClicked =[];
+          saveSquareId =[];
+          scoreTwenty = [];
+          scoreFive = [];
+          restoreWhiteBackgroundAgain();
+          clearInterval(time);
+        }
+      }
     },900);
+    elementFinalScore.innerText = 0;
   };
 
   function timeOut() {
@@ -511,10 +552,10 @@ window.onload = function() {
   function addBoardGameViaSelectLevel() {
 
     if(allowToPaly === true && playfromselectinglevel === true) {
-      levelplaying = this.innerText;
+      whatlevelplaying = this.innerText;
       seconds = 60;
       removeAndAddClass();
-      if(levelplaying <= 10) {
+      if(this.innerText <= 10) {
         removeDivBoard(12, "board-game-one");
         addClickEventToSqaureBoard(12);
         pairsavailable = 6;
@@ -523,8 +564,7 @@ window.onload = function() {
         document.getElementById("idlevel").innerText = this.innerText;
       }
       else {
-        if(levelplaying >= 11 && levelplaying <= 19) {
-
+        if(levelplayingthis.innerText >= 11 && this.innerText <= 19) {
           removeDivBoard(16, "board-game-two");
           addClickEventToSqaureBoard(16);
           pairsavailable = 8;
@@ -535,7 +575,7 @@ window.onload = function() {
 
         else {
 
-          if(levelplaying >= 20 && levelplaying <= 34) {
+          if(this.innerText >= 20 && this.innerText <= 34) {
             removeDivBoard(20, "board-game-three");
             addClickEventToSqaureBoard(20); 
             pairsavailable = 10;
@@ -546,7 +586,7 @@ window.onload = function() {
           }
 
           else {
-            if(levelplaying >= 35 && levelplaying <= 40) {
+            if(lthis.innerText >= 35 && this.innerText <= 40) {
               removeDivBoard(36, "board-game-four");
               addClickEventToSqaureBoard(36);
               pairsavailable = 18;
