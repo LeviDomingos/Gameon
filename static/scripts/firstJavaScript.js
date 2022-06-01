@@ -6,8 +6,11 @@ let cannotclicktwice = 0; /* not allow the user to click twice on the same squar
 let popularebardgamesize = 0;
 let levelplaying = 0;
 let cells;
+let level = 0;
+let notAllowToPlaySameLevelAgain = [];
+let fiveseconds = 5;
+let stopclock = 0;
 let whatlevelplaying =0;
-let playfromselectinglevel = true;
 let seconds = 60;
 let gameon = true;
 let myArray = [];
@@ -18,7 +21,7 @@ let scoreTwenty = [];
 let scoreFive = [];
 let leftInTheClock = 0;
 let numOfCombination = 0;
-let allowToPaly = true; /* if is true means that the game is on and cannot select any othe rlevel until finishes the current level on */
+let allowToPaly = false; /* if is true means that the game is on and cannot select any othe rlevel until finishes the current level on */
 let secondsLeft = 0;
 const emoje = ["&#129493;&#127996;", "&#127798;", "&#128512;", "&#129495;&#127995;", "&#127947;", "&#9200;", "&#128514;", "&#127947;&#127999;", "&#9201;", "&#128520;", "&#127947;&#127998;", "&#128525;", "&#127947;&#127995;", "&#128525;", "&#128115;&#127996;", "&#128545;", "&#128692;&#127999;", "&#129312;", "&#128692;&#127995;", "&#128115;&#127995;" ,"&#129314;", "&#127940;&#127999;", "&#127940;&#127998;", "&#127940;&#127997;", "&#127940;&#127996;", "&#127940;&#127995;"];
 const alphabeticletters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
@@ -38,10 +41,21 @@ window.onload = function() {
   /* the board is not available when the first is load only when cliked on start playing menu*/
   startplaying && startplaying.addEventListener("click", function(){
     if(gameon === true) {
-      levelplaying = 1;
-      playfromselectinglevel = false;
-      addBoardGameViaSelectLevel();
+      numOfCombination = 0;
+      allowToPaly = true;
       removeAndAddClass();
+      levelplaying = 1;
+      addBoardGameViaSelectLevel();
+      removeDivBoard(12, "board-game-one");
+      populateMyArray(pairsavailable);
+      sortOutFinalArray();
+     
+      myArray = [];
+      saveClicked =[];
+      saveSquareId =[];
+      scoreTwenty = [];
+      scoreFive = [];
+      
     }
     gameon = false;  
   });
@@ -62,54 +76,40 @@ window.onload = function() {
 
   /* the button to start the time*/
   starttime && starttime.addEventListener("click", function() {
-    if(allowToPaly === true && playfromselectinglevel == true) {
-      var elementResult = document.getElementById("idresultofmatch");
-      elementResult.innerText = "five Seconds to memorize the board";
-      stoptime = setInterval(myTime, 1000);
-      populateMyArray(pairsavailable);
-      sortOutFinalArray();
-      populateBoardGame(popularebardgamesize);
-      myArray = [];
-      saveClicked =[];
-      saveSquareId =[];
-      scoreTwenty = [];
-      scoreFive = [];
+      allowToPaly = true;
+    if(allowToPaly === true) {
+      stopclock = setInterval(fiveSencondToMemorize, 1000);
       document.getElementById("idstarttime").disabled = true;
-      allowToPaly = false;
+      notAllowToPlaySameLevelAgain.push(level);
+      populateBoardGame(popularebardgamesize);
+    }   
+    else{
+      if(game === false && allowToPaly === true) {
+
+        /*to play from the start paying menu */
       }
-      else
-      {
-        var elementResult = document.getElementById("idresultofmatch");
-        elementResult.innerText = "five Seconds to memorize the board";
-        stoptime = setInterval(myTime, 1000);
-        addBoardGameViaSelectLevel();
-        populateMyArray(pairsavailable);
-        sortOutFinalArray();
-        populateBoardGame(popularebardgamesize);
-        document.getElementById("idstarttime").disabled = true;
-        allowToPaly = false;
-        myArray = [];
-        saveClicked =[];
-        saveSquareId =[];
-        scoreTwenty = [];
-        scoreFive = [];
-      }
+    }
   });
 
+  /*depending on the level allow player to see the board with its images for few seconds before playing*/
+  function fiveSencondToMemorize(){
+    fiveseconds--;
+    var elementResult = document.getElementById("idresultofmatch");
+    elementResult.innerText = "You have few Seconds to memorize the board " + fiveseconds;
+    if(fiveseconds == 0){
+      elementResult.innerText = "";
+      cleanBoardAfterFiveSeconds();
+      allowtoclick = true;
+      stoptime = setInterval(myTime, 1000);
+      clearInterval(stopclock);
+      fiveseconds = 5;
+    }
+  }
 
   function myTime() {
-    seconds--;
-
-    var elementResult = document.getElementById("idresultofmatch");
-    
+    seconds--;    
     // Display the seconds in the element with id="countdown //"
     document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
-     
-      if(seconds == 55) {
-        elementResult.innerText = "";
-        cleanBoardAfterFiveSeconds();
-        allowtoclick = true;
-      }
       if(numOfCombination === pairsavailable){
         allowToPaly = true;
         secondsLeft = seconds;
@@ -365,9 +365,10 @@ window.onload = function() {
       element.innerText = "";
       allowtoclick = true;
       cannotclicktwice = 0; 
-      clearInterval(time);
+      clearInterval(time);  
      
     },900);    
+    
   };
 
   function UpDateScores(a) {
@@ -385,13 +386,12 @@ window.onload = function() {
     var elementFinalScore = document.getElementById("idscores");
 
     let time = setInterval(function() {
-      if(playfromselectinglevel == true && secondsLeft > 25){
-        element.innerText = "Well Done. Choose another level to play";
+      if(secondsLeft > 25){
+        element.innerText = "Well Done. Next Level.";
         element.style.color = "blue";
-        element.innerText = 0;
         elementFinalScore.innerText = x;
         document.getElementById("idstarttime").disabled = false;
-        allowToPaly = true;
+        allowToPaly = false;
         seconds = 60;
         numOfCombination = 0;
         pairsavailable = 0;
@@ -402,72 +402,21 @@ window.onload = function() {
         scoreTwenty = [];
         scoreFive = [];
         restoreWhiteBackgroundAgain();
-        clearInterval(time);
       }
       else
       {
         element.innerText = "Failed. Try again please.";
-        element.style.color = "blue";
         document.getElementById("idstarttime").disabled = false;
+        element.style.color = "blue";
         elementFinalScore.innerText = 0;
-        allowToPaly = true;
+        //allowToPaly = true;
         seconds = 60;
         numOfCombination = 0;
-        pairsavailable = 0;
-        compareValueClickedWithArray = [];
-        myArray = [];
-        saveClicked =[];
-        saveSquareId =[];
-        scoreTwenty = [];
-        scoreFive = [];
-        addBoardGameViaSelectLevel();
-        removeAndAddClass();
+        //compareValueClickedWithArray = [];
         restoreWhiteBackgroundAgain();
-        clearInterval(time);
-      }
-
-      if(playfromselectinglevel == false) {
-        if(secondsLeft > 25) {
-          levelplaying++;
-          element.innerText = "Well Done. Next Level";
-          element.style.color = "blue";
-          elementFinalScore.innerText = x;
-          randomarraytoplay.push(1);
-          restoreWhiteBackgroundAgain();
-          document.getElementById("idstarttime").disabled = false;
-          allowToPaly = true;
-          seconds = 60;
-          numOfCombination = 0;
-          pairsavailable = 0;
-          compareValueClickedWithArray = [];
-          myArray = [];
-          saveClicked =[];
-          saveSquareId =[];
-          scoreTwenty = [];
-          scoreFive = [];
-          clearInterval(time);
-        } 
-        else {
-          element.innerText = "Failed. Try again please.";
-          element.style.color = "blue";
-          document.getElementById("idstarttime").disabled = false;
-          elementFinalScore.innerText = 0;
-          allowToPaly = true;
-          seconds = 60;
-          numOfCombination = 0;
-          pairsavailable = 0;
-          compareValueClickedWithArray = [];
-          myArray = [];
-          saveClicked =[];
-          saveSquareId =[];
-          scoreTwenty = [];
-          scoreFive = [];
-          restoreWhiteBackgroundAgain();
-          clearInterval(time);
-        }
-      }
+      }    
+      clearInterval(time);
     },900);
-    elementFinalScore.innerText = 0;
   };
 
   function timeOut() {
@@ -483,6 +432,7 @@ window.onload = function() {
     document.getElementById("idstarttime").disabled = false;
     restoreWhiteBackgroundAgain();
   };
+
 
   /*this function create the board, based on level selected by the user 
   here i define the size of the board or tile, a function with param. */
@@ -547,105 +497,92 @@ window.onload = function() {
    
   }
 
+
+  /*this checks if the player selected the same level if he did not allow to play again but select a different one */
+  function checkIfHasPlayesThisLevel(i) {
+    let n = notAllowToPlaySameLevelAgain.length;
+    if(n > 0) {
+      for(let x = 0;  x < n; x++) {
+        if(notAllowToPlaySameLevelAgain[x] === i){
+          alert("Select a different Level Please. You already played this: " + i + " Level. Thanks")
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   /*this fucntion will create the tiles or the game board acordsing to the level selected by the user 
   I have four board game with different sizes; from 4x3; 4x4; 5x4 6x6*/
   function addBoardGameViaSelectLevel() {
-
-    if(allowToPaly === true && playfromselectinglevel === true) {
-      whatlevelplaying = this.innerText;
-      seconds = 60;
-      removeAndAddClass();
-      if(this.innerText <= 10) {
-        removeDivBoard(12, "board-game-one");
-        addClickEventToSqaureBoard(12);
-        pairsavailable = 6;
-        popularebardgamesize = 12;
-        document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
-        document.getElementById("idlevel").innerText = this.innerText;
-      }
-      else {
-        if(levelplayingthis.innerText >= 11 && this.innerText <= 19) {
-          removeDivBoard(16, "board-game-two");
-          addClickEventToSqaureBoard(16);
-          pairsavailable = 8;
-          popularebardgamesize = 16;
+    
+    if(checkIfHasPlayesThisLevel(this.innerText) === false) {
+    
+      if(allowToPaly === false) {
+        myArray = [];
+        saveClicked =[];
+        saveSquareId =[];
+        compareValueClickedWithArray =[];
+        scoreTwenty = [];
+        scoreFive = [];
+        level = this.innerText;
+        seconds = 60;
+        removeAndAddClass();
+        if(this.innerText <= 10) {
+          removeDivBoard(12, "board-game-one");
+          addClickEventToSqaureBoard(12);
+          pairsavailable = 6;
+          popularebardgamesize = 12;
           document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
           document.getElementById("idlevel").innerText = this.innerText;
+          populateMyArray(pairsavailable);
+          sortOutFinalArray();
+         
         }
-
         else {
-
-          if(this.innerText >= 20 && this.innerText <= 34) {
-            removeDivBoard(20, "board-game-three");
-            addClickEventToSqaureBoard(20); 
-            pairsavailable = 10;
-            popularebardgamesize = 20
-            seconds = 90;
+          if(this.innerText >= 11 && this.innerText <= 19) {
+            removeDivBoard(16, "board-game-two");
+            addClickEventToSqaureBoard(16);
+            pairsavailable = 8;
+            popularebardgamesize = 16;
             document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
             document.getElementById("idlevel").innerText = this.innerText;
+            populateMyArray(pairsavailable);
+            sortOutFinalArray();
           }
 
           else {
-            if(lthis.innerText >= 35 && this.innerText <= 40) {
-              removeDivBoard(36, "board-game-four");
-              addClickEventToSqaureBoard(36);
-              pairsavailable = 18;
-              popularebardgamesize = 36;
-              seconds = 120;
+
+            if(this.innerText >= 20 && this.innerText <= 34) {
+              removeDivBoard(20, "board-game-three");
+              addClickEventToSqaureBoard(20); 
+              pairsavailable = 10;
+              popularebardgamesize = 20
+              seconds = 70;
               document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
               document.getElementById("idlevel").innerText = this.innerText;
-            }
-          }
-          
-        }
-      }
-    }
-    else {
-      seconds = 60;
-      removeAndAddClass();
-      if(levelplaying <= 10) {
-        removeDivBoard(12, "board-game-one");
-        addClickEventToSqaureBoard(12);
-        pairsavailable = 6;
-        popularebardgamesize = 12;
-        document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
-        document.getElementById("idlevel").innerText = levelplaying;
-      }
-      else {
-        if(levelplaying >= 11 && levelplaying <= 19) {
-          removeDivBoard(16, "board-game-two");
-          addClickEventToSqaureBoard(16);
-          pairsavailable = 8;
-          popularebardgamesize = 16;
-          document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
-          document.getElementById("idlevel").innerText = levelplaying;
-        }
-        else {
-          if(levelplaying >= 20 && levelplaying <= 34) {
-            removeDivBoard(20, "board-game-three");
-            addClickEventToSqaureBoard(20); 
-            pairsavailable = 10;
-            popularebardgamesize = 20
-            seconds = 90;
-            document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
-            document.getElementById("idlevel").innerText = levelplaying;
-          }
-          else {
-            if(levelplaying >= 35 && levelplaying <= 40) {
-              removeDivBoard(36, "board-game-four");
-              addClickEventToSqaureBoard(36);
-              pairsavailable = 18;
-              popularebardgamesize = 36;
-              seconds = 120;
-              document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
-              document.getElementById("idlevel").innerText = levelplaying;
-            }
-          }
-          
-        }
-      }
+              populateMyArray(pairsavailable);
+              sortOutFinalArray();
 
-    }
-  };
+            }
 
+            else {
+              if(this.innerText >= 35 && this.innerText <= 40) {
+                removeDivBoard(36, "board-game-four");
+                addClickEventToSqaureBoard(36);
+                pairsavailable = 18;
+                popularebardgamesize = 36;
+                seconds = 90;
+                document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
+                document.getElementById("idlevel").innerText = this.innerText;
+                populateMyArray(pairsavailable);
+                sortOutFinalArray();
+              }
+            }
+
+          }
+        }
+      } 
+    }
+  }
 };
