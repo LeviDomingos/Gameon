@@ -605,7 +605,6 @@ window.onload = function() {
       } 
     }
   }
-
   function playFromMenu() {
     if(allowToPaly === true && gameon ==  false) {
       myArray = [];
