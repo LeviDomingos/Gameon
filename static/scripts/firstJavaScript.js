@@ -1,4 +1,5 @@
 let cells; /*this varible is part of the build up board*/
+let switchFromMenuToLevel = 0; /*make sure that user can switch from menu to level */
 let controlLightUp = 0;
 let controlIdGameOn = 0;
 let controlLight = 0; 
@@ -46,18 +47,77 @@ window.onload = function() {
   const game = document.getElementById("idgame");
   const starttime = document.getElementById("idstarttime");
   const joinus = document.getElementById("idjoinus");
+  
+  const registerMemberButton = document.getElementById("submit");
+  const loginMemberButton = document.getElementById("submitbt");
   addClickEventToNumbers();
-   
+
+
+  /**for the login page  */
+  loginMemberButton.addEventListener("click", function() {
+
+
+  });
+
+  /* for the main page */
+  registerMemberButton.addEventListener("click", function(){
+    let nickname = document.getElementById("nickname");
+    let password = document.getElementById("pwd");
+    let retypwd = document.getElementById("retypwd");
+    let email = document.getElementById("email");
+
+    if(validateFields() === true && validateFields() === true && validatePassword() === true) {
+      window.localStorage.setItem("nickname", nickname.innerText);
+      window.localStorage.setItem("password", password.innerText);
+      window.localStorage.setItem("retypwd", retypwd);
+      window.localStorage.setItem("email", email.innerText);
+    }
+    else {
+      alert("Make sure that the nickname, password are not empty and have 4 character at least each.");
+    }
+
+  });
+
+  function validateFields(nickname, password, retypepwd, email) {
+    if(nickname.length === 0 || password.length === 0 || retypepwd === 0 || email) {
+      return false;
+    }
+  }
+
+  function validateLength() {nickname, password, retypepwd} {
+    if(nickname.length < 4 || passwor.length < 4 || retypepwd.length < 4) {
+      return false;
+    }
+  }
+
+  function validatePassword(pwd, retypepwd) {
+      if(pwd.length === retypepwd.length && pwd === retypepwd) {
+        return true;
+      }
+    }
+  }
   /* fucntion that allows to show the board or tiles*/
   /* the board is not available when the first is load only when cliked on start playing menu*/
-  startplaying && startplaying.addEventListener("click", function(){
-    if(gameon === true) {
-      numOfCombination = 0;
-      allowToPaly = true;
-      removeAndAddClass();
-      levelfromstartmenu = 1;
-      gameon = false;
-    }
+  startplaying && startplaying.addEventListener("click", function() {
+
+      if(gameon === true && switchFromMenuToLevel == 0) {
+        numOfCombination = 0;
+        allowToPaly = true;
+        removeAndAddClass();
+        levelfromstartmenu = 1;
+        gameon = false;
+        switchFromMenuToLevel = 1;
+      }
+      else
+      {
+        let resultConfirm = confirm("You chose to Play From Level Selection. Would you Like to Switch?");
+        if(resultConfirm === true) {
+          gameon = true;
+          allowToPaly = true;
+          switchFromMenuToLevel = 0;
+          clearInterval(stoptime);
+        }
+      }
     clearInterval(controlLight);
   });
 
@@ -646,83 +706,96 @@ window.onload = function() {
   I have four board game with different sizes; from 4x3; 4x4; 5x4 6x6*/
   function addBoardGameViaSelectLevel() {
     document.getElementById("idresultofmatch").innerText = "";
-    clearInterval(controlLight);
-    if(checkIfHasPlayesThisLevel(this.innerText) === false) {
-    
-      if(allowToPaly === false) {
-        levelplaying = this.innerText;
-        myArray = [];
-        saveClicked =[];
-        saveSquareId =[];
-        scoreTwenty = [];
-        scoreFive = [];
-        numOfCombination = 0;
-        document.getElementById("idstarttime").disabled = false;
-        removeAndAddClass();
+    if(starttime.disabled === false & allowToPaly === true && switchFromMenuToLevel === 1) { 
+      let resultConfirm = confirm("Would You Like 2 Play By Selecting Level?");
+      starttime.disabled = true;
+      if(resultConfirm === true) {
+        gameon = false;
+        allowToPaly = false;
+        alert("The Game Will Lock and Allow You 2 Play From Level Selection ONLY. SELECT THE LEVEL YOU WANT PLEASE. THANKS");
+        switchFromMenuToLevel = 3;
+      }
+    }
+    else { 
+      clearInterval(controlLight);
+      if(checkIfHasPlayesThisLevel(this.innerText) === false) {
+      
+        if(allowToPaly === false) {
+          levelplaying = this.innerText;
+          myArray = [];
+          saveClicked =[];
+          saveSquareId =[];
+          scoreTwenty = [];
+          scoreFive = [];
+          numOfCombination = 0;
+          document.getElementById("idstarttime").disabled = false;
+          removeAndAddClass();
 
-        if(this.innerText <= 10) {
-          removeDivBoard(12, "board-game-one");
-          addClickEventToSqaureBoard(12);
-          pairsavailable = 6;
-          popularebardgamesize = 12;
-          document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
-          document.getElementById("idlevel").innerText = this.innerText;
-          populateMyArray(pairsavailable);
-          sortOutFinalArray();
-          seconds = 60;
-          failedlevel = seconds;
-         
-        }
-        else {
-          if(this.innerText >= 11 && this.innerText <= 19) {
-            removeDivBoard(16, "board-game-two");
-            addClickEventToSqaureBoard(16);
-            pairsavailable = 8;
-            popularebardgamesize = 16;
+          if(this.innerText <= 10) {
+            removeDivBoard(12, "board-game-one");
+            addClickEventToSqaureBoard(12);
+            pairsavailable = 6;
+            popularebardgamesize = 12;
             document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
             document.getElementById("idlevel").innerText = this.innerText;
             populateMyArray(pairsavailable);
             sortOutFinalArray();
             seconds = 60;
             failedlevel = seconds;
+          
           }
-
           else {
-
-            if(this.innerText >= 20 && this.innerText <= 34) {
-              removeDivBoard(20, "board-game-three");
-              addClickEventToSqaureBoard(20); 
-              pairsavailable = 10;
-              popularebardgamesize = 20
-              seconds = 70;
-              failedlevel = seconds;
+            if(this.innerText >= 11 && this.innerText <= 19) {
+              removeDivBoard(16, "board-game-two");
+              addClickEventToSqaureBoard(16);
+              pairsavailable = 8;
+              popularebardgamesize = 16;
               document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
               document.getElementById("idlevel").innerText = this.innerText;
               populateMyArray(pairsavailable);
               sortOutFinalArray();
-
+              seconds = 60;
+              failedlevel = seconds;
             }
 
             else {
-              if(this.innerText >= 35 && this.innerText <= 40) {
-                removeDivBoard(36, "board-game-four");
-                addClickEventToSqaureBoard(36);
-                pairsavailable = 18;
-                popularebardgamesize = 36;
-                seconds = 90;
-                failedlevel = 90;
+
+              if(this.innerText >= 20 && this.innerText <= 34) {
+                removeDivBoard(20, "board-game-three");
+                addClickEventToSqaureBoard(20); 
+                pairsavailable = 10;
+                popularebardgamesize = 20
+                seconds = 70;
+                failedlevel = seconds;
                 document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
                 document.getElementById("idlevel").innerText = this.innerText;
                 populateMyArray(pairsavailable);
                 sortOutFinalArray();
-              }
-            }
 
+              }
+
+              else {
+                if(this.innerText >= 35 && this.innerText <= 40) {
+                  removeDivBoard(36, "board-game-four");
+                  addClickEventToSqaureBoard(36);
+                  pairsavailable = 18;
+                  popularebardgamesize = 36;
+                  seconds = 90;
+                  failedlevel = 90;
+                  document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
+                  document.getElementById("idlevel").innerText = this.innerText;
+                  populateMyArray(pairsavailable);
+                  sortOutFinalArray();
+                }
+              }
+
+            }
           }
-        }
-      } 
+        } 
+      }
     }
   }
+
   function playFromMenu() {
     document.getElementById("idresultofmatch").innerText = "";
     if(allowToPaly === true && gameon ==  false) {
@@ -793,10 +866,8 @@ window.onload = function() {
     } 
   }
 
-    /* Media query section for alert message*/
+  /* Media query section for alert message*/
   /**---------------------------------------------------------------------------------------------------- */
-
-  
 
   closebutton.addEventListener("click", function(){
     //this.parentNode.style.display = "hidden";
@@ -804,7 +875,6 @@ window.onload = function() {
     element.classList.remove("show-pairs");
     element.classList.add("hide-pairs");
   });
-
 
     /*this an alert message for the menu. when the user click on pairs */
   idmenupairs.addEventListener("click", function(){

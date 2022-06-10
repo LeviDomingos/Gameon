@@ -1,5 +1,5 @@
 /*the body and some html elements properties defined here */
-html, body{
+html, body {
     padding: 5px;
     /*height: 100vw;*/
     background-color:wheat;
@@ -9,14 +9,13 @@ html, body{
 }
 
 /* this part deals whit the header section */
-.bg-header{
-        /* header color background*/
+.bg-header {
+    /* header color background*/
     background-color:#324800;
-
 }
 
-.game-round{
-    /* here i define the size of the round where the letters - word game on goes in */
+.game-round {
+    /* here i define the size of the round where the letters goes in */
     display: inline-block;
     background-color: #187b00;
     width: 100px;
@@ -28,55 +27,42 @@ html, body{
     font: bold;
 }
 
-.game-round-on{
-
-    /* the last two letters - word on property is defined here, gave them diferent color background*/
-    display: inline-block;
-    width: 100px;
-    height: 100px;
-    color: white;
-    line-height: 100px;
-    text-align: center;
-    font-size: 50px;
-    font: bold;
-}
-
 /*nav section starts here  this nav is from bootstrap*/
-.nav-link{
+.nav-link {
     color:white;
 }
-.nav-link:hover{
+.nav-link:hover {
     color:white;
 }
-.nav-link::after{
+.nav-link::after {
     color:white;
 }
 
 /* i create a section called welcome that sits beneaf the nav bar just to make the page more appealing*/
-.welcome{
+.welcome {
     background-color: white;
     color:black;
     width: 100%;
     max-height: 400px;
 }
 
-.hr-welcome{
+.hr-welcome {
     /*a line between main and welcome secrtion */
     border: 2px solid #187b00;
     margin-left: 20%;
     margin-right: 25%;
 }
 
-h1{
+h1 {
     text-align: center;
 }
-h1, h2{
+h1, h2 {
     color:blue;
     font-family:"Times New Roman";
 }
 
 /* gdefine the score area size*/
-.scoreinformation{
+.scoreinformation {
     margin-left: 10px;
     margin-top: 45px;
     background-color: black;
@@ -87,21 +73,24 @@ h1, h2{
 } 
 
 /* make some elements in-visible */
-.btn-off-visible{
+.btn-off-visible {
     visibility: hidden;
     height: 0px;
 }
 /* turn on some elements on page - make them visible again*/
-.btn-on-visible{
+.btn-on-visible {
     visibility:visible;
 }
 
-button{
+button {
     margin-top: 10px;
 }
     
+#grad:hover {
+    background-image: linear-gradient(red, yellow, green);
+  }
 
-.board-game-one{ 
+.board-game-one { 
     /* 4 by 3 for 6 pais of guess*/
     /*a total of 12 square */
     /*for level 1 to 5 and numbers and letters*/
@@ -111,7 +100,7 @@ button{
      grid-template-rows: 70px 70px 70px;
      justify-content: center;
 }
-.board-game-two{
+.board-game-two {
     /*4 by 4 8 pairs of guess*/
     /*a total of 16 square */
     /*for level 11 to 19 for number, letters - color some letter and number and pictures*/
@@ -121,7 +110,7 @@ button{
     justify-content: center;
 }
 
-.board-game-three{ 
+.board-game-three { 
     /* 5 by 4 10 pais of guess*/
     /*a total of 20 square */
     /*for level 20 to 34 only and pictures, numbers - number with colours to make it hard*/
@@ -131,7 +120,7 @@ button{
      justify-content: center;
 }
 
-.board-game-four{
+.board-game-four {
     /*6 by 6  18 pairs of guess*/ 
     /*a total of 36 square */
     /*for level 35 to 40 only and picture only but very similar one make it much harder*/
@@ -140,6 +129,7 @@ button{
     grid-template-rows: 70px 70px 70px 70px 70px 70px;
     justify-content: center;
 }
+
 /*<> */
 
 .box {
@@ -148,18 +138,38 @@ button{
     background-color: white;
     border: 2px solid blue;
     border-radius: 8px;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+    text-decoration: none;
+    transition: box-shadow .15s,transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
 }
 
 .box-select-level {
     transition-duration: 0.4s;
 }
+.box:focus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
 
+.box:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.box:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}
 .box-select-level:hover {
-    background-color: #4CAF50; /* Green */
+    background-image: linear-gradient(yellow, green);
     color: white;
-  }
+}
 
-.box-select-level{
+.box-select-level {
     padding: 10px;
     font-size: 20px;
     text-align: center;
@@ -168,7 +178,7 @@ button{
     border-radius: 8px;
 }
 
-span{
+span {
     font-family: Arial, Helvetica, sans-serif;
     /* index page styling finishes here */
 }
@@ -176,12 +186,12 @@ span{
 hr {
     border: 2px solid #187b00;
 }
-.text-ajust{
+.text-ajust {
     text-align: justify;
 }
 
 /*footer section starts from here */
-.class-footer{
+.class-footer {
     color: wheat;
     background-color:#ac9b7d;
     margin-top:auto;
@@ -189,50 +199,49 @@ hr {
     line-height: 100px;
 }
 
-
-a{
+a {
     text-decoration: none;
 }
 /*media query */
 
 
-.score-chart{
+.score-chart {
     text-align: center;
 }
 
-.select-any-level{
+.select-any-level {
     text-align: right;
 }
 
-.score-chart-p{
+.score-chart-p {
     height: 10px;
 }
-.click-here{
+.click-here {
     color:blue;
 }
 
-.hide-pairs{
+.hide-pairs {
     visibility: hidden;
 }
-.show-pairs{
+.show-pairs {
     visibility: visible;
 }
 
 @media screen and (max-width: 400px) {
-    html,body{
+    html,body {
         padding: 3px;
         font-size: 16px;
         height: auto;
     }
-    .jumbotron{
+    .jumbotron {
         height: 0px;
         visibility: hidden;
     }
 
-    .welcome{
+    .welcome {
         max-height: 150px;
     }
-    .scoreinformation{
+    .scoreinformation {
         background-color: white;
         color: blue;
         font-size: 16px;
@@ -240,15 +249,15 @@ a{
         margin-left: 25px;
         height: 120px;
      }
-     .board-game-one{ 
+     .board-game-one { 
         /* 4 by 3 for 6 pais of guess*/
         /*a total of 12 square */
         /*for level 1 to 5 and numbers and letters*/
         /*form 1 to 5 show the number for 5 seconds and from 6 to 10 a total guess.*/
-         grid-template-columns: 65px 65px 65px 65px;
-         grid-template-rows: 65px 65px 65px;
+        grid-template-columns: 65px 65px 65px 65px;
+        grid-template-rows: 65px 65px 65px;
     }
-    .board-game-two{
+    .board-game-two {
         /*4 by 4 8 pairs of guess*/
         /*a total of 16 square */
         /*for level 11 to 19 for number, letters - color some letter and number and pictures*/
@@ -257,16 +266,16 @@ a{
         font-size: medium;
     }
     
-    .board-game-three{ 
+    .board-game-three { 
         /* 5 by 4 10 pais of guess*/
         /*a total of 20 square */
         /*for level 20 to 34 only and pictures, numbers - number with colours to make it hard*/
-         grid-template-columns: 55px 55px 55px 55px 55px;
-         grid-template-rows: 55px 55px 55px 55px;
-         font-size: small;
+        grid-template-columns: 55px 55px 55px 55px 55px;
+        grid-template-rows: 55px 55px 55px 55px;
+        font-size: small;
     }
     
-    .board-game-four{
+    .board-game-four {
         /*6 by 6  18 pairs of guess*/ 
         /*a total of 36 square */
         /*for level 35 to 40 only and picture only but very similar one make it much harder*/
@@ -274,115 +283,66 @@ a{
         grid-template-rows: 45px 45px 45px 45px 45px 45px;
         border: pink;
     }
+
     .box {
         font-size: 35px;
         border: 1px solid green;
     }
 
-span{
-    color :blue;
-}
+    span {
+        color :blue;
+    }
+    /* here I hide section one two and three to make the most of the space on mobile devices suitable */    
+    .hide-section-two {
+        visibility: hidden;
+        height: 0px;;   
+    }     
 
- /* here I hide section one two and three to make the most of the space on mobile devices suitable */    
-.hide-section-two{
-    visibility: hidden;
-    height: 0px;;   
-}     
+    .hr-welcome { 
+        visibility: hidden;
+    }
 
-.hr-welcome{
-    visibility: hidden;
-}
+    .score-chart {
+        text-align: left;
+    }
 
-.score-chart{
-    text-align: left;
-}
+    /* ---------------------------------------------------------------------------------------------- */
+    /* Callout box - fixed position at the bottom of the page */
+    .callout {
+        position: fixed;
+        top: 200px;
+        left: 2px;
+        margin-left: 5px;
+        width: 265px;
+    }
 
-/* ---------------------------------------------------------------------------------------------- */
-/* Callout box - fixed position at the bottom of the page */
-.callout {
-    position: fixed;
-    top: 200px;
-    left: 2px;
-    margin-left: 5px;
-    width: 265px;
-  }
-  
-  /* Callout header */
-  .callout-header {
-    padding: 10px 15px;
-    background-color:#187b00;
-    font-size: 20px;
-    color: white;
-  }
-  
-  /* Callout container/body */
-  .callout-container {
-    padding: 15px;
-    background-color:white;
-    color: blue;
-  }
-  
-  /* Close button */
-  .closebtn {
-    position: absolute;
-    top: 5px;
-    right: 15px;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-  }
-  
-  /* Change color on mouse-over */
-  .closebtn:hover {
-    color: lightgrey;
-  }
+    /* Callout header */
+    .callout-header {
+        padding: 10px 15px;
+        background-color:#187b00;
+        font-size: 20px;
+        color: white;
+    }
+    /* Callout container/body */
+    .callout-container {
+        padding: 15px;
+        background-color:white;
+        color: blue;
+    }
+
+    /* Close button */
+    .closebtn {
+        position: absolute;
+        top: 5px;
+        right: 15px;
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+    }
+
+    /* Change color on mouse-over */
+    .closebtn:hover {
+        color: lightgrey;
+    }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
