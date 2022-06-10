@@ -23,27 +23,27 @@
                         
                         <!-- each header element got a col-md-2 from bootstrap size -->
                         <div class="col-md-2"> 
-                            <div class="game-round rounded-circle"> G</div>
+                            <div id="id0" class="game-round rounded-circle"> G</div>
                         </div>
 
                         <div class="col-md-2"> 
-                            <div class="game-round rounded-circle"> A</div>
+                            <div id="id1" class="game-round rounded-circle"> A</div>
                         </div>
                         
                         <div class="col-md-2"> 
-                            <div class="game-round rounded-circle"> M</div>
+                            <div id="id2" class="game-round rounded-circle"> M</div>
                         </div>
                         
                         <div class="col-md-2"> 
-                            <div class="game-round rounded-circle"> E</div>
+                            <div id="id3" class="game-round rounded-circle"> E</div>
                         </div>
                         
                         <div class="col-md-2"> 
-                            <div class="game-round-on rounded-circle bg-dark"> O</div>
+                            <div id="id4" class="game-round-on rounded-circle bg-dark"> O</div>
                         </div>
 
                         <div class="col-md-2"> 
-                            <div class="game-round-on rounded-circle bg-dark"> N</div>
+                            <div id="id5" class="game-round-on rounded-circle bg-dark"> N</div>
                         </div>
 
                     </div>
@@ -61,9 +61,9 @@
                         <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Home</a>
                           <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#about_the_game">Pairs</a></li>
-                            <li><a class="dropdown-item" href="#how_to_play">How 2 play</a></li>
-                            <li><a class="dropdown-item" href="#scoresruling">Scoring rules</a></li>
+                            <li id="idmenupairs"><a class="dropdown-item" href="#about_the_game">Pairs</a></li>
+                            <li id="idhowtoplay"><a class="dropdown-item" href="#how_to_play">How 2 play</a></li>
+                            <li id="idscoringrules"><a class="dropdown-item" href="#scoresruling">Scoring rules</a></li>
                             <li><a id ="idstartplaying" class="dropdown-item" href="#">Start Playing</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a  class="dropdown-item" href="loginform.html">Login</a></li>
@@ -83,10 +83,16 @@
                 <div class="row">
                     <div class="col-md-12 welcome"> 
                         <h1>Welcome...</h1>
-                        <p class="text-ajust">Here you will find a variety of well crafted online puzzles and games designed to challenge your mind and exercise your brain. Sometimes the challenges aren't really hurdles at all, they're welcome challenges, tests that improve your brain. All games are developed in-house and all completely free with no special downloads.</p>
-                    </div>
-                                    
+                        <p class="text-ajust">Here you will find a variety of well crafted online puzzles and games designed to challenge your mind and exercise your brain. <span class ="hide-section-two">Sometimes the challenges aren't really hurdles at all, they're welcome challenges, tests that improve your brain. All games are developed in-house and all completely free with no special downloads.</span></p>
+                    </div>          
                 </div>
+                <div id="idcallout" class="callout hide-pairs">
+                    <div id="callouttitle" class="callout-header"> </div>
+                    <span id ="closebutton" class="closebtn"> &times;</span>
+                    <div class="callout-container">
+                      <p id ="calloutinfo"></p>
+                    </div>
+                  </div>
                 <!-- the welcome section finishes here -->    
                 <hr class="hr-welcome"> 
                 <!-- here is where the game board starts. the game board or tiles only become visible when clicked on start palying menu
@@ -108,7 +114,7 @@
                     </div>
                     <br />
                     <!-- the score section start here, show on the right side of the board-->
-                    <div class="col-md-3 scoreinformation">
+                    <div class="col-md-5 scoreinformation">
                         <p>Time: <span id ="idcountdown"> 60 </span> Sec. </p>
                         <p> Score: <span id="idscores"> 00 </span> </p>
                         <p> Level: <span id="idlevel"> 00 </span> </p> 
@@ -209,6 +215,13 @@
             </section>      
              <!-- section three starts here. deals with game information or element. on mobile devices becomes invisible too-->
             <section class="hide-section-two">
+                <div class ="row">
+                    <div class="col-md-4 text-ajust">
+                        <h2>How to Play...</h2>
+                        <p>Playing is very simple - you turn over one tile and then try to find a matching tile. </p>
+                        <p>When you click on the first tile - beacuse you have been given the oportunity to memorize the board <span style="font-size:20px">&#128540;</span>, you should be able to rember the matching tile.</p>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-4 text-ajust">
                         <h2 id="idscoresruling">Scoring Rules...</h2>
@@ -220,7 +233,7 @@
                 </div>    
             </section>
 
-            <section id ="idjoin">
+            <section id ="idjoin" class="hide-section-two">
                 
                 <div class="row">
                     <div class="col-md-6">
@@ -248,7 +261,6 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-6"><h2 class="score-chart"> Score Chart</h2></div>
                 </div>
             </section>
 

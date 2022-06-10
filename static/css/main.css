@@ -77,13 +77,14 @@ h1, h2{
 
 /* gdefine the score area size*/
 .scoreinformation{
+    margin-left: 10px;
     margin-top: 45px;
     background-color: black;
-    width: 200px;
+    max-width: 200px;
     height: 200px;
     font-size:20px;
     color:white;
-}
+} 
 
 /* make some elements in-visible */
 .btn-off-visible{
@@ -140,12 +141,23 @@ button{
     justify-content: center;
 }
 /*<> */
+
 .box {
     font-size: 50px;
     text-align: center;
     background-color: white;
     border: 2px solid blue;
+    border-radius: 8px;
 }
+
+.box-select-level {
+    transition-duration: 0.4s;
+}
+
+.box-select-level:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+  }
 
 .box-select-level{
     padding: 10px;
@@ -153,12 +165,11 @@ button{
     text-align: center;
     background-color: white;
     border: 2px solid blue;
+    border-radius: 8px;
 }
 
 span{
-    color: yellow;
     font-family: Arial, Helvetica, sans-serif;
-    
     /* index page styling finishes here */
 }
 
@@ -200,10 +211,17 @@ a{
     color:blue;
 }
 
-@media screen and (max-width: 780px) {
+.hide-pairs{
+    visibility: hidden;
+}
+.show-pairs{
+    visibility: visible;
+}
+
+@media screen and (max-width: 400px) {
     html,body{
-        padding: 5px;
-        font-size: 20px;
+        padding: 3px;
+        font-size: 16px;
         height: auto;
     }
     .jumbotron{
@@ -211,13 +229,55 @@ a{
         visibility: hidden;
     }
 
+    .welcome{
+        max-height: 150px;
+    }
     .scoreinformation{
         background-color: white;
         color: blue;
+        font-size: 16px;
         margin-top: 10px;
-        width: 100%;
-        height: 150px;
+        margin-left: 25px;
+        height: 120px;
      }
+     .board-game-one{ 
+        /* 4 by 3 for 6 pais of guess*/
+        /*a total of 12 square */
+        /*for level 1 to 5 and numbers and letters*/
+        /*form 1 to 5 show the number for 5 seconds and from 6 to 10 a total guess.*/
+         grid-template-columns: 65px 65px 65px 65px;
+         grid-template-rows: 65px 65px 65px;
+    }
+    .board-game-two{
+        /*4 by 4 8 pairs of guess*/
+        /*a total of 16 square */
+        /*for level 11 to 19 for number, letters - color some letter and number and pictures*/
+        grid-template-columns: 65px 65px 65px 65px;
+        grid-template-rows: 65px 65px 65px 65px;
+        font-size: medium;
+    }
+    
+    .board-game-three{ 
+        /* 5 by 4 10 pais of guess*/
+        /*a total of 20 square */
+        /*for level 20 to 34 only and pictures, numbers - number with colours to make it hard*/
+         grid-template-columns: 55px 55px 55px 55px 55px;
+         grid-template-rows: 55px 55px 55px 55px;
+         font-size: small;
+    }
+    
+    .board-game-four{
+        /*6 by 6  18 pairs of guess*/ 
+        /*a total of 36 square */
+        /*for level 35 to 40 only and picture only but very similar one make it much harder*/
+        grid-template-columns: 45px 45px 45px 45px 45px 45px;
+        grid-template-rows: 45px 45px 45px 45px 45px 45px;
+        border: pink;
+    }
+    .box {
+        font-size: 35px;
+        border: 1px solid green;
+    }
 
 span{
     color :blue;
@@ -237,6 +297,45 @@ span{
     text-align: left;
 }
 
+/* ---------------------------------------------------------------------------------------------- */
+/* Callout box - fixed position at the bottom of the page */
+.callout {
+    position: fixed;
+    top: 200px;
+    left: 2px;
+    margin-left: 5px;
+    width: 265px;
+  }
+  
+  /* Callout header */
+  .callout-header {
+    padding: 10px 15px;
+    background-color:#187b00;
+    font-size: 20px;
+    color: white;
+  }
+  
+  /* Callout container/body */
+  .callout-container {
+    padding: 15px;
+    background-color:white;
+    color: blue;
+  }
+  
+  /* Close button */
+  .closebtn {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+  }
+  
+  /* Change color on mouse-over */
+  .closebtn:hover {
+    color: lightgrey;
+  }
 
 }
 
