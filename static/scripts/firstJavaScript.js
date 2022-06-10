@@ -47,20 +47,21 @@ window.onload = function() {
   const game = document.getElementById("idgame");
   const starttime = document.getElementById("idstarttime");
   const joinus = document.getElementById("idjoinus");
+
+  const loginpage = document.getElementById("loginpage");
   
   const registerMemberButton = document.getElementById("submit");
-  const loginMemberButton = document.getElementById("submitbt");
+  
   addClickEventToNumbers();
 
+  
 
-  /**for the login page  */
-  loginMemberButton.addEventListener("click", function() {
-
-
+  loginpage.addEventListener("click", function() {
+    window.open("href=loginform.html");
   });
 
   /* for the main page */
-  registerMemberButton.addEventListener("click", function(){
+  registerMemberButton.addEventListener("click", function() {
     let nickname = document.getElementById("nickname");
     let password = document.getElementById("pwd");
     let retypwd = document.getElementById("retypwd");
@@ -91,9 +92,8 @@ window.onload = function() {
   }
 
   function validatePassword(pwd, retypepwd) {
-      if(pwd.length === retypepwd.length && pwd === retypepwd) {
-        return true;
-      }
+    if(pwd.length === retypepwd.length && pwd === retypepwd) {
+      return true;
     }
   }
   /* fucntion that allows to show the board or tiles*/
