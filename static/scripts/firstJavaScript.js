@@ -54,10 +54,10 @@ window.onload = function() {
   
   addClickEventToNumbers();
 
-  
+
 
   loginpage.addEventListener("click", function() {
-    window.open("href=loginform.html");
+    window.open("loginform.html");
   });
 
   /* for the main page */
@@ -85,8 +85,8 @@ window.onload = function() {
     }
   }
 
-  function validateLength() {nickname, password, retypepwd} {
-    if(nickname.length < 4 || passwor.length < 4 || retypepwd.length < 4) {
+  function validateLength(nickname, password, retypepwd) {
+    if(nickname.length < 4 || password.length < 4 || retypepwd.length < 4) {
       return false;
     }
   }
