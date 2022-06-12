@@ -53,19 +53,13 @@
                 <div class="row">
                     <h2> Membership Login Page</h2>
                     <div class="col-md-4">
-                        <form>
-                            <div class="mb-3">
-                                <label for="nickname" class="form-label">Nick Name Or Email</label>
-                                <input type="text" class="form-control" id="nickname" placeholder="nick mane" name="nickname" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="pwd" class="form-label">Your Password</label>
-                                <input type="password" class="form-control" id="pwd" placeholder="........" name="pwd" required>
-                            </div>
-
+                        <form>    
+                            <label for="nickname">Nick name or Email:</label><br>
+                            <input type="text" id="nickname" name="fname"><br>
+                            <label for="lname">Password:</label><br>
+                            <input type="text" id="pwd" name="pwd">
                             <div class="mb-3 col-auto">
-                                <p id="my-form-status"></p>
-                                <button id="submitbt" type="submit" class="btn btn-primary mb-3">Login</button>
+                            <button id="submitbt" type="button" class="btn btn-primary mb-3">Login</button>
                             </div>
                         </form>  
                     </div>
