@@ -10,7 +10,7 @@ window.onload = function() {
 
   /**for the login page  */
   loginMemberButton.addEventListener("click", function() {
-    
+    event.preventDefault(); // To prevent following the link (optional)
     nickname = localStorage.nickname;
     email = localStorage.email;
     password = localStorage.password;
