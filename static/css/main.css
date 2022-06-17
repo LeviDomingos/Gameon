@@ -27,6 +27,11 @@ html, body {
     font: bold;
 }
 
+.display-match-information {
+    height: 40px;
+    text-align: center;
+    color:blue;
+}
 /*nav section starts here  this nav is from bootstrap*/
 .nav-link {
     color:white;
@@ -134,7 +139,7 @@ button {
 /*<> */
 
 .box {
-    font-size: 50px;
+    font-size: 40px;
     text-align: center;
     background-color: white;
     padding-left: 10px;
@@ -206,18 +211,10 @@ a {
 }
 /*media query */
 
-
-.score-chart {
-    text-align: center;
-}
-
 .select-any-level {
     text-align: right;
 }
 
-.score-chart-p {
-    height: 10px;
-}
 .click-here {
     color:blue;
 }
@@ -312,7 +309,7 @@ a {
     /* Callout box - fixed position at the bottom of the page */
     .callout {
         position: fixed;
-        top: 200px;
+        top: 100px;
         left: 2px;
         margin-left: 5px;
         width: 265px;

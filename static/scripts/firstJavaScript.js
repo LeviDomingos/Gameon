@@ -1,29 +1,30 @@
 let cells; //this varible is part of the build up boar
 let controlIdGameOn = 0;
 let getmediaquery;
-let stoptime = 0; /*/top the clock or time from ticking 
-let pairsavailable = 0; /** control how many pairs or match are available in the board */
-let allowtoclick = false; /* stop user from clicking the board untill all conditions meet a true requirement */
-let randomarraytoplay = []; /** to make sure that all arrays with objects are played by the user or player and reset ever time that all are played */
-let cannotclicktwice = 0; /* not allow the user to click twice on the same square*/
-let popularebardgamesize = 0; /** i fill up the board based on it size */
-let levelplaying = 0; /**level playing on select level or fucntion only */
-let levelfromstartmenu = 0; /**level to play from the menu only */
-let notAllowToPlaySameLevelAgain = []; /*to make sure that the player do not play or select the same level twice and play it again*/
-let fiveseconds = 5; /** allow the player to see the obeject to select for five sec and after vanishes  */
+let stoptime = 0; //top the clock or time from ticking 
+let pairsavailable = 0; //control how many pairs or match are available in the board 
+let allowtoclick = false; //stop user from clicking the board untill all conditions meet a true requirement 
+let randomarraytoplay = []; //to make sure that all arrays with objects are played by the user or player and 
+//reset ever time that all are played 
+let cannotclicktwice = 0; //not allow the user to click twice on the same square
+let popularebardgamesize = 0; // i fill up the board based on it size 
+let levelplaying = 1; //level playing on select level or fucntion only 
+let levelfromstartmenu = 1; //level to play from the menu only
+let notAllowToPlaySameLevelAgain = []; //to make sure that the player do not play or select the same level twice and play it again
+let fiveseconds = 5; //allow the player to see the obeject to select for five sec and after vanishes
 let stopclock = 0;
-let seconds = 60; /** seconds for the game or time to play each level or section */
+let seconds = 60; // seconds for the game or time to play each level or section 
 let gameon = true;
-let myArray = []; /*first array with raandom number, based on the size of the game or pairs to match */
-let saveClicked =[]; /**i save the click to make sure the match is perfect */
-let saveSquareId =[]; /**i save the square id to macth if selected twice to avoid duplication */
-let compareValueClickedWithArray =[]; /**store all the object of the game then compare if matches  */
-let scoreTwenty = []; /** everytime the object matches save 20 points */
-let scoreFive = []; /**do not match or fails to save 5 points */
-let numOfCombination = 0; /**i control the pairs available then if reaches the limit stop the game, no more pair out there:) */
-let allowToPaly = false; /* if is true means that the game is on and cannot select any othe rlevel until finishes the current level on */
-let secondsLeft = 0; /**make sure if any seconds left than i use to add to score or move to next level */
-let failedlevel = 0; /**hold the seconds for the failed level */
+let myArray = []; //first array with raandom number, based on the size of the game or pairs to match 
+let saveClicked =[]; // i save the click to make sure the match is perfect */
+let saveSquareId =[]; // i save the square id to macth if selected twice to avoid duplication 
+let compareValueClickedWithArray =[]; // store all the object of the game then compare if matches  
+let scoreTwenty = []; // everytime the object matches save 20 points */
+let scoreFive = []; // do not match or fails to save 5 points */
+let numOfCombination = 0; // i control the pairs available then if reaches the limit stop the game, no more pair out there:)
+let allowToPaly = false; // if is true means that the game is on and cannot select any othe rlevel until finishes the current level on 
+let secondsLeft = 0; // make sure if any seconds left than i use to add to score or move to next level 
+let failedlevel = 0; // hold the seconds for the failed level 
 const emoji = [
   "&#129493;&#127996;", "&#127798;", "&#128512;", 
   "&#129495;&#127995;", "&#127947;", "&#9200;",
@@ -64,36 +65,55 @@ window.onload = function() {
   addClickEventToNumbers();
   removeDivBoard(12, "board-game-one");
   starttime.disabled = true;
-  /* fucntion that allows to show the board or tiles*/
-  /* the board is not available when the first is load only when cliked on start playing menu*/
-
-  /*this function will show the area in which the board game is displayed when the page is loaded the area is hidden from the user*/
+  // fucntion that allows to show the board or tiles
+  // the board is not available when the first is load only when cliked on start playing menu
+  // this function will show the area in which the board game is displayed when the page is loaded the area is hidden from the user
+  
   function removeAndAddClass(){
-    /*jquery */
+    //jquery
     $("#idcreateboard").removeClass("btn-off-visible");
     $("#idcreateboard").addClass("btn-on-visible");
     $("#idhideboardgame").removeClass("btn-off-visible");
     $("#idhideboardgame").addClass("btn-on-visible");
   };
 
+  if(playOnsmallDevice()) {
+    document.getElementById("idstarttime").disabled = false;
+  }
 
   /* the button to start the time*/
   starttime && starttime.addEventListener("click", function() {
     seconds = failedlevel;
     allowToPaly = true 
     /** play from the level menu */
-    if(allowToPaly && gameon) {
-      notAllowToPlaySameLevelAgain.push(levelplaying);
-      populateBoardGame(popularebardgamesize);
+    if(playOnsmallDevice()) {
       stopclock = setInterval(fiveSencondToMemorize, 1000);
       document.getElementById("idstarttime").disabled = true;
       document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
-      gameon = false;
-    }   
-    else
-    {
-      if(!gameon && allowToPaly){
-        //the player must repeat the same level
+      PlayFlailedLevel(levelfromstartmenu);
+      populateBoardGame(popularebardgamesize);
+
+    }
+    else {
+
+      if(allowToPaly && gameon) {
+        notAllowToPlaySameLevelAgain.push(levelplaying);
+        populateBoardGame(popularebardgamesize);
+        stopclock = setInterval(fiveSencondToMemorize, 1000);
+        document.getElementById("idstarttime").disabled = true;
+        document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
+        gameon = false;
+      }   
+      else
+      {
+        if(!gameon && allowToPaly){
+          //the player must repeat the same level
+          stopclock = setInterval(fiveSencondToMemorize, 1000);
+          document.getElementById("idstarttime").disabled = true;
+          document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
+          PlayFlailedLevel(levelplaying);
+          populateBoardGame(popularebardgamesize);
+        }
       }
     }
   });
@@ -125,8 +145,12 @@ window.onload = function() {
       }
       if(seconds === 0) {
         clearInterval(stoptime);
+        seconds = 0;
         document.getElementById("idresultofmatch").innerText = "Run Out OF Time. Try Again Please.";
-        timeOut();
+        document.getElementById("idstarttime").disabled = false;
+        compareValueClickedWithArray = [];
+        restoreWhiteBackgroundAgain();
+       
       } 
   }
     
@@ -171,36 +195,49 @@ window.onload = function() {
   }
 
   function populateBoardGame(i){
+    alert("You are playing LEVEL : " + levelplaying + " Thanks");
+    if(levelplaying == 1 || levelplaying ==  6 || levelplaying == 12 || 
+      levelplaying == 16 || levelplaying == 20 || levelplaying == 25 || 
+      levelplaying == 28 || levelplaying == 34 || levelplaying == 38) {
 
-    if(randomarraytoplay.length === 0) {
       for(let x = 0;  x < i; x++) {
         var element = document.getElementById("idsquare" + x);
         element.innerText = compareValueClickedWithArray[x];
       }
     }
     else {
-      if(randomarraytoplay.length === 1) {
+      if(levelplaying == 2 || levelplaying == 7 || levelplaying === 11 || 
+        levelplaying == 17 || levelplaying == 21 || levelplaying == 27 ||
+        levelplaying == 29 || levelplaying == 33 || levelplaying == 37) {
+
         for(let x = 0;  x < i; x++) {
           var element = document.getElementById("idsquare" + x);
           element.innerHTML = emoji[compareValueClickedWithArray[x]];
         }
       }
       else {
-        if(randomarraytoplay.length === 2) {
-          for(let x = 0;  x < i; x++) {
+        if(levelplaying == 3 || levelplaying == 8 || levelplaying == 13 || 
+          levelplaying == 18 || levelplaying == 22 || levelplaying == 26 ||
+          levelplaying == 30 || levelplaying == 32 || levelplaying == 36) {
+
+          for(let x = 0;  x < i; x++){
             var element = document.getElementById("idsquare" + x);
             element.innerText = alphabeticletters[compareValueClickedWithArray[x]];
           }
         }
         else {
-          if(randomarraytoplay.length === 3) {
+          if(levelplaying == 4 || levelplaying == 9 || levelplaying == 14 || 
+            levelplaying == 19 || levelplaying == 23 || levelplaying == 31 ||
+            levelplaying == 39) {
+
             for(let x = 0;  x < i; x++) {
               var element = document.getElementById("idsquare" + x);
               element.innerText = alphabetandnumbers[compareValueClickedWithArray[x]];
             }
           }
           else {
-            if(randomarraytoplay.length === 4) {
+            if(levelplaying == 5 || levelplaying == 10 || levelplaying == 15 || 
+              levelplaying == 24 || levelplaying == 35 || levelplaying == 40) {
               for(let x = 0;  x < i; x++) {
                 var element = document.getElementById("idsquare" + x);
                 element.innerHTML = mixeofdarrays[[compareValueClickedWithArray[x]]];
@@ -234,7 +271,7 @@ window.onload = function() {
  
   function getValueAfterClick() {
     
-    if(allowtoclick == true && cannotclicktwice === 0) {
+    if(allowtoclick == true && cannotclicktwice === 0 && compareValueClickedWithArray.length > 1) {
       cannotclicktwice = this.id;
       allowtoclick = false;
 
@@ -246,7 +283,7 @@ window.onload = function() {
           
       }
       else{
-        revealValuecliked(this.id);
+        revealValueclicked(this.id);
         saveClicked.push(this.innerText);
         saveSquareId.push(this.id);
         allowtoclick = true;
@@ -256,7 +293,7 @@ window.onload = function() {
 
     else
     {
-      if(allowtoclick === true && cannotclicktwice !== this.id) {
+      if(allowtoclick === true && cannotclicktwice !== this.id && compareValueClickedWithArray.length > 1) {
         
         allowtoclick = false;
         var element = document.getElementById("idresultofmatch");
@@ -264,7 +301,7 @@ window.onload = function() {
           allowtoclick = true;
         }
         else {
-          revealValuecliked(this.id);
+          revealValueclicked(this.id);
           saveClicked.push(this.innerText);
           saveSquareId.push(this.id);
           if(saveClicked.length === 2) {
@@ -296,8 +333,8 @@ window.onload = function() {
     //allowtoclick = true;
   };
   
-  function revealValuecliked(x) { 
-    if(x.length === 9) {
+  function revealValueclicked(x) { 
+    if(x.length === 9 && compareValueClickedWithArray.length > 1) {
       var i = x.charAt(8);
       var element = document.getElementById(x);
       if(randomarraytoplay.length === 0){
@@ -319,7 +356,7 @@ window.onload = function() {
     else {
       var y = x.charAt(8) + x.charAt(9);
       var element = document.getElementById(x);
-      if(randomarraytoplay.length === 0){
+      if(randomarraytoplay.length === 0 && compareValueClickedWithArray.length > 1){
         element.innerText = compareValueClickedWithArray[y];
       }
       if(randomarraytoplay.length === 1){
@@ -396,45 +433,59 @@ window.onload = function() {
     /* playing from the menu */
     let x = scoreTwenty.reduce(addUp, 0) * secondsLeft; 
     let element = document.getElementById("idresultofmatch");
-    var elementFinalScore = document.getElementById("idscores");
-    myArray = [];
-    saveClicked =[];
-    saveSquareId =[];
-    scoreTwenty = [];
-    scoreFive = [];
+    let elementFinalScore = document.getElementById("idscores");
     numOfCombination = 0;
     let time = setInterval(function() {
       /**if the user is playing by selecting level than this code runs to validate scores */
-      if(secondsLeft > 25){
-        element.innerText = "Well Done. Next Level.";
-        element.style.color = "blue";
-        elementFinalScore.innerText = x;
-        document.getElementById("idstarttime").disabled = false;
-        allowToPaly = false;
-        randomarraytoplay.push(1);
-        levelfromstartmenu += 1;
-        resetArayasOfObjects();
-        restoreWhiteBackgroundAgain();
+      if(playOnsmallDevice()) {
+        if(secondsLeft > 25){
+          element.innerText = "Well Done. Next Level.";
+          element.style.color = "blue";
+          elementFinalScore.innerText = x;
+          document.getElementById("idstarttime").disabled = false;
+          compareValueClickedWithArray =[];
+          randomarraytoplay.push(1);
+          levelfromstartmenu += 1;
+          levelplaying = levelfromstartmenu;
+          resetArayasOfObjects();
+          restoreWhiteBackgroundAgain();
+        }
+        else {
+          element.innerText = "Failed. Try again please.";
+          document.getElementById("idstarttime").disabled = false;
+          element.style.color = "blue";
+          restoreWhiteBackgroundAgain();
+          compareValueClickedWithArray = [];
+        }
       }
-      else
-      {
-        element.innerText = "Failed. Try again please.";
-        document.getElementById("idstarttime").disabled = false;
-        element.style.color = "blue";
-        elementFinalScore.innerText = 0;
-        restoreWhiteBackgroundAgain();
+      else {
+     
+        if(secondsLeft > 25){
+          element.innerText = "Well Done. Next Level.";
+          element.style.color = "blue";
+          elementFinalScore.innerText = x;
+          document.getElementById("idstarttime").disabled = true;
+          allowToPaly = false;
+          gameon = true;
+          compareValueClickedWithArray =[];
+          randomarraytoplay.push(1);
+          resetArayasOfObjects();
+          restoreWhiteBackgroundAgain();
+        }
+        else
+        {
+          element.innerText = "Failed. Try again please.";
+          document.getElementById("idstarttime").disabled = false;
+          element.style.color = "blue";
+          elementFinalScore.innerText = 0;
+          restoreWhiteBackgroundAgain();
+          compareValueClickedWithArray = [];
+          gameon = false;
+        }
       }    
-        clearInterval(time);
+      clearInterval(time);
     },900);
   };
-
-  function timeOut() {
-    document.getElementById("idstarttime").disabled = false;
-    let element = document.getElementById("idresultofmatch");
-    element.innerText = "Time out. Try again please.";
-    restoreWhiteBackgroundAgain();
-  };
-
 
   function resetArayasOfObjects() {
     if(randomarraytoplay.length > 4){
@@ -512,7 +563,7 @@ window.onload = function() {
     if(n > 0) {
       for(let x = 0;  x < n; x++) {
         if(notAllowToPlaySameLevelAgain[x] === i){
-          alert("Select a different Level Please. You already played level :" +  i + "Thanks");
+          alert("Select a different Level Please. You already played level : " +  i + ". Thank you.");
           return true;
         }
       }
@@ -520,8 +571,8 @@ window.onload = function() {
     return false;
   }
 
-  /*this fucntion will create the tiles or the game board acordsing to the level selected by the user 
-  I have four board game with different sizes; from 4x3; 4x4; 5x4 6x6*/
+  //his fucntion will create the tiles or the game board acordsing to the level selected by the user 
+  //I have four board game with different sizes; from 4x3; 4x4; 5x4 6x6
   function addBoardGameViaSelectLevel() {
     document.getElementById("idresultofmatch").innerText = "";
     if(!allowToPaly && !checkIfHasPlayesThisLevel(this.innerText)) {
@@ -592,10 +643,85 @@ window.onload = function() {
     }
   }
  
+  //play from here if fails level
+  function PlayFlailedLevel(levelplaying) {
+    document.getElementById("idresultofmatch").innerText = "";
+    numOfCombination = 0;
+    document.getElementById("idstarttime").disabled = true;
+    if(levelplaying <= 10) {
+      removeDivBoard(12, "board-game-one");
+      addClickEventToSqaureBoard(12);
+      pairsavailable = 6;
+      popularebardgamesize = 12;
+      document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
+      document.getElementById("idlevel").innerText = levelplaying;
+      populateMyArray(pairsavailable);
+      sortOutFinalArray();
+      seconds = 60;
+      failedlevel = seconds;
+    
+    }
+    else {
+      if(levelplaying >= 11 && levelplaying <= 19) {
+        removeDivBoard(16, "board-game-two");
+        addClickEventToSqaureBoard(16);
+        pairsavailable = 8;
+        popularebardgamesize = 16;
+        document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
+        document.getElementById("idlevel").innerText =levelplaying;
+        populateMyArray(pairsavailable);
+        sortOutFinalArray();
+        seconds = 60;
+        failedlevel = seconds;
+      }
+      else {
+        if(levelplaying >= 20 && levelplaying <= 34) {
+          removeDivBoard(20, "board-game-three");
+          addClickEventToSqaureBoard(20); 
+          pairsavailable = 10;
+          popularebardgamesize = 20
+          seconds = 70;
+          failedlevel = seconds;
+          document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
+          document.getElementById("idlevel").innerText = levelplaying;
+          populateMyArray(pairsavailable);
+          sortOutFinalArray();
+        }
+        else {
+          if(levelplaying >= 35 && levelplaying <= 40) {
+            removeDivBoard(36, "board-game-four");
+            addClickEventToSqaureBoard(36);
+            pairsavailable = 18;
+            popularebardgamesize = 36;
+            seconds = 90;
+            failedlevel = 90;
+            document.getElementById("idcountdown").innerHTML =  " : " + seconds; 
+            document.getElementById("idlevel").innerText = levelplaying;
+            populateMyArray(pairsavailable);
+            sortOutFinalArray();
+          }
+        }
+      }
+    }
+  }
 
-  /* Media query section for alert message*/
+  // Media query section for alert message*/
   /**---------------------------------------------------------------------------------------------------- */
 
+
+  function playOnsmallDevice() {
+    myArray = [];
+    saveClicked =[];
+    saveSquareId =[];
+    scoreTwenty = [];
+    scoreFive = [];
+    numOfCombination = 0;
+    const getmediaquery = window.matchMedia("(max-width: 400px)");
+    if (getmediaquery.matches) { // If media query matches
+      document.getElementById("idstarttime").disabled = false;
+      return true;
+    }
+  }
   closeButton.addEventListener("click", function(){
     //this.parentNode.style.display = "hidden";
     let element = document.getElementById("idcallout");

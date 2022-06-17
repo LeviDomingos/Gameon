@@ -78,7 +78,10 @@
                 <div class="row">
                     <div class="col-md-12 welcome"> 
                         <h1>Welcome...</h1>
-                        <p class="text-ajust">Here you will find a variety of well crafted online puzzles and games designed to challenge your mind and exercise your brain. <span class ="hide-section-two">Sometimes the challenges aren't really hurdles at all, they're welcome challenges, tests that improve your brain.</span></p>
+                        <p class="text-ajust"> 
+                            Here you will find a variety of well crafted online puzzles and games designed to challenge your mind and exercise your brain. 
+                            <span class="hide-section-two">The challenges aren't really hurdles at all, they're welcome challenges, tests that improve your brain.</span>
+                        </p>
                     </div>          
                 </div>
 
@@ -95,9 +98,15 @@
                 <!-- here is where the game board starts. the game board or tiles only become visible when clicked on start palying menu
                 the btn-off-visible is the class responsible for it-->
 
+                <div class="row">
+                    <div class="col-md-6">
+                        <p id ="idresultofmatch" class="display-match-information"></p>
+                    </div>
+                </div>
+
                 <div id ="idhideboardgame" class="row">
                     <div class="col-md-6 justify-content-center">
-                        <p id ="idresultofmatch"></p>
+                       
                         <div id="idgame" > </div>
 
                         <!-- the start button goes here i make it sit down bellow the tiles or board-->
@@ -117,11 +126,13 @@
                         <p> Level: <span id="idlevel"> 00 </span> </p> 
                     </div>
             
-                </div>    
+                </div>   
+            </section>  
+            <section class="hide-section-two">
 
                 <div class="col-md-8">
                     <h2 class="select-any-level"> Select Any Level To Play </h2>
-                    <p class="score-chart">If you wish to just play a specific level, select from the numbers below. The higher the number is the more dificult the level or game is. Feel free to try and see how you perform.<span style="font-size:20px">&#128540;</span></p>
+                    <p>If you wish to just play a specific level, select from the numbers below. The higher the number is the more dificult the level or game is. Feel free to try and see how you perform.<span style="font-size:20px">&#128540;</span></p>
                     
                     <div class="row select-any-level">       
                         <div class="col-sm-1"></div>
