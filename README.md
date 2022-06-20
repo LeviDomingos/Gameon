@@ -1,13 +1,12 @@
 # Gameon
-Second Project - Create Pair Game.
+# Create Pair Game.
 
-Pair Game - is my second assigment from FrontEnd Course. The goal of this project is to test my JavaScript knowledge. This project will hepl me to put to practice everything that i learnt so far in JavaScript.
-
-UX
+## Pair Game
+This is my second assigment from FrontEnd Course. The goal of this project is to test my JavaScript knowledge. This project will hepl me to put to practice everything that i learnt so far in JavaScript.
 
 My project or pair game is for current and potential student that are learnig to create games or want to improve their skills too. The website is very simple to use. Users will find easy navagete the website and play the game.   
 
-User Stories
+## **User Stories**
 
 As a potential FrontEnd developer I want to feel confortable using JavaScript and expand my knowledge in one of the most popular language on the internet. As developer I want people to enjoy the games created by me.
 
@@ -15,12 +14,12 @@ I drew my wireframes using Balsamiq. I have pictures or art work that shows how 
 
 There are some differences between my wireframes and my final website. This was due to visual preferences and feedback received from other users who tested my website.
 
-Features :
-1 - A header with the words G-A-M-E-O-N
-2 -  A very basic menu that blends with the header or logo
-3 - A welcome message 
+## *Features*
+1. A header with the words G-A-M-E-O-N
+2.  A very basic menu that blends with the header or logo
+3. A welcome message 
 
-Main Page
+# Main Page
 
 As soon as the page loads up the user will see the:
 
@@ -37,7 +36,7 @@ There are 3 options on menu. By selecting the options, the user can read about t
 
 The footer is quite simple and there is a link that takes you to github project.
 
-Features Left to Implement
+## Features Left to Implement
 
 Once I've learnt JavaScript, I will add further functionality to the existing features on my website, such as:
 
@@ -49,42 +48,45 @@ Once I've learnt JavaScript, I will add further functionality to the existing fe
 I would like to implement a feature called - challenge of the day, that allow playeres to get bonus point and keep them happy.
 
 
-Balsamiq
+## Balsamiq
 I've used Balsamiq to create wireframes of my website before building the actual site.
-HTML5
+
+**HTML5**
 The project uses HTML5 to create the basic elements and content of my website.
-CSS3
+
+**CSS3**
 The project uses CSS3 to add custom styles to the elements and content of my website.
-Bootstrap v4.3
-The project uses Bootstrap v4.3 to add a responsive grid system, prebuilt components, plugins built on jQuery, and Bootstrap styles to my website, before adding my custom styles.
-jQuery
+
+**Bootstrap v4.3**
+The project uses Bootstrap v4.6 to add a responsive grid system, prebuilt components, plugins built on jQuery, and Bootstrap styles to my website, before adding my custom styles.
+
+**jQuery**
 The project uses jQuery to simplify DOM manipulation. This is the standard jQuery that is built with Bootstrap components.
-JavaScript
+
+**JavaScript**
 The project uses JavaScript from Bootstrap which is required to add functionality to some of Bootstrap's components.
-Git
+
+**Git**
 I've used Git as a version control system to regularly add and commit changes made to project in Cloud9, before pushing them to GitHub.
-GitHub
+
+**GitHub**
 I've used GitHub as a remote repository to push and store the committed changes to my project from Git. I've also used GitHub pages to deploy my website in a live environment.
-Testing
 
-Testing User Stories
+## Testing
 
-I used my user stories and documented each of the steps that each user would need to accomplish what they have stated. Below is the link to the document that contains this information:
-
-Testing User Stories
-Responsive Testing
-
+**For Responsive Design**
 I used Google Chrome's Development tools to constantly test each change that I made to my website and to ensure that it appeared in the desired way on different screen sizes. I also tested my website on different screen sizes (mobile, tablet and desktop) to ensure it appeared in the desired way on different devices.
 
-Testing Checklist
-HTML and CSS Validation
+## Testing Checklist
+* HTML and CSS Validation 
 
-I used the W3C HTML Validator tool to validate my HTML code.
+- I used the W3C HTML Validator tool to validate my HTML code.
 
-I used the W3C CSS Validator tool to validate my CSS code.
+- I used the W3C CSS Validator tool to validate my CSS code.
 
-Interesting Bugs or Problems
+- Interesting Bugs or Problems
 
+## Challenges
 My great challenge was javascript array itself and emoji icon. Some emoji would display but other wont't. When come to aligning each object in the page was challenging too.
 
 The hosting platform that I've used for my project is GitHub Pages. To deploy my website to GitHub pages, I used the following steps:
@@ -101,22 +103,20 @@ Selected the 'master branch' option under the 'GitHub Pages' section.
 
 Ran several regular commits throughout my project.
 
-Repository Link
+## Repository Link
 
- https://levidomingos.github.io/Gameon/
+https://levidomingos.github.io/Gameon/
 
-Running Code Locally
+* Running Code Locally
 
 To run my code locally, users can download a local copy of my code to their desktop by completing the following steps:
 
-Go to my GitHub repository.
-Click on 'Clone or download'.
-Click on 'Download ZIP'.
-Once dowloaded, extract the zip file's contents and run my website locally.
-Credits
+1. Go to my GitHub repository.
+2. Click on 'Clone or download'.
+3. Click on 'Download ZIP'.
+- Once dowloaded, extract the zip file's contents and run my website locally.
 
-Conten
-
+## Credits
 I received inspiration for the full screen overlay menu when I was looking at websites for other games.
 
 A special mention to my mentor, for his feedback on my project's scope and design, and for hints on what information to include in my README.md file to justify my stylistic choices.
