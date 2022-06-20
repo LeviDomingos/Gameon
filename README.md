@@ -1,5 +1,4 @@
-# Gameon
-# Create Pair Game.
+# G a m e o n - Pair Game.
 
 ## Pair Game
 This is my second assigment from FrontEnd Course. The goal of this project is to test my JavaScript knowledge. This project will hepl me to put to practice everything that i learnt so far in JavaScript.
