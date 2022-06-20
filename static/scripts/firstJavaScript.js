@@ -439,13 +439,13 @@ window.onload = function() {
       /**if the user is playing by selecting level than this code runs to validate scores */
       if(playOnsmallDevice()) {
         if(secondsLeft > 25){
-          element.innerText = "Well Done. Next Level.";
           element.style.color = "blue";
           elementFinalScore.innerText = x;
           document.getElementById("idstarttime").disabled = false;
           compareValueClickedWithArray =[];
           randomarraytoplay.push(1);
           levelfromstartmenu += 1;
+          element.innerText = "Well Done. Next Level. " + levelfromstartmenu;
           levelplaying = levelfromstartmenu;
           resetArayasOfObjects();
           restoreWhiteBackgroundAgain();
@@ -722,16 +722,27 @@ window.onload = function() {
       return true;
     }
   }
+
+
+  function hideBoardAndButtonAndTime() {
+    $("#idhideboardgame").addClass("hide-section-two");
+  }
+
+  function replaceBoardButtonTime() {
+    $("#idhideboardgame").removeClass("hide-section-two");
+  }
+
   closeButton.addEventListener("click", function(){
     //this.parentNode.style.display = "hidden";
     let element = document.getElementById("idcallout");
     element.classList.remove("show-pairs");
     element.classList.add("hide-pairs");
+    replaceBoardButtonTime();
   });
 
     /*this an alert message for the menu. when the user click on pairs */
   idmenupairs.addEventListener("click", function(){
-
+    hideBoardAndButtonAndTime();
     getmediaquery = window.matchMedia("(max-width: 400px)");
     if (getmediaquery.matches) { // If media query matches
       let element = document.getElementById("idcallout");
@@ -750,6 +761,7 @@ window.onload = function() {
    /*this an alert message for the menu. when the user click on how to play */
 
    idhowtoplay.addEventListener("click", function() {
+    hideBoardAndButtonAndTime();
     getmediaquery = window.matchMedia("(max-width: 400px)");
     if (getmediaquery.matches) { // If media query matches
       let element = document.getElementById("idcallout");
@@ -767,6 +779,7 @@ window.onload = function() {
 
    /*this an alert message for the menu. when the user click scoring rules */
   idscoringrules.addEventListener("click", function(){
+    hideBoardAndButtonAndTime();
     getmediaquery = window.matchMedia("(max-width: 400px)");
     if (getmediaquery.matches) { // If media query matches
       let element = document.getElementById("idcallout");

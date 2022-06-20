@@ -265,6 +265,11 @@ a {
         font-size: medium;
     }
     
+    .game-on-header {
+        grid-template-columns: 55px 55px 55px 55px 55px 55px;
+
+    }
+
     .board-game-three { 
         /* 5 by 4 10 pais of guess*/
         /*a total of 20 square */
@@ -297,10 +302,6 @@ a {
         height: 0px;;   
     }     
 
-    .hr-welcome { 
-        visibility: hidden;
-    }
-
     .score-chart {
         text-align: left;
     }
@@ -309,7 +310,7 @@ a {
     /* Callout box - fixed position at the bottom of the page */
     .callout {
         position: fixed;
-        top: 100px;
+        top: 200px;
         left: 2px;
         margin-left: 5px;
         width: 265px;
