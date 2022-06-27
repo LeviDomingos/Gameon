@@ -291,6 +291,7 @@ a {
     .box {
         font-size: 35px;
         border: 1px solid green;
+        cursor: pointer;
     }
 
     span {
