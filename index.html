@@ -17,12 +17,9 @@
         on mobile device the header becomes invisible to maximaze space-->
         <header>
             <div class="container-fluid bg-header">
-                <div class="jumbotron">
-                    <div class="row">
-                        
-                        <!-- each header element got a col-md-2 from bootstrap-->
-                        <div class="col-md-3"></div>
-                        <div class="col-md-9"> 
+                <div class="jumbotron justify-content-center">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 justify-content-center"> 
                             <div class="game-round rounded-circle"> G</div>
                             <div class="game-round rounded-circle"> A</div>
                             <div class="game-round rounded-circle"> M</div>
@@ -62,7 +59,7 @@
             <section class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 welcome"> 
-                        <h1>Welcome...</h1>
+                        <h3>Welcome...</h3>
                         <p class="text-ajust"> 
                             Here you will find a variety of well crafted online puzzles and games designed to challenge your mind and exercise your brain. 
                             <span class="hide-section-two">The challenges aren't really hurdles at all, they're welcome challenges, tests that improve your brain.</span>
@@ -90,8 +87,7 @@
                 </div>
 
                 <div id ="idhideboardgame" class="row">
-                    <div class="col-md-6 justify-content-center">
-                       
+                    <div class="col-md-4">
                         <div id="idgame" > </div>
 
                         <!-- the start button goes here i make it sit down bellow the tiles or board-->
@@ -105,89 +101,52 @@
 
                     <br />
                     <!-- the score section start here, show on the right side of the board-->
-                    <div class="col-md-4 scoreinformation justify-content-center">
+                    <div class="col-md-2 scoreinformation justify-content-right">
                         <p>Time: <span id ="idcountdown"> 60 </span> Sec. </p>
                         <p> Score: <span id="idscores"> 00 </span> </p>
                         <p> Level: <span id="idlevel"> 00 </span> </p> 
                     </div>
-            
+                    
+                    <div class="col-md-4 justify-content-right hide-section-two">
+                        <h3> Select Any Level To Play </h3>
+                        <p>If you wish to just play a specific level, select from the numbers.</p> 
+
+                        <div class= "row select-any-level justify-content-left">   
+                            <div class="col-md-1"></div>
+                            <div id="idlevel1" class="col-md-2 box-select-level">1</div>
+                            <div id="idlevel2" class="col-md-2 box-select-level">2</div>
+                            <div id="idlevel3" class="col-md-2 box-select-level">3</div>
+                            <div id="idlevel4" class="col-md-2 box-select-level">4</div>
+                            <div id="idlevel5" class="col-md-2 box-select-level">5</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div id="idlevel6" class="col-md-2 box-select-level">6</div>
+                            <div id="idlevel7" class="col-md-2 box-select-level">7</div>
+                            <div id="idlevel8" class="col-md-2 box-select-level">8</div>
+                            <div id="idlevel9" class="col-md-2 box-select-level">9</div>
+                            <div id="idlevel10" class="col-md-2 box-select-level">10</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div id="idlevel11" class="col-md-2 box-select-level">11</div>
+                            <div id="idlevel12" class="col-md-2 box-select-level">12</div>
+                            <div id="idlevel13" class="col-md-2 box-select-level">13</div>
+                            <div id="idlevel14" class="col-md-2 box-select-level">14</div>
+                            <div id="idlevel15" class="col-md-2 box-select-level">15</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div id="idlevel16" class="col-md-2 box-select-level">16</div>
+                            <div id="idlevel17" class="col-md-2 box-select-level">17</div>
+                            <div id="idlevel18" class="col-md-2 box-select-level">18</div>
+                            <div id="idlevel19" class="col-md-2 box-select-level">19</div>
+                            <div id="idlevel20" class="col-md-2 box-select-level">20</div>
+                        </div>
+                    </div>         
                 </div>
 
             </section>
-
-            <section class="hide-section-two">
-
-                <div class="col-md-8">
-                    <h2 class="select-any-level"> Select Any Level To Play </h2>
-                    <p>If you wish to just play a specific level, select from the numbers below. The higher the number is the more dificult the level or game is. Feel free to try and see how you perform.<span style="font-size:20px">&#128540;</span></p>
-                    
-                    <div class="row select-any-level">       
-                        <div class="col-sm-1"></div>
-                        <div id="idlevel1" class="col-sm-1 box-select-level">1</div>
-                        <div id="idlevel2" class="col-sm-1 box-select-level">2</div>
-                        <div id="idlevel3" class="col-sm-1 box-select-level">3</div>
-                        <div id="idlevel4" class="col-sm-1 box-select-level">4</div>
-                        <div id="idlevel5" class="col-sm-1 box-select-level">5</div>
-                        <div id="idlevel6" class="col-sm-1 box-select-level">6</div>
-                        <div id="idlevel7" class="col-sm-1 box-select-level">7</div>
-                        <div id="idlevel8" class="col-sm-1 box-select-level">8</div>
-                        <div id="idlevel9" class="col-sm-1 box-select-level">9</div>
-                        <div id="idlevel10" class="col-sm-1 box-select-level">10</div>
-                    </div>
-                    <div class="row select-any-level">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-1"></div>
-                        <div id="idlevel11" class="col-sm-1 box-select-level">11</div>
-                        <div id="idlevel12" class="col-sm-1 box-select-level">12</div>
-                        <div id="idlevel13" class="col-sm-1 box-select-level">13</div>
-                        <div id="idlevel14" class="col-sm-1 box-select-level">14</div>
-                        <div id="idlevel15" class="col-sm-1 box-select-level">15</div>
-                        <div id="idlevel16" class="col-sm-1 box-select-level">16</div>
-                        <div id="idlevel17" class="col-sm-1 box-select-level">17</div>
-                        <div id="idlevel18" class="col-sm-1 box-select-level">18</div>
-                        <div id="idlevel19" class="col-sm-1 box-select-level">19</div>
-                    </div>
-                    <div class="row select-any-level">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-1"></div>
-                        <div id="idlevel20" class="col-sm-1 box-select-level">20</div>
-                        <div id="idlevel21" class="col-sm-1 box-select-level">21</div>
-                        <div id="idlevel22" class="col-sm-1 box-select-level">22</div>
-                        <div id="idlevel23" class="col-sm-1 box-select-level">23</div>
-                        <div id="idlevel24" class="col-sm-1 box-select-level">24</div>
-                        <div id="idlevel25" class="col-sm-1 box-select-level">25</div>
-                        <div id="idlevel26" class="col-sm-1 box-select-level">26</div>
-                        <div id="idlevel27" class="col-sm-1 box-select-level">27</div>
-                    </div>
-                    <div class="row select-any-level">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-1"></div>
-                        <div id="idlevel28" class="col-sm-1 box-select-level">28</div>
-                        <div id="idlevel29" class="col-sm-1 box-select-level">29</div>
-                        <div id="idlevel30" class="col-sm-1 box-select-level">30</div>
-                        <div id="idlevel31" class="col-sm-1 box-select-level">31</div>
-                        <div id="idlevel32" class="col-sm-1 box-select-level">32</div>
-                        <div id="idlevel33" class="col-sm-1 box-select-level">33</div>
-                        <div id="idlevel34" class="col-sm-1 box-select-level">34</div>
-                    </div>
-                    <div class="row select-any-level">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-1"></div>
-                        <div id="idlevel35" class="col-sm-1 box-select-level">35</div>
-                        <div id="idlevel36" class="col-sm-1 box-select-level">36</div>
-                        <div id="idlevel37" class="col-sm-1 box-select-level">37</div>
-                        <div id="idlevel38" class="col-sm-1 box-select-level">38</div>
-                        <div id="idlevel39" class="col-sm-1 box-select-level">39</div>
-                        <div id="idlevel40" class="col-sm-1 box-select-level">40</div>
-                    </div>
-                </div>           
-            </section>    
 
             <!-- section two starts here. deals with game information or element. on mobile devices becomes invisible too-->
             <section class="hide-section-two">
@@ -196,7 +155,7 @@
                     <div class="col-md-4 text-ajust">
                         <h2 id="idabout_the_game">Pairs </h2>
                         <p>Pairs is a memory game where you need to match pairs of tiles. Playing is very simple - you turn over one tile and then try to find a matching tile.</p>
-                        <p>There are 40 levels, each getting progressively harder.</p>    
+                        <p>There are 20 levels, each getting progressively harder.</p>    
                         <p>This indicates that you should then be able to make a match (if you have perfect recall). The scoring system incorporates this principle.</p>
                         <p>In some levels, all the tiles are revealed initially for a 5 seconds. This makes it harder to score a perfect recall as it as  sumes you remember where each tile is.</p>   
                     </div>    

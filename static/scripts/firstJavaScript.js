@@ -1,7 +1,7 @@
-let cells; //this varible is part of the build up boar
+let cells; //this varible is part of create the up boar
 let controlIdGameOn = 0;
 let getmediaquery;
-let stoptime = 0; //top the clock or time from ticking 
+let stoptime = 0; //stop the clock or time from ticking 
 let pairsavailable = 0; //control how many pairs or match are available in the board 
 let allowtoclick = false; //stop user from clicking the board untill all conditions meet a true requirement 
 let randomarraytoplay = []; //to make sure that all arrays with objects are played by the user or player and 
@@ -556,7 +556,6 @@ window.onload = function() {
    
   }
 
-
   /*this checks if the player selected the same level if he did not allow to play again but select a different one */
   function checkIfHasPlayesThisLevel(i) {
     let n = notAllowToPlaySameLevelAgain.length;
@@ -716,7 +715,7 @@ window.onload = function() {
     scoreTwenty = [];
     scoreFive = [];
     numOfCombination = 0;
-    const getmediaquery = window.matchMedia("(max-width: 400px)");
+    const getmediaquery = window.matchMedia("(max-width: 412px)");
     if (getmediaquery.matches) { // If media query matches
       document.getElementById("idstarttime").disabled = false;
       return true;
@@ -743,7 +742,7 @@ window.onload = function() {
     /*this an alert message for the menu. when the user click on pairs */
   idmenupairs.addEventListener("click", function(){
     hideBoardAndButtonAndTime();
-    getmediaquery = window.matchMedia("(max-width: 400px)");
+    getmediaquery = window.matchMedia("(max-width: 412px)");
     if (getmediaquery.matches) { // If media query matches
       let element = document.getElementById("idcallout");
       element.classList.remove("hide-pairs");
@@ -762,7 +761,7 @@ window.onload = function() {
 
    idhowtoplay.addEventListener("click", function() {
     hideBoardAndButtonAndTime();
-    getmediaquery = window.matchMedia("(max-width: 400px)");
+    getmediaquery = window.matchMedia("(max-width: 412px)");
     if (getmediaquery.matches) { // If media query matches
       let element = document.getElementById("idcallout");
       element.classList.remove("hide-pairs");
@@ -780,7 +779,7 @@ window.onload = function() {
    /*this an alert message for the menu. when the user click scoring rules */
   idscoringrules.addEventListener("click", function(){
     hideBoardAndButtonAndTime();
-    getmediaquery = window.matchMedia("(max-width: 400px)");
+    getmediaquery = window.matchMedia("(max-width: 412px)");
     if (getmediaquery.matches) { // If media query matches
       let element = document.getElementById("idcallout");
       element.classList.remove("hide-pairs");
