@@ -42,9 +42,10 @@
                         <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Home</a>
                           <ul class="dropdown-menu">
-                            <li id="idmenupairs"><a class="dropdown-item" href="#about_the_game">Pairs</a></li>
-                            <li id="idhowtoplay"><a class="dropdown-item" href="#how_to_play">How 2 play</a></li>
-                            <li id="idscoringrules"><a class="dropdown-item" href="#scoresruling">Scoring rules</a></li>
+                            <li><a data-cell-index ="0" class="dropdown-item" href="#about_the_game">Pairs</a></li>
+                            <li><a data-cell-index ="1" class="dropdown-item" href="#how_to_play">How 2 play</a></li>
+                            <li><a data-cell-index ="2" class="dropdown-item" href="#scoresruling">Scoring rules</a></li>
+                            <li><a data-cell-index= "3" class="dropdown-item hide-menu" href="#">Start Game</a></li>
                           </ul>
                         </li>
                     </ul>
@@ -60,25 +61,29 @@
                 <div class="row">
                     <div class="col-md-12 welcome"> 
                         <h3>Welcome...</h3>
-                        <p class="text-ajust"> 
-                            Here you will find a variety of well crafted online puzzles and games designed to challenge your mind and exercise your brain. 
-                            <span class="hide-section-two">The challenges aren't really hurdles at all, they're welcome challenges, tests that improve your brain.</span>
+                        <p id ="menu-info"> 
+                            Here you will find a variety of well crafted online puzzles and games designed to challenge your mind and
+                            exercise your brain. The challenges aren't really hurdles at all, they're welcome challenges, tests that 
+                            improve your brain.
                         </p>
                     </div>          
                 </div>
             </section>
 
             <section>
-                <div class="row justify-content-left">
-                    <div class="col-md-4">
-                        <p id ="id-info" class="display-match-information"></p>
+                <div class="row ">
+                    <div class="col-md-12">
+                        <p>Time: <span id ="id-countdown"> 00 </span> 
+                        Score: <span id="id-scores"> 00 </span>
+                        <span id ="id-info" class="display-match-information"></span>
+                    </p>
                     </div>
                 </div>
             </section>
 
             <section>
-                <div class="row">
-                    <div class="col-md-4">
+                <div class="row container">
+                    <div class="col-md-6">
                         <div id="id-board-game" class= ""> </div>
                         <!-- the start button goes here i make it sit down bellow the tiles or board-->
                         <div class="row">
@@ -90,13 +95,8 @@
                     </div>
                     <br />
                     <!-- the score section start here, show on the right side of the board-->
-                    <div class="col-md-2 scoreinformation justify-content-right">
-                        <p>Time: <span id ="id-countdown"> 60 </span> Sec. </p>
-                        <p> Score: <span id="id-scores"> 00 </span> </p>
-                        <p> Level: <span id="id-level"> 00 </span> </p> 
-                    </div>
                     
-                    <div class="col-md-4 justify-content-right hide-section-two">
+                    <div class="col-md-6 hide-section-two">
                         <h3> Select Any Level To Play </h3>
                         <div class= "row">  
                             <div class="col-md-1"></div>
@@ -112,7 +112,7 @@
                             <div data-cell-index="7" class="col-md-2 box-select-level">7</div>
                             <div data-cell-index="8" class="col-md-2 box-select-level">8</div>
                             <div data-cell-index="9" class="col-md-2 box-select-level">9</div>
-                            <div data-cell-index="10"  class="col-md-2 box-select-level">10</div>
+                            <div data-cell-index="10" class="col-md-2 box-select-level">10</div>
                         </div>
                         <div class="row">
                             <div class="col-md-1"></div>
@@ -135,24 +135,24 @@
             </section>
 
             <!-- section two starts here. deals with game information or element. on mobile devices becomes invisible too-->
-            <section class="hide-section-two">
+            <section>
                 <hr class="hr-welcome">
                 <div class="row">
-                    <div class="col-md-4 text-ajust">
-                        <h2 id="idabout_the_game">Pairs </h2>
+                    <div class="col-md-4 text-ajust hide-section-two">
+                        <h2 id ="about_the_game">Pairs</h2>
                         <p>Pairs is a memory game where you need to match pairs of tiles. Playing is very simple - you turn over one tile and then try to find a matching tile.</p>
                         <p>There are 20 levels, each getting progressively harder.</p>    
                         <p>This indicates that you should then be able to make a match (if you have perfect recall). The scoring system incorporates this principle.</p>
                         <p>In some levels, all the tiles are revealed initially for a 5 seconds. This makes it harder to score a perfect recall as it as  sumes you remember where each tile is.</p>   
                     </div>    
-                    <div class="col-md-4 text-ajust">
-                        <h2>How to Play...</h2>
+                    <div class="col-md-4 text-ajust hide-section-two">
+                        <h2 id ="how_to_play">How to Play...</h2>
                         <p>Playing is very simple - you turn over one tile and then try to find a matching tile. </p>
                         <p>When you click on the first tile - beacuse you have been given the oportunity to memorize the board <span 
                         style="font-size:20px">&#128540;</span>, you should be able to rember the matching tile.</p>
                     </div>
-                    <div class="col-md-4 text-ajust">
-                        <h2 id="idscoresruling">Scoring Rules...</h2>
+                    <div class="col-md-4 text-ajust hide-section-two">
+                        <h2 id ="scoresruling">Scoring Rules...</h2>
                         <p>Each time you make a successful match you score 20 points. If you fail to match and you should have been ableto (a matching tile was previously shown), you score (-5 * number of times match tile has been shown). So if amatching tile has been revealed three times before, you will score -15.</p>
                         <p>At the end of a level, if successful, you score a bonus of the number of seconds remaining. Also, if you have 
                         perfect recall, you score a bonus of (5 * number of pairs in the level).</p>
