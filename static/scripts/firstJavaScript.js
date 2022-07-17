@@ -96,12 +96,12 @@ window.onload = function() {
     if(perfectMatch.length === boardZise && startPlaying == 2) {
       clearInterval(countDownTime);
       secondsLeft = secondsToPlay;
-      totalScore();
+      time = setInterval(totalScore, 900);
     }
 
     if(secondsToPlay === 0) {
       clearInterval(countDownTime);
-      document.getElementById("id-info").innerText = "Try again";
+      document.getElementById("id-info").innerText = "Try again level:"  + stringLevelPlayed;
       startPlaying = 1; // means that failed to win the level 
       clearInterval(countDownTime);
       if(getMediaQuery.matches) {
@@ -111,7 +111,6 @@ window.onload = function() {
   } 
 
   function totalScore() {
-  time = setInterval( function() {
     if(secondsToPlay > 25) {
       finalScore = scoreValue *= secondsToPlay;
       document.getElementById("id-info").innerText = "Total Score: " + finalScore + ". Choose Level";
@@ -126,7 +125,7 @@ window.onload = function() {
    }
    else {
       finalScore = scoreValue -= secondsToPlay; 
-      document.getElementById("id-info").innerText = "Total Score:" + finalScore + ", Try again";
+      document.getElementById("id-info").innerText = "Total Score:" + finalScore + ", Try again level: " + stringLevelPlayed;
       document.getElementById("id-start-time").disabled = true;
       startPlaying = 1; // represent repeating the level again
       scoreValue = 0;
@@ -135,7 +134,6 @@ window.onload = function() {
         fireEvent(getMediaQuery); // for media query only
       }
     }  
-  },900);
   } 
 
   function handleLevelClicked(clickedCellEvent) {
