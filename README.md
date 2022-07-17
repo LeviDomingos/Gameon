@@ -1,9 +1,9 @@
 # G a m e o n - Pair Game.
 
 ## Pair Game
-This is my second assigment from FrontEnd Course. The goal of this project is to test my JavaScript knowledge. This project will hepl me to put to practice everything that i learnt so far in JavaScript.
+This is my second assigment from FrontEnd Course. The goal of this project is to test my JavaScript knowledge. This project will hepl me to practice everything that I learnt so far.
 
-My project or pair game is for current and potential student that are learnig to create games or want to improve their skills too. The website is very simple to use. Users will find easy navagete the website and play the game.   
+My project or pair game is for current and potential student that are learnig to create games or want to improve their skills too. The website is very simple to use. Users will find easy to navagete the website and play the game.   
 
 ## **User Stories**
 
@@ -20,13 +20,11 @@ There are some differences between my wireframes and my final website. This was 
 
 # Main Page
 
-As soon as the page loads up the user will see the:
+As soon as the page loads up the user will see:
 
-- Board Game ot Tiles and Timer. 
+- All the levels are visible. 
 
-- All the levels are visible too. 
-
-- There are 40 levels with 5 different types of game. 
+- There are 20 levels with 5 different types of game. 
 
 - The user will experience playing with number, emoji, letters, letters and numbers, emoji and letters and so on...
 
@@ -40,11 +38,11 @@ The footer is quite simple and there is a link that takes you to github project.
 Once I've learnt JavaScript, I will add further functionality to the existing features on my website, such as:
 
 - The user will be able to register
-- The will login to the website and customise the page to his preference
+- The will login to the website and customise the page to their preferences
 - The user will save the game and continue from where left
 - The user will see a chart displaying all the best personal scores and others players too
 
-I would like to implement a feature called - challenge of the day, that allow playeres to get bonus point and keep them happy.
+I would like to implement a feature called - challenge of the day, that allows playeres to get bonus point and keep them happy.
 
 
 ## Balsamiq
@@ -56,11 +54,11 @@ The project uses HTML5 to create the basic elements and content of my website.
 **CSS3**
 The project uses CSS3 to add custom styles to the elements and content of my website.
 
+**JavaScritp**
+Every script is written in pure JavaScript language only.
+
 **Bootstrap v4.3**
 The project uses Bootstrap v4.6 to add a responsive grid system, prebuilt components, plugins built on jQuery, and Bootstrap styles to my website, before adding my custom styles.
-
-**jQuery**
-The project uses jQuery to simplify DOM manipulation. This is the standard jQuery that is built with Bootstrap components.
 
 **JavaScript**
 The project uses JavaScript from Bootstrap which is required to add functionality to some of Bootstrap's components.
@@ -74,7 +72,7 @@ I've used GitHub as a remote repository to push and store the committed changes 
 ## Testing
 
 **For Responsive Design**
-I used Google Chrome's Development tools to constantly test each change that I made to my website and to ensure that it appeared in the desired way on different screen sizes. I also tested my website on different screen sizes (mobile, tablet and desktop) to ensure it appeared in the desired way on different devices.
+I used Google Chrome's Development tools constantly test each change that I made to my website and to ensure that it appeared in the desired way on different screen sizes. I also tested my website on different screen sizes (mobile, tablet and desktop) to ensure it appeared in the desired way on different devices.
 
 ## Testing Checklist
 * HTML and CSS Validation 
