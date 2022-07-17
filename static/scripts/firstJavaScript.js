@@ -351,11 +351,27 @@ window.onload = function() {
     boardZise = addAndRemoveClassToBoardGame();
     spareTime = secondsToPlay;
     for(let x = 0; x < boardZise; x++ ) {
+      const element = $("<div>").attr("cell-index", x).addClass("box").text("");
+      //element.addClass("box");
+      $("#id-board-game").append(element);
+    }
+  }
+
+  function ass() {
+    for(let x = 0; x < boardZise; x++ ) {
       const element =  document.createElement("div");
       element.setAttribute("cell-index", x);
       element.className = "box";
       document.getElementById("id-board-game").appendChild(element);
+  }
+  function build() {
+    for(var i = 0; i < x; i ++) {
+      cells = $('<div>').addClass('box').attr('id', "idsquare" + i).text("");
+      cells.addClass("box");
+      $('#idgame').append(cells);
     }
+  };
+
   }
 
   //function produces an array of numbers neeeded for the game. the amount of number or size of array
@@ -447,40 +463,29 @@ window.onload = function() {
     
     const cellValue = selectMenuToShow.target;
     const clickedCellIndex = parseInt(cellValue.getAttribute('data-cell-index'));
-    const element = document.querySelector("h3");
     const menuInfo = document.querySelectorAll(".col-md-4");
     const mediaQuery = window.matchMedia("(max-width: 412px)");
   
     if(mediaQuery.matches && clickedCellIndex === 0) {
-      menuInfo[0].classList.add("show-pairs");
-      menuInfo[0].classList.remove("hide-section-two");
-      menuInfo[1].classList.remove("show-pairs");
-      menuInfo[1].classList.add("hide-section-two");
-      menuInfo[2].classList.remove("show-pairs");
-      menuInfo[2].classList.add("hide-section-two");
+      $(menuInfo[0]).addClass("show-pairs").removeClass("hide-section-two");
+      $(menuInfo[1]).addClass("hide-section-two").removeClass("show-pairs");
+      $(menuInfo[2]).addClass("hide-section-two").removeClass("show-pairs");
     }
     if(mediaQuery.matches && clickedCellIndex === 1) {
-      menuInfo[1].classList.add("show-pairs");
-      menuInfo[1].classList.remove("hide-section-two");
-      menuInfo[0].classList.remove("show-pairs");
-      menuInfo[0].classList.add("hide-section-two");
-      menuInfo[2].classList.remove("show-pairs");
-      menuInfo[2].classList.add("hide-section-two");
+      $(menuInfo[1]).addClass("show-pairs").removeClass("hide-section-two");
+      $(menuInfo[0]).addClass("hide-section-two").removeClass("show-pairs");
+      $(menuInfo[2]).addClass("hide-section-two").removeClass("show-pairs");
     }
     if(mediaQuery.matches && clickedCellIndex === 2) {
-      menuInfo[2].classList.add("show-pairs");
-      menuInfo[2].classList.remove("hide-section-two");
-      menuInfo[0].classList.remove("show-pairs");
-      menuInfo[0].classList.add("hide-section-two");
-      menuInfo[1].classList.remove("show-pairs");
-      menuInfo[1].classList.add("hide-section-two");
+      $(menuInfo[2]).addClass("show-pairs").removeClass("hide-section-two");
+      $(menuInfo[0]).addClass("hide-section-two").removeClass("show-pairs");
+      $(menuInfo[1]).addClass("hide-section-two").removeClass("show-pairs");
     }
     if(mediaQuery.matches && clickedCellIndex == 3) {
       fireEvent(getMediaQuery); // for media query only
-      menuInfo[0].classList.add("hide-section-two");
-      menuInfo[1].classList.add("hide-section-two");
-      menuInfo[2].classList.add("hide-section-two");
+      $(menuInfo[0]).addClass("hide-section-two");
+      $(menuInfo[1]).addClass("hide-section-two");
+      $(menuInfo[2]).addClass("hide-section-two");
     }
   }
-
 } 
