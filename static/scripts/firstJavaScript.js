@@ -352,28 +352,9 @@ window.onload = function() {
     spareTime = secondsToPlay;
     for(let x = 0; x < boardZise; x++ ) {
       const element = $("<div>").attr("cell-index", x).addClass("box").text("");
-      //element.addClass("box");
       $("#id-board-game").append(element);
     }
   }
-
-  function ass() {
-    for(let x = 0; x < boardZise; x++ ) {
-      const element =  document.createElement("div");
-      element.setAttribute("cell-index", x);
-      element.className = "box";
-      document.getElementById("id-board-game").appendChild(element);
-  }
-  function build() {
-    for(var i = 0; i < x; i ++) {
-      cells = $('<div>').addClass('box').attr('id', "idsquare" + i).text("");
-      cells.addClass("box");
-      $('#idgame').append(cells);
-    }
-  };
-
-  }
-
   //function produces an array of numbers neeeded for the game. the amount of number or size of array
   //will be dependent of the size of the board-game 
   function populateMyArray() {
