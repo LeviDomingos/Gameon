@@ -81,9 +81,9 @@ window.onload = function() {
     }
     startPlaying = 2;
     saveValueCliked =[];
-    saveIndex = [];
-  } 
-
+    saveIndex = []; 
+  }
+  
   function playTime() {
     secondsToPlay--;
     document.getElementById("id-countdown").innerText = secondsToPlay;
@@ -150,7 +150,7 @@ window.onload = function() {
     secondsToPlay = spareTime;
     const cellValue = clickedCellEvent.target;
     const clickedCellIndex = parseInt(cellValue.getAttribute('data-cell-index'));
-    if(startPlaying === 0 && !levelAlreadyPlayer(clickedCellIndex)) {
+    if(startPlaying === 0 && !levelAlreadyPlayed(clickedCellIndex)) {
       const cellValue = clickedCellEvent.target;
       const clickedCellIndex = parseInt(cellValue.getAttribute('data-cell-index'));
       document.getElementById("id-info").innerText = "Level: " + cellValue.innerText;
@@ -214,145 +214,150 @@ window.onload = function() {
   } 
 
   function removeChildrenElement() {
-  const list = document.getElementById("id-board-game");
-  while (list.hasChildNodes()) {
-    list.removeChild(list.firstChild);
-  }
+    const list = document.getElementById("id-board-game");
+    while (list.hasChildNodes()) {
+      list.removeChild(list.firstChild);
+    }
   } 
 
-  function levelAlreadyPlayer(x) {
-  for(let i = 0; i < levelPlayed.length; i++) {
-    if(levelPlayed[i]===x) {
-      return true;
+  function levelAlreadyPlayed(x) {// stop user from playing the same level twice
+    for(let i = 0; i < levelPlayed.length; i++) {
+      if(levelPlayed[i]===x) {
+        return true;
+      }
     }
-  }
   } 
+
   function disablePerfectMatch(x) {
-  for(let i = 0; i < perfectMatch.length; i++) {
-    if(perfectMatch[i] === x) {
-      return true;
+    for(let i = 0; i < perfectMatch.length; i++) {
+      if(perfectMatch[i] === x) {
+        return true;
+      }
     }
-  }
   } 
 
   function validateCell(x, i) {
-  startPlaying += 1;
-  const ifInfo =  document.getElementById("id-info");
-  const totalScore =  document.getElementById("id-scores");
-  const element = document.querySelectorAll(".box");
-  if(saveValueCliked.length === 0) {
-    saveValueCliked.push(x);
-    saveIndex.push(i);
-    startPlaying = 2;
-  }
-  else {
-    saveIndex.push(i);
-   if(saveIndex[0] === saveIndex[1]) {
-      saveIndex.pop();
+    //this function check if the values selected by the user matches stop the user from clicking twice on the same
+    //tile. if matches than scores...
+    startPlaying += 1;
+    const ifInfo =  document.getElementById("id-info");
+    const totalScore =  document.getElementById("id-scores");
+    const element = document.querySelectorAll(".box");
+    if(saveValueCliked.length === 0) {
+      saveValueCliked.push(x);
+      saveIndex.push(i);
       startPlaying = 2;
     }
     else {
-      saveValueCliked.push(x);
-      if(saveValueCliked[0] === saveValueCliked[1]) {
-        ifInfo.innerText ="Perfect Match";
-        element[saveIndex[0]].style.backgroundColor = "wheat";
-        element[saveIndex[1]].style.backgroundColor = "wheat"; 
-        perfectMatch.push(saveIndex[0]);
-        perfectMatch.push(saveIndex[1]);
-        scoreValue += 20;
-        totalScore.innerText = scoreValue; 
-        wipeWrongPerfectGuessBox(saveIndex[0], saveIndex[1]);
-        saveValueCliked = [];
-        saveIndex = [];
-        playTime();
+      saveIndex.push(i);
+     if(saveIndex[0] === saveIndex[1]) {
+        saveIndex.pop();
+        startPlaying = 2;
       }
       else {
-        ifInfo.innerHTML ="Wrong Match";
-        wipeWrongPerfectGuessBox(saveIndex[0], saveIndex[1]);
-        saveValueCliked =[];
-        saveIndex = [];
+        saveValueCliked.push(x); // saveValueClicked store all the clicks by the user and compare them if matches or not
+        if(saveValueCliked[0] === saveValueCliked[1]) {
+          ifInfo.innerText ="Perfect Match";
+          element[saveIndex[0]].style.backgroundColor = "wheat";
+          element[saveIndex[1]].style.backgroundColor = "wheat"; 
+          perfectMatch.push(saveIndex[0]); // store the perfect combination 
+          perfectMatch.push(saveIndex[1]);
+          scoreValue += 20;
+          totalScore.innerText = scoreValue; 
+          wipeWrongPerfectGuessBox(saveIndex[0], saveIndex[1]);
+          saveValueCliked = [];
+          saveIndex = [];
+          playTime();
+        }
+        else {
+          ifInfo.innerHTML ="Wrong Match";
+          wipeWrongPerfectGuessBox(saveIndex[0], saveIndex[1]);
+          saveValueCliked =[];
+          saveIndex = [];
+        }
       }
     }
-  }
   } 
 
   function handleEventClickToBox(clickedCell) {
-  const cellValue = clickedCell.target;
-  const cellIndex = parseInt(cellValue.getAttribute('cell-index'));
-  if(gameToPlay === 1 && !disablePerfectMatch(cellIndex) && startPlaying === 2) {
-    cellValue.innerHTML = emoji[populateFinalArray[cellIndex]];
-    validateCell(cellValue.innerHTML, cellIndex);
-  }
-  else {
-    if(gameToPlay === 2 && !disablePerfectMatch(cellIndex) && startPlaying === 2) {
-      cellValue.innerText = alphabLetters[populateFinalArray[cellIndex]];
-      validateCell(cellValue.innerText, cellIndex);
+    const cellValue = clickedCell.target;
+    const cellIndex = parseInt(cellValue.getAttribute('cell-index'));
+    if(gameToPlay === 1 && !disablePerfectMatch(cellIndex) && startPlaying === 2) {
+      cellValue.innerHTML = emoji[populateFinalArray[cellIndex]];
+      validateCell(cellValue.innerHTML, cellIndex);
     }
     else {
-      if(gameToPlay === 3 && !disablePerfectMatch(cellIndex)&& startPlaying === 2) {
-        cellValue.innerText = alphaNumbers[populateFinalArray[cellIndex]];
-        validateCell(cellValue.innerText, cellIndex)
+      if(gameToPlay === 2 && !disablePerfectMatch(cellIndex) && startPlaying === 2) {
+        cellValue.innerText = alphabLetters[populateFinalArray[cellIndex]];
+        validateCell(cellValue.innerText, cellIndex);
       }
-      else{
-        if(gameToPlay === 4 && !disablePerfectMatch(cellIndex)&& startPlaying === 2){
-          cellValue.innerHTML = mixedArrays[populateFinalArray[cellIndex]];
-          validateCell(cellValue.innerHTML, cellIndex);
+      else {
+        if(gameToPlay === 3 && !disablePerfectMatch(cellIndex)&& startPlaying === 2) {
+          cellValue.innerText = alphaNumbers[populateFinalArray[cellIndex]];
+          validateCell(cellValue.innerText, cellIndex)
         }
-        else {
-          if(gameToPlay === 5 && !disablePerfectMatch(cellIndex) && startPlaying === 2) {
-            cellValue.innerHTML = arrayOfNumbers[populateFinalArray[cellIndex]];
-            validateCell(cellValue.innerText, cellIndex);
+        else{
+          if(gameToPlay === 4 && !disablePerfectMatch(cellIndex)&& startPlaying === 2){
+            cellValue.innerHTML = mixedArrays[populateFinalArray[cellIndex]];
+            validateCell(cellValue.innerHTML, cellIndex);
           }
-        }
-      }
-    }
-  }
-  } 
-
-  function removeAllAfterFiveSeconds() {
-  const element = document.querySelectorAll(".box");
-  for(let x = 0; x < element.length; x++) {
-    element[x].innerHTML ="";
-    element[x].style.backgroundColor = "white";
-  }
-  } 
-
-  function showBoardForFiveSecond() {
-  const element = document.querySelectorAll(".box");
-  
-  if(gameToPlay === 1) {
-    for(let x = 0; x < element.length; x++){
-      element[x].innerHTML = emoji[populateFinalArray[x]];
-    }
-  }
-  else {
-    if(gameToPlay === 2) {
-      for(let x = 0; x < element.length; x++){
-        element[x].innerHTML = alphabLetters[populateFinalArray[x]];
-      }
-    }
-    else {
-      if(gameToPlay === 3) {
-       for(let x = 0; x < element.length; x++){
-         element[x].innerHTML = alphaNumbers[populateFinalArray[x]];
-       }
-      }
-      else{
-        if(gameToPlay === 4) {
-          for(let x = 0; x < element.length; x++){
-            element[x].innerHTML = mixedArrays[populateFinalArray[x]];
-          }
-        }
-        else {
-          if(gameToPlay === 5) {
-            for(let x = 0; x < element.length; x++){
-              element[x].innerHTML = arrayOfNumbers[populateFinalArray[x]];
+          else {
+            if(gameToPlay === 5 && !disablePerfectMatch(cellIndex) && startPlaying === 2) {
+              cellValue.innerHTML = arrayOfNumbers[populateFinalArray[cellIndex]];
+              validateCell(cellValue.innerText, cellIndex);
             }
           }
         }
       }
     }
-  }
+  } 
+
+  function removeAllAfterFiveSeconds() { // after showin for 5 second than evrything is wiped out 
+    const element = document.querySelectorAll(".box");
+    for(let x = 0; x < element.length; x++) {
+      element[x].innerHTML ="";
+      element[x].style.backgroundColor = "white";
+    }
+  } 
+
+   // at certain level the user will see the tyles first or values in it for 
+   // few second 
+  function showBoardForFiveSecond() {
+    const element = document.querySelectorAll(".box");
+    
+    if(gameToPlay === 1) {
+      for(let x = 0; x < element.length; x++){
+        element[x].innerHTML = emoji[populateFinalArray[x]];
+      }
+    }
+    else {
+      if(gameToPlay === 2) {
+        for(let x = 0; x < element.length; x++){
+          element[x].innerHTML = alphabLetters[populateFinalArray[x]];
+        }
+      }
+      else {
+        if(gameToPlay === 3) {
+         for(let x = 0; x < element.length; x++){
+           element[x].innerHTML = alphaNumbers[populateFinalArray[x]];
+         }
+        }
+        else{
+          if(gameToPlay === 4) {
+            for(let x = 0; x < element.length; x++){
+              element[x].innerHTML = mixedArrays[populateFinalArray[x]];
+            }
+          }
+          else {
+            if(gameToPlay === 5) {
+              for(let x = 0; x < element.length; x++){
+                element[x].innerHTML = arrayOfNumbers[populateFinalArray[x]];
+              }
+            }
+          }
+        }
+      }
+    }
   } 
 
   //  When the user chooses level to play this function builds the board needed to play the game
@@ -368,40 +373,39 @@ window.onload = function() {
   //function produces an array of numbers neeeded for the game. the amount of number or size of array
   //will be dependent of the size of the board-game 
   function populateMyArray() {
-  myArray =[];
-  populateFinalArray =[];
-  const i = boardZise / 2;
-  while(myArray.length < i) {
-    let p = Math.floor((Math.random() * 25) + 1);
-    if(myArray.length === 0) {
-      myArray.push(p);
-    }
-    else{
-      for(let x = 0; x < myArray.length; x++) {
-        if(myArray[x]=== p) {
-          break;
-        }
-        else {
-          if(x === myArray.length -1) {
-            myArray.push(p);
+    myArray =[];
+    populateFinalArray =[];
+    const i = boardZise / 2;
+    while(myArray.length < i) {
+      let p = Math.floor((Math.random() * 25) + 1);
+      if(myArray.length === 0) {
+        myArray.push(p);
+      }
+      else{
+        for(let x = 0; x < myArray.length; x++) {
+          if(myArray[x]=== p) {
+            break;
+          }
+          else {
+            if(x === myArray.length -1) {
+              myArray.push(p);
+            }
           }
         }
       }
+    }   
+    for(let j= 0;  j < myArray.length; j++) {
+      populateFinalArray.push(myArray[j]);
     }
-  }   
-  for(let j= 0;  j < myArray.length; j++) {
-    populateFinalArray.push(myArray[j]);
-  }
-  for(let v = 0;  v < myArray.length; v++) {
-    populateFinalArray.push(myArray.sort()[v]);
-  }
-  return populateFinalArray;
+    for(let v = 0;  v < myArray.length; v++) {
+      populateFinalArray.push(myArray.sort()[v]);
+    }
   } 
-  //  if the user gets it wrong or right the imagem being displayes is wiped out;
+  //  if the user gets it wrong or right the value being displayes is wiped out;
   function wipeWrongPerfectGuessBox(x, y) {
     const element = document.querySelectorAll(".box");
     const ifInfo =  document.getElementById("id-info");
-    var time = setInterval(function() {
+    const time = setInterval(function() {
       element[x].innerText = "";
       element[y].innerText =""
       ifInfo.innerText = "";
@@ -410,7 +414,8 @@ window.onload = function() {
     },900);    
   } 
 
-  function fireEvent(mdq) {
+  //responsible for media query 
+  function fireEvent(mdq) { 
     const element =  document.querySelectorAll(".col-md-2");
     if(mdq.matches && levelPlayed.length === 0) {
       element[0].click();
@@ -445,13 +450,15 @@ window.onload = function() {
   }
 
   function fillUpPerfectMatch() {
+    //if time runs out than this funtion prevent the user from carrying on playing.
     for(let x = 30;  perfectMatch.length < boardZise; x++) {
       perfectMatch.push(x);
     }
     time = setInterval(totalScore, 900);
   }
 
-  function wellcomeInfo(selectMenuToShow) {
+  //responsible for media query only
+  function wellcomeInfo(selectMenuToShow) { 
     
     const cellValue = selectMenuToShow.target;
     const clickedCellIndex = parseInt(cellValue.getAttribute('data-cell-index'));
