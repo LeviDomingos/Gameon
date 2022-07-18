@@ -69,6 +69,7 @@ window.onload = function() {
       document.getElementById("id-info").innerText = "Start Now...";
       document.querySelectorAll(".box").forEach(cell=> cell.addEventListener("click", handleEventClickToBox));
       levelPlayed.push(stringLevelPlayed);
+      perfectMatch = [];
     }
     else
     {
@@ -79,7 +80,6 @@ window.onload = function() {
 
     }
     startPlaying = 2;
-    perfectMatch = [];
     saveValueCliked =[];
     saveIndex = [];
   } 
@@ -88,6 +88,7 @@ window.onload = function() {
     secondsToPlay--;
     document.getElementById("id-countdown").innerText = secondsToPlay;
     if(secondsToPlay === fiveMinutes) {
+      perfectMatch = [];
       removeAllAfterFiveSeconds();
       document.getElementById("id-info").innerText = "Start Now...";
       document.querySelectorAll(".box").forEach(cell=> cell.addEventListener("click", handleEventClickToBox));
@@ -101,11 +102,14 @@ window.onload = function() {
 
     if(secondsToPlay === 0) {
       clearInterval(countDownTime);
-      document.getElementById("id-info").innerText = "Try again level:"  + stringLevelPlayed;
+      document.getElementById("id-info").innerText = "Time up. Try again level:"  + stringLevelPlayed;
       startPlaying = 1; // means that failed to win the level 
       clearInterval(countDownTime);
       if(getMediaQuery.matches) {
         fireEvent(getMediaQuery); // for media query only
+      }
+      else {
+        time = setInterval(totalScore, 900);
       }
     }
   } 
@@ -134,6 +138,7 @@ window.onload = function() {
         fireEvent(getMediaQuery); // for media query only
       }
     }  
+    fillUpPerfectMatch();
   } 
 
   function handleLevelClicked(clickedCellEvent) {
