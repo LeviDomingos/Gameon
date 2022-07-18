@@ -100,7 +100,7 @@ window.onload = function() {
       time = setInterval(totalScore, 900);
     }
 
-    if(secondsToPlay === 0) {
+    if(secondsToPlay === 0 && perfectMatch.length === boardZise) {
       clearInterval(countDownTime);
       document.getElementById("id-info").innerText = "Time up. Try again level:"  + stringLevelPlayed;
       startPlaying = 1; // means that failed to win the level 
@@ -110,6 +110,12 @@ window.onload = function() {
       }
       else {
         time = setInterval(totalScore, 900);
+      }
+    }
+    else {
+      if(secondsToPlay === 0) {
+        clearInterval(countDownTime);
+        fillUpPerfectMatch();
       }
     }
   } 
@@ -138,7 +144,6 @@ window.onload = function() {
         fireEvent(getMediaQuery); // for media query only
       }
     }  
-    fillUpPerfectMatch();
   } 
 
   function handleLevelClicked(clickedCellEvent) {
@@ -443,6 +448,7 @@ window.onload = function() {
     for(let x = 30;  perfectMatch.length < boardZise; x++) {
       perfectMatch.push(x);
     }
+    time = setInterval(totalScore, 900);
   }
 
   function wellcomeInfo(selectMenuToShow) {
