@@ -1,4 +1,4 @@
-"use strict";
+//"use strict";
 let scoreValue = 0;
 let startPlaying = 0;
 let secondsToPlay = 0;
@@ -65,18 +65,17 @@ window.onload = function() {
       document.querySelectorAll(".box").forEach(cell=> cell.addEventListener("click", handleEventClickToBox));
       levelPlayed.push(stringLevelPlayed);
       perfectMatch = [];
+      startPlaying = 2;
+      saveValueCliked =[];
+      saveIndex = []; 
     }
     else
     {
       document.getElementById("id-info").innerText = "Memorise de Board...";
       document.getElementById("id-start-time").disabled = true;
-      showBoardForFiveSecond();
       levelPlayed.push(stringLevelPlayed);
-
+      showBoardForFiveSecond();
     }
-    startPlaying = 2;
-    saveValueCliked =[];
-    saveIndex = []; 
   }
   
   function playTime() {
@@ -84,6 +83,9 @@ window.onload = function() {
     document.getElementById("id-countdown").innerText = secondsToPlay;
     if(secondsToPlay === fiveMinutes) {
       perfectMatch = [];
+      startPlaying = 2;
+      saveValueCliked =[];
+      saveIndex = []; 
       removeAllAfterFiveSeconds();
       document.getElementById("id-info").innerText = "Start Now...";
       document.querySelectorAll(".box").forEach(cell=> cell.addEventListener("click", handleEventClickToBox));
@@ -99,7 +101,6 @@ window.onload = function() {
       clearInterval(countDownTime);
       document.getElementById("id-info").innerText = "Time up. Try again level:"  + stringLevelPlayed;
       startPlaying = 1; // means that failed to win the level 
-      clearInterval(countDownTime);
     }
     else {
       if(secondsToPlay === 0) {
@@ -111,21 +112,21 @@ window.onload = function() {
 
   function totalScore() {
     if(secondsToPlay > 25) {
+      clearInterval(time);
       finalScore = scoreValue *= secondsToPlay;
       document.getElementById("id-info").innerText = "Total Score: " + finalScore + ". Choose Level";
-      const element = document.querySelectorAll(".col-md-2");
-      element[stringLevelPlayed -1].style.backgroundColor = "wheat";
+      const element = document.querySelectorAll(".col-md-level");
+      element[stringLevelPlayed -1].style.backgroundColor = "white";
       startPlaying = 0; // won the game and play another game
       scoreValue = 0; 
-      clearInterval(time);
     }
     else {
+      clearInterval(time);
       finalScore = scoreValue -= secondsToPlay; 
       document.getElementById("id-info").innerText = "Total Score:" + finalScore + ", Try again level: " + stringLevelPlayed;
       document.getElementById("id-start-time").disabled = true;
       startPlaying = 1; // represent repeating the level again
       scoreValue = 0;
-      clearInterval(time);
     }
   } 
 
@@ -402,6 +403,6 @@ window.onload = function() {
     for(let x = 30;  perfectMatch.length < boardZise; x++) {
       perfectMatch.push(x);
     }
-    time = setInterval(totalScore, 900);
+    totalScore();
   }
 }
