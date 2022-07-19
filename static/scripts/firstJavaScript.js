@@ -1,4 +1,4 @@
-//"use strict";
+"use strict";
 let scoreValue = 0;
 let startPlaying = 0;
 let secondsToPlay = 0;
@@ -15,7 +15,6 @@ let time = 0;
 let levelPlayed =[];//save all the levels played not to reap it
 let stringLevelPlayed = "";
 let spareTime = 0;
-let queryLevelToPlay = 1;
 let finalScore = 0;
 
 const emoji = [
@@ -52,11 +51,7 @@ const arrayOfNumbers = [
 
 window.onload = function() {
 
-  document.querySelectorAll(".dropdown-item").forEach(cell=> cell.addEventListener("click", wellcomeInfo));
-  const setValues = document.querySelectorAll(".col-md-4");
-  const getMediaQuery = window.matchMedia("(max-width: 412px)");
-  
-  document.querySelectorAll(".col-md-2").forEach(cell=> cell.addEventListener("click", handleLevelClicked));
+  document.querySelectorAll(".col-md-level").forEach(cell=> cell.addEventListener("click", handleLevelClicked));
   document.getElementById("id-start-time").addEventListener("click", handleButton);
   document.getElementById("id-start-time").disabled = true  ;
   
@@ -105,12 +100,6 @@ window.onload = function() {
       document.getElementById("id-info").innerText = "Time up. Try again level:"  + stringLevelPlayed;
       startPlaying = 1; // means that failed to win the level 
       clearInterval(countDownTime);
-      if(getMediaQuery.matches) {
-        fireEvent(getMediaQuery); // for media query only
-      }
-      else {
-        time = setInterval(totalScore, 900);
-      }
     }
     else {
       if(secondsToPlay === 0) {
@@ -129,21 +118,15 @@ window.onload = function() {
       startPlaying = 0; // won the game and play another game
       scoreValue = 0; 
       clearInterval(time);
-      if(getMediaQuery.matches) {
-        fireEvent(getMediaQuery); // for media query only
-      }
-   }
-   else {
+    }
+    else {
       finalScore = scoreValue -= secondsToPlay; 
       document.getElementById("id-info").innerText = "Total Score:" + finalScore + ", Try again level: " + stringLevelPlayed;
       document.getElementById("id-start-time").disabled = true;
       startPlaying = 1; // represent repeating the level again
       scoreValue = 0;
       clearInterval(time);
-      if(getMediaQuery.matches) {
-        fireEvent(getMediaQuery); // for media query only
-      }
-    }  
+    }
   } 
 
   function handleLevelClicked(clickedCellEvent) {
@@ -414,41 +397,6 @@ window.onload = function() {
     },900);    
   } 
 
-  //responsible for media query 
-  function fireEvent(mdq) { 
-    const element =  document.querySelectorAll(".col-md-2");
-    if(mdq.matches && levelPlayed.length === 0) {
-      element[0].click();
-      document.getElementById("id-info").innerText = "Level: " + queryLevelToPlay;
-    }
-    else {
-      if (mdq.matches && startPlaying === 0 && scoreValue === 0) {// won the game If media query matches
-        queryLevelToPlay += 1;
-        stringLevelPlayed =  queryLevelToPlay;
-        element[queryLevelToPlay].click();
-        document.getElementById("id-info").innerText = "Total Score: " + finalScore + ". Level: " + queryLevelToPlay;
-        fillUpPerfectMatch();
-      }
-      else {
-        if(mdq.matches && startPlaying === 1 && scoreValue === 0) {//lost the game repeat the level
-          stringLevelPlayed =  queryLevelToPlay;
-          removeAllAfterFiveSeconds();
-          element[queryLevelToPlay].click();
-          document.getElementById("id-info").innerText = "Total Score: " + finalScore + ",Try again";
-          document.getElementById("id-start-time").disabled = false;
-          fillUpPerfectMatch();
-        }
-        else {
-          removeAllAfterFiveSeconds();
-          document.getElementById("id-info").innerText ="Try again";
-          element[queryLevelToPlay].click();
-          document.getElementById("id-start-time").disabled = false;
-          fillUpPerfectMatch();
-        }
-      }
-    }
-  }
-
   function fillUpPerfectMatch() {
     //if time runs out than this funtion prevent the user from carrying on playing.
     for(let x = 30;  perfectMatch.length < boardZise; x++) {
@@ -456,35 +404,4 @@ window.onload = function() {
     }
     time = setInterval(totalScore, 900);
   }
-
-  //responsible for media query only
-  function wellcomeInfo(selectMenuToShow) { 
-    
-    const cellValue = selectMenuToShow.target;
-    const clickedCellIndex = parseInt(cellValue.getAttribute('data-cell-index'));
-    const menuInfo = document.querySelectorAll(".col-md-4");
-    const mediaQuery = window.matchMedia("(max-width: 412px)");
-  
-    if(mediaQuery.matches && clickedCellIndex === 0) {
-      $(menuInfo[0]).addClass("show-pairs").removeClass("hide-section-two");
-      $(menuInfo[1]).addClass("hide-section-two").removeClass("show-pairs");
-      $(menuInfo[2]).addClass("hide-section-two").removeClass("show-pairs");
-    }
-    if(mediaQuery.matches && clickedCellIndex === 1) {
-      $(menuInfo[1]).addClass("show-pairs").removeClass("hide-section-two");
-      $(menuInfo[0]).addClass("hide-section-two").removeClass("show-pairs");
-      $(menuInfo[2]).addClass("hide-section-two").removeClass("show-pairs");
-    }
-    if(mediaQuery.matches && clickedCellIndex === 2) {
-      $(menuInfo[2]).addClass("show-pairs").removeClass("hide-section-two");
-      $(menuInfo[0]).addClass("hide-section-two").removeClass("show-pairs");
-      $(menuInfo[1]).addClass("hide-section-two").removeClass("show-pairs");
-    }
-    if(mediaQuery.matches && clickedCellIndex == 3) {
-      fireEvent(getMediaQuery); // for media query only
-      $(menuInfo[0]).addClass("hide-section-two");
-      $(menuInfo[1]).addClass("hide-section-two");
-      $(menuInfo[2]).addClass("hide-section-two");
-    }
-  }
-} 
+}
