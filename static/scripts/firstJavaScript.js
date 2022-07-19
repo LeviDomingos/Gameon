@@ -53,9 +53,11 @@ window.onload = function() {
 
   document.querySelectorAll(".col-md-level").forEach(cell=> cell.addEventListener("click", handleLevelClicked));
   document.getElementById("id-start-time").addEventListener("click", handleButton);
-  document.getElementById("id-start-time").disabled = true  ;
+  document.getElementById("id-start-time").disabled = true;
+  
   
   function handleButton() {
+    populateMyArray();
     const element = document.getElementById("id-board-game");
     countDownTime =  setInterval(playTime, 1000);
 
@@ -131,6 +133,7 @@ window.onload = function() {
   } 
 
   function handleLevelClicked(clickedCellEvent) {
+    
     secondsToPlay = spareTime;
     const cellValue = clickedCellEvent.target;
     const clickedCellIndex = parseInt(cellValue.getAttribute('data-cell-index'));
@@ -183,12 +186,21 @@ window.onload = function() {
             return 20;
           }
           else {
-            if(gameToPlay === 4 || gameToPlay === 5) {
+            if(gameToPlay === 4) {
               secondsToPlay = 90;
               document.getElementById("id-countdown").innerText = secondsToPlay;
               element.className ="board-game-four";
               fiveMinutes = secondsToPlay - 5;
               return 36;
+            }
+            else {
+              if(gameToPlay === 5) {
+                secondsToPlay = 90;
+                document.getElementById("id-countdown").innerText = secondsToPlay;
+                element.className ="board-game-four";
+                fiveMinutes = secondsToPlay - 5;
+                return 36;
+              }
             }
           }
         }
@@ -400,8 +412,8 @@ window.onload = function() {
 
   function fillUpPerfectMatch() {
     //if time runs out than this funtion prevent the user from carrying on playing.
-    for(let x = 30;  perfectMatch.length < boardZise; x++) {
-      perfectMatch.push(x);
+    for(let x = 0; x < boardZise; x++) {
+      perfectMatch.push(x + 30);
     }
     totalScore();
   }
