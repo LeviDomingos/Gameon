@@ -54,16 +54,10 @@ h3, h2 {
     color:blue;
     font-family:"Times New Roman";
 }
+h3{
+    text-align: center;
+}
 
-/* gdefine the score area size*/
-.btn-off-visible {
-    visibility: hidden;
-    height: 0px;
-}
-/* turn on some elements on page - make them visible again*/
-.btn-on-visible {
-    visibility:visible;
-}
 
 button {
     margin-top: 10px;
@@ -109,6 +103,13 @@ button {
     justify-content: center;
 }
 
+.board-game-level {
+    display: grid;
+    grid-template-columns: 60px 60px 60px 60px 60px;
+    grid-template-rows: 60px 60px 60px 60px 60px;
+    justify-content: center;
+}
+
 /*<> */
 
 .box {
@@ -129,9 +130,6 @@ button {
     will-change: box-shadow,transform;
 }
 
-.box-select-level {
-    transition-duration: 0.4s;
-}
 .box:focus {
   box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
 }
@@ -145,18 +143,19 @@ button {
   box-shadow: #D6D6E7 0 3px 7px inset;
   transform: translateY(2px);
 }
-.box-select-level:hover {
-    background-image: linear-gradient(yellow, green);
-    color: white;
+
+.col-md-level{
+    cursor: pointer;
+    font-size: 20px;
+    text-align: center;
+    color: blue;
+    background-color:wheat;
+    border: 2px solid wheat;
 }
 
-.box-select-level {
-    cursor: pointer;
-    font-size: 16px;
-    text-align: center;
-    background-color: white;
-    border: 2px solid blue;
-    border-radius: 8px;
+.col-md-level:hover {
+    background-image: linear-gradient(yellow, black);
+    color: white;
 }
 
 span {
@@ -184,21 +183,8 @@ a {
     text-decoration: none;
 }
 /*media query */
-
-.select-any-level {
-    text-align: right;
-}
-
 .click-here {
     color:blue;
-}
-
-.hide-menu {
-    visibility: hidden;
-}
-
-.show-pairs {
-    visibility: visible;
 }
 
 .box-close {
@@ -231,11 +217,6 @@ a {
         color :blue;
     }
     /* here I hide section one two and three to make the most of the space on mobile devices suitable */    
-    .hide-section-two {
-        visibility: hidden;
-        height: 0px;;   
-    }     
-
     .score-chart {
         text-align: left;
     }   
@@ -274,10 +255,7 @@ a {
         grid-template-rows: 40px 40px 40px 40px 40px 40px;
         justify-content: center;
     }
-    .hide-menu {
-        visibility: visible;
-    }
-    
+        
     .box {
         cursor: pointer;
         font-size: 20px;
