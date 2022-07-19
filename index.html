@@ -48,7 +48,6 @@
                             <li><a data-cell-index ="0" class="dropdown-item" href="#about_the_game">Pairs</a></li>
                             <li><a data-cell-index ="1" class="dropdown-item" href="#how_to_play">How 2 play</a></li>
                             <li><a data-cell-index ="2" class="dropdown-item" href="#scoresruling">Scoring rules</a></li>
-                            <li><a data-cell-index= "3" class="dropdown-item hide-menu" href="#">Start Game</a></li>
                           </ul>
                         </li>
                     </ul>
@@ -74,7 +73,7 @@
             </section>
 
             <div class="row ">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <p>Time: <span id ="id-countdown"> 00 </span> 
                     Score: <span id="id-scores"> 00 </span>
                     <span id ="id-info" class="display-match-information"></span>
@@ -96,39 +95,29 @@
                 <br />
                 <!-- the score section start here, show on the right side of the board-->
                 
-                <div class="col-md-6 hide-section-two">
+                <div class="col-md-6"> 
                     <h3> Select Any Level To Play </h3>
-                    <div class= "row">  
-                        <div class="col-md-1"></div>
-                        <div data-cell-index="1" class="col-md-2 box-select-level">1</div>
-                        <div data-cell-index="2" class="col-md-2 box-select-level">2</div>
-                        <div data-cell-index="3" class="col-md-2 box-select-level">3</div>
-                        <div data-cell-index="4" class="col-md-2 box-select-level">4</div>
-                        <div data-cell-index="5" class="col-md-2 box-select-level">5</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div data-cell-index="6" class="col-md-2 box-select-level">6</div>
-                        <div data-cell-index="7" class="col-md-2 box-select-level">7</div>
-                        <div data-cell-index="8" class="col-md-2 box-select-level">8</div>
-                        <div data-cell-index="9" class="col-md-2 box-select-level">9</div>
-                        <div data-cell-index="10" class="col-md-2 box-select-level">10</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div data-cell-index="11" class="col-md-2 box-select-level">11</div>
-                        <div data-cell-index="12" class="col-md-2 box-select-level">12</div>
-                        <div data-cell-index="13" class="col-md-2 box-select-level">13</div>
-                        <div data-cell-index="14" class="col-md-2 box-select-level">14</div>
-                        <div data-cell-index="15" class="col-md-2 box-select-level">15</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div data-cell-index="16" class="col-md-2 box-select-level">16</div>
-                        <div data-cell-index="17" class="col-md-2 box-select-level">17</div>
-                        <div data-cell-index="18" class="col-md-2 box-select-level">18</div>
-                        <div data-cell-index="19" class="col-md-2 box-select-level">19</div>
-                        <div data-cell-index="20" class="col-md-2 box-select-level">20</div>
+                    <div class="board-game-level">  
+                        <div data-cell-index="1" class="col-md-level">1</div>
+                        <div data-cell-index="2" class="col-md-level">2</div>
+                        <div data-cell-index="3" class="col-md-level">3</div>
+                        <div data-cell-index="4" class="col-md-level">4</div>
+                        <div data-cell-index="5" class="col-md-level">5</div>
+                        <div data-cell-index="6" class="col-md-level">6</div>
+                        <div data-cell-index="7" class="col-md-level">7</div>
+                        <div data-cell-index="8" class="col-md-level">8</div>
+                        <div data-cell-index="9" class="col-md-level">9</div>
+                        <div data-cell-index="10" class="col-md-level">10</div>
+                        <div data-cell-index="11" class="col-md-level">11</div>
+                        <div data-cell-index="12" class="col-md-level">12</div>
+                        <div data-cell-index="13" class="col-md-level">13</div>
+                        <div data-cell-index="14" class="col-md-level">14</div>
+                        <div data-cell-index="15" class="col-md-level">15</div>
+                        <div data-cell-index="16" class="col-md-level">16</div>
+                        <div data-cell-index="17" class="col-md-level">17</div>
+                        <div data-cell-index="18" class="col-md-level">18</div>
+                        <div data-cell-index="19" class="col-md-level">19</div>
+                        <div data-cell-index="20" class="col-md-level">20</div>
                     </div>
                 </div>         
             </div>
@@ -137,20 +126,20 @@
             <section>
                 <hr class="hr-welcome">
                 <div class="row">
-                    <div class="col-md-4 text-ajust hide-section-two">
+                    <div class="col-md-4 text-ajust">
                         <h2 id ="about_the_game">Pairs</h2>
                         <p>Pairs is a memory game where you need to match pairs of tiles. Playing is very simple - you turn over one tile and then try to find a matching tile.</p>
                         <p>There are 20 levels, each getting progressively harder.</p>    
                         <p>This indicates that you should then be able to make a match (if you have perfect recall). The scoring system incorporates this principle.</p>
                         <p>In some levels, all the tiles are revealed initially for a 5 seconds. This makes it harder to score a perfect recall as it as  sumes you remember where each tile is.</p>   
                     </div>    
-                    <div class="col-md-4 text-ajust hide-section-two">
+                    <div class="col-md-4 text-ajust">
                         <h2 id ="how_to_play">How to Play...</h2>
                         <p>Playing is very simple - you turn over one tile and then try to find a matching tile. </p>
                         <p>When you click on the first tile - beacuse you have been given the oportunity to memorize the board <span 
                         style="font-size:20px">&#128540;</span>, you should be able to rember the matching tile.</p>
                     </div>
-                    <div class="col-md-4 text-ajust hide-section-two">
+                    <div class="col-md-4 text-ajust">
                         <h2 id ="scoresruling">Scoring Rules...</h2>
                         <p>Each time you make a successful match you score 20 points. If you fail to match and you should have been ableto (a matching tile was previously shown), you score (-5 * number of times match tile has been shown). So if amatching tile has been revealed three times before, you will score -15.</p>
                         <p>At the end of a level, if successful, you score a bonus of the number of seconds remaining. Also, if you have 
