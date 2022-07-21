@@ -92,48 +92,39 @@ window.onload = function() {
       document.getElementById("id-info").innerText = "Start Now...";
       document.querySelectorAll(".box").forEach(cell=> cell.addEventListener("click", handleEventClickToBox));
     } 
-
-    if(perfectMatch.length === boardZise && startPlaying == 2) {
-      clearInterval(countDownTime);
-      secondsLeft = secondsToPlay;
-      time = setInterval(totalScore, 900);
-    }
-
-    if(secondsToPlay === 0 && perfectMatch.length === boardZise) {
+    if(secondsToPlay === 0) {
       clearInterval(countDownTime);
       document.getElementById("id-info").innerText = "Time up. Try again level:"  + stringLevelPlayed;
       startPlaying = 1; // means that failed to win the level 
-    }
-    else {
-      if(secondsToPlay === 0) {
-        clearInterval(countDownTime);
-        fillUpPerfectMatch();
-      }
+      fillUpPerfectMatch();
     }
   } 
 
   function totalScore() {
-    if(secondsToPlay > 25) {
-      clearInterval(time);
-      finalScore = scoreValue *= secondsToPlay;
-      document.getElementById("id-info").innerText = "Total Score: " + finalScore + ". Choose Level";
-      const element = document.querySelectorAll(".col-md-level");
-      element[stringLevelPlayed -1].style.backgroundColor = "white";
-      startPlaying = 0; // won the game and play another game
-      scoreValue = 0; 
-    }
-    else {
-      clearInterval(time);
-      finalScore = scoreValue -= secondsToPlay; 
-      document.getElementById("id-info").innerText = "Total Score:" + finalScore + ", Try again level: " + stringLevelPlayed;
-      document.getElementById("id-start-time").disabled = true;
-      startPlaying = 1; // represent repeating the level again
-      scoreValue = 0;
+    if(perfectMatch.length === boardZise && startPlaying == 2) {
+      clearInterval(countDownTime);
+      secondsLeft = secondsToPlay;
+      if(secondsToPlay > 25) {
+        clearInterval(time);
+        finalScore = scoreValue *= secondsToPlay;
+        document.getElementById("id-info").innerText = "Total Score: " + finalScore + ". Choose Level";
+        const element = document.querySelectorAll(".col-md-level");
+        element[stringLevelPlayed -1].style.backgroundColor = "white";
+        startPlaying = 0; // won the game and play another game
+        scoreValue = 0; 
+      }
+      else {
+        clearInterval(time);
+        finalScore = scoreValue -= secondsToPlay; 
+        document.getElementById("id-info").innerText = "Total Score:" + finalScore + ", Try again level: " + stringLevelPlayed;
+        document.getElementById("id-start-time").disabled = true;
+        startPlaying = 1; // represent repeating the level again
+        scoreValue = 0;
+      }
     }
   } 
 
   function handleLevelClicked(clickedCellEvent) {
-    
     secondsToPlay = spareTime;
     const cellValue = clickedCellEvent.target;
     const clickedCellIndex = parseInt(cellValue.getAttribute('data-cell-index'));
@@ -260,16 +251,11 @@ window.onload = function() {
           perfectMatch.push(saveIndex[1]);
           scoreValue += 20;
           totalScore.innerText = scoreValue; 
-          wipeWrongPerfectGuessBox(saveIndex[0], saveIndex[1]);
-          saveValueCliked = [];
-          saveIndex = [];
-          playTime();
+          wipeWrongPerfectGuessBox(saveIndex[0], saveIndex[1]);     
         }
         else {
           ifInfo.innerHTML ="Wrong Match";
           wipeWrongPerfectGuessBox(saveIndex[0], saveIndex[1]);
-          saveValueCliked =[];
-          saveIndex = [];
         }
       }
     }
@@ -406,7 +392,11 @@ window.onload = function() {
       element[y].innerText =""
       ifInfo.innerText = "";
       startPlaying = 2;
+      saveValueCliked = [];
+      saveIndex = [];
       clearInterval(time);
+      totalScore();
+
     },900);    
   } 
 
