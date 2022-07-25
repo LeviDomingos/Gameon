@@ -43,10 +43,9 @@ Once I've learnt JavaScript, I will add further functionality to the existing fe
 
 ## Balsamiq
 I've used Balsamiq to create wireframes of my website.
-![alt text](./static/wireframes/desktopview.jpg)
-![alt text](./static/wireframes/mobileview.jpg)
-![alt text](./static/wireframes/desktopandmobileview.jpg)
-
+1.![alt text](./static/wireframes/mobileview.png)
+2.![alt text](./static/wireframes/desktopview.png)
+3.![alt text](./static/wireframes/desktopandmobileview.png)
 
 **HTML5**
 The project uses HTML5 to create the basic elements and content of my website.
