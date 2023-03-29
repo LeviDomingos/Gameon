@@ -1,9 +1,9 @@
 "use strict";
-import { BoardGame } from "./static/Module/ClassBoardGame.js";
-import { Emoji } from "./static/Module/ClassEmoji.js";
-import { Events } from "./static/Module/ClassEvents.js";
-import { LoadGame } from "./static/Module/ClassLoadGame.js";
-import { GameRules } from "./static/Module/ClassRules.js";
+import { BoardGame } from "../Module/ClassBoardGame.js";
+import { Emoji } from "../Module/ClassEmoji.js";
+import { Events } from "../Module/ClassEvents.js";
+import { LoadGame } from "../Module/ClassLoadGame.js";
+import { GameRules } from "../Module/ClassRules.js";
 
 const events = new Events();
 const loadNow = new LoadGame();
